@@ -30,11 +30,11 @@
 
 form .search-input {
     border: none;
-    background-color: #c3efd6;
+    background-color: rgba(195, 239, 214, 0.85);
 }
 
 form .search-input:focus {
-    background-color: #c3efd6;
+    background-color: rgba(195, 239, 214, 0.85);
     border: 3px solid rgb(17, 76, 54);
 }
 
@@ -79,15 +79,17 @@ input:hover{
 }
 
 #newCropModal .modal-body, #viewAllCropsModal .modal-body {
-    background-color: #c3efd6;
+    background-color: #668f78;
     color: rgb(17, 76, 54);
 }
 
 .modal .modal-footer {
-    background-color: rgb(45, 120, 92);
+    background-color: rgb(17, 76, 54);
 }
 
 .modal .modal-footer .btn {
+    background-color: #668f78;
+    color: rgb(195, 239, 214);
     border: none;
     width: 98px;
     height: 40px;
@@ -96,26 +98,26 @@ input:hover{
 }
 
 .modal .modal-footer .btn:hover {
-    background-color: rgb(17, 76, 54);
+    background-color: rgba(37, 113, 85, 0.54);
 }
 
 .modal .modal-body .form-label {
-    background-color: rgb(17, 76, 54);
+    color: rgb(17, 76, 54);
 }
 
 .modal .modal-header {
-    background-color: rgb(45, 120, 92);
+    background-color: rgb(17, 76, 54);
 }
 
 .modal .modal-header .modal-title {
     font-weight: 800;
-    color: gold;
+    color: rgba(195, 239, 214, 0.85);
 }
 
 #cropDetailsModal .disabled-input {
     margin-bottom: 1.2em;
     border: none;
-    background-color: #c3efd6;
+    background-color: rgba(195, 239, 214, 0.85);
 }
 
 .crop-table {
