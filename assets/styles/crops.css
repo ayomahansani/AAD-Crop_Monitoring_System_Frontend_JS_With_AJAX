@@ -75,6 +75,7 @@ input:hover{
 
 .modal {
     opacity: 0.9;
+    z-index: 1055;
 }
 
 #newCropModal .modal-body, #viewAllCropsModal .modal-body {
