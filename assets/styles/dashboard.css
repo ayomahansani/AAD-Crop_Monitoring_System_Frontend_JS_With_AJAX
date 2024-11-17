@@ -14,7 +14,7 @@ body, html {
     top: 0;
     left: 0;
     background: rgba(17, 76, 54, 0.79);
-    border-right: 10px solid rgb(7, 58, 39);
+    border: 8px solid rgb(7, 58, 39);
     transition: transform 0.3s ease;
 }
 .sidebar-header img {
@@ -65,7 +65,9 @@ body, html {
     display: flex;
     justify-content: flex-end; /* Align to the right */
     padding-right: 20px; /* Add padding for space */
-    border-bottom: 10px solid rgb(7, 58, 39);
+    border-bottom: 8px solid rgb(7, 58, 39);
+    border-top: 8px solid rgb(7, 58, 39);
+    border-right: 8px solid rgb(7, 58, 39);
 }
 
 .dashboard-topic{
