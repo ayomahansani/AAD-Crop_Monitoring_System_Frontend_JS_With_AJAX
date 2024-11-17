@@ -1,0 +1,102 @@
+#login-form-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+    margin: 0;
+    background-color: #779e8a; /* Fallback color for dark green */
+    font-family: Arial, sans-serif;
+    color: #3b3b3b;
+    background-image: url('../images/login-background.jpg'); /* Replace with your image URL */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Main container styling */
+#login-form-section .container {
+    background-color: rgba(17, 76, 54, 0.79); /* Light green translucent box */
+    padding: 50px 100px;
+    width: 100%;
+    max-width: 800px; /* Increased max width for a broader form */
+    min-height: 500px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+/* Title styling */
+#login-form-section h2 {
+    text-align: center;
+    color: #b8edd2;
+    font-size: 30px;
+    margin-bottom: 25px;
+    font-weight: bold;
+}
+
+/* Label styling for username and password */
+#login-form-section label {
+    color: #9ccab3;
+    font-weight: bold;
+}
+
+/* Input styling for username and password */
+#login-form-section input[type="text"], input[type="password"] {
+    background-color: #d0eddf; /* Set input field background color */
+    color: rgb(0, 0, 0); /* Set input field text color */
+    border: 1px solid #7f9b8c; /* Set a border color */
+    border-radius: 5px; /* Optional: add rounded corners */
+}
+
+#login-form-section input[type="text"]:focus, input[type="password"]:focus {
+    background-color: #d0eddf;
+    border-color: #b8edd2; /* Change border color on focus */
+    box-shadow: 0 0 5px rgba(184, 237, 210, 0.8); /* Add glow effect on focus */
+}
+
+/* Button styling */
+#login-form-section .login-btn {
+    background-color: #b8edd2;
+    color: #124029;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#login-form-section .login-btn:hover {
+    background-color: #79a69b;
+    color: #b8edd2;
+}
+
+/* Forgot password styling */
+#login-form-section #forgotPw {
+    color: #b8edd2;
+    text-decoration: underline;
+    font-size: 14px;
+}
+
+#login-form-section #forgotPw:hover {
+    color: #8db1a8;
+}
+
+/* Signup link styling */
+#login-form-section .signup-link {
+    color: #8db1a8;
+    text-align: center;
+    margin-top: 25px;
+    font-size: 17px; /* Increased font size */
+    font-weight: bold;
+}
+
+#login-form-section .signup-link a {
+    color: #b8edd2;
+    text-decoration: underline;
+}
+
+#login-form-section .signup-link a:hover {
+    color: #8db1a8;
+}
