@@ -372,7 +372,7 @@
             <div class="modal-header">
                 <h1 class="modal-title fs-5 text-center" id="newCropModalModalLabel">
                     New Crop
-                    <span class="new-customer"><i class="bi bi-person-plus-fill"></i></span>
+                    <span class="new-crop"><i class="fas fa-carrot"></i></span>
                 </h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -382,13 +382,13 @@
                 <form>
 
                     <div class="mb-3">
-                        <label for="customerId" class="form-label fw-semibold">Common Name</label>
-                        <input type="text" class="form-control search-input" id="customerId">
+                        <label for="cropCommonName" class="form-label fw-semibold">Common Name</label>
+                        <input type="text" class="form-control search-input" id="cropCommonName">
                     </div>
 
                     <div class="mb-3">
-                        <label for="customerName" class="form-label fw-semibold">Scientific Name</label>
-                        <input type="text" class="form-control search-input" id="customerName">
+                        <label for="cropScientificName" class="form-label fw-semibold">Scientific Name</label>
+                        <input type="text" class="form-control search-input" id="cropScientificName">
                     </div>
 
                     <div class="mb-3">
@@ -403,13 +403,13 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="customerAddress" class="form-label fw-semibold">Category</label>
-                        <input type="text" class="form-control search-input" id="customerAddress">
+                        <label for="cropCategory" class="form-label fw-semibold">Category</label>
+                        <input type="text" class="form-control search-input" id="cropCategory">
                     </div>
 
                     <div class="mb-3">
-                        <label for="customerPhone" class="form-label fw-semibold">Season</label>
-                        <input type="tel" class="form-control search-input" id="customerPhone">
+                        <label for="cropSeason" class="form-label fw-semibold">Season</label>
+                        <input type="tel" class="form-control search-input" id="cropSeason">
                     </div>
 
                 </form>
@@ -418,22 +418,22 @@
 
             <div class="modal-footer">
 
-                <button type="button" id="customer-save" class="btn">
+                <button type="button" id="crop-save" class="btn">
                     Save
                     <span><i class="bi bi-save"></i></span>
                 </button>
 
-                <button type="button" id="customer-update" class="btn">
+                <button type="button" id="crop-update" class="btn">
                     Update
                     <span><i class="bi bi-pencil-square"></i></span>
                 </button>
 
-                <button type="button" id="customer-delete" class="btn">
+                <button type="button" id="crop-delete" class="btn">
                     Delete
                     <span><i class="bi bi-trash3"></i></span>
                 </button>
 
-                <button type="reset" id="customer-clear" class="btn">
+                <button type="reset" id="crop-clear" class="btn">
                     Clear
                     <span><i class="bi bi-backspace-reverse"></i></span>
                 </button>
@@ -448,23 +448,23 @@
 
 
 <!-- View All Crops Modal -->
-<!--<div class="modal fade" id="viewAllCropsModal" tabindex="-1" aria-labelledby="viewAllCropsModalLabel" aria-hidden="true">
+<div class="modal fade" id="viewAllCropsModal" tabindex="-1" aria-labelledby="viewAllCropsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
 
             <div class="modal-header text-center">
                 <h1 class="modal-title fs-5" id="viewAllCustomerModalLabel">
-                    All Customers
-                    <span class="all-customers"><i class="bi bi-people-fill"></i></span>
+                    All Crops
+                    <span class="all-crops"><i class="fas fa-seedling"></i></span>
                 </h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
             <div class="modal-body text-center">
 
-                <table class="table table-warning table-hover table-sm">
+                <table class="table table-success table-hover table-sm">
 
-                    <tbody id="all-customers-tbl-tbody">
+                    <tbody id="all-crops-tbl-tbody">
 
                     </tbody>
 
@@ -474,7 +474,7 @@
 
         </div>
     </div>
-</div>-->
+</div>
 <!-- End View All Crops Modal -->
 
 <!------------------------- Modals -------------------------->
