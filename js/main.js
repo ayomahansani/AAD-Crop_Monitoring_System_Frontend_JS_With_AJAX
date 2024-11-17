@@ -89,6 +89,7 @@ $(document).ready(function() { // This function runs when the document is ready
 
     $("#home-section").css(css1);
     $("#register-form-section").css(css1);
+    $("#crop-section").css(css1);
 
     // Show signup section and hide login section when signup button is clicked
     $("#login-signUp").click(function () {

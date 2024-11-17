@@ -23,6 +23,7 @@
 </head>
 <body>
 
+<!------------------------ Sections ------------------------>
 
 <!-- Login Form Section -->
 <section id="login-form-section">
@@ -227,46 +228,46 @@
     <section id="crop-section">
 
         <!-- Main Section -->
-        <div class="main-content">
+        <div class="main-content main-section">
 
             <!-- up section -->
-            <div class="search-customer">
+            <div class="search-crop">
 
                 <form class="row">
 
-                    <!-- customer search -->
+                    <!-- crop search -->
                     <div class="col-8 col-sm-6 col-md-4 col-lg-4 pb-4">
-                        <label for="searchCustomer" class="form-label fw-semibold">
+                        <label for="searchCrop" class="form-label fw-semibold">
                             Search Crop
                         </label>
-                        <input type="search" class="form-control search-input" id="searchCustomer" placeholder="Input Code / Name Here">
+                        <input type="search" class="form-control search-input" id="searchCrop" placeholder="Input Code / Name Here">
                     </div>
                     <div class="col-4 col-sm-6 col-md-3 col-lg-3 pb-4">
-                        <button type="button" class="btn search-btn" id="customer-search-btn" data-bs-toggle="modal" data-bs-target="#customerDetailsModal">
+                        <button type="button" class="btn search-btn" id="crop-search-btn" data-bs-toggle="modal" data-bs-target="#cropDetailsModal">
                             Search
                             <span class="search"><i class="bi bi-search"></i></span>
                         </button>
                     </div>
-                    <!-- end customer search -->
+                    <!-- end crop search -->
 
                     <!-- buttons -->
                     <div class="col-6 col-sm-4 col-md-2 col-lg-2 pb-1">
-                        <a href="" id="newCusBtn" role="button" class="btn" data-bs-toggle="modal" data-bs-target="#newCustomerModal">
+                        <a href="" id="newCropBtn" role="button" class="btn" data-bs-toggle="modal" data-bs-target="#newCropModal">
                             <span class="add-to-cart"><i class="bi bi-plus-circle-fill"></i></span>
                             New Crop
                         </a>
                     </div>
                     <div class="col-6 col-sm-4 col-md-2 col-lg-2 pb-1">
-                        <a href="" id="viewAllCus" role="button" class="btn" data-bs-toggle="modal" data-bs-target="#viewAllCustomerModal">
+                        <a href="" id="viewAllCrops" role="button" class="btn" data-bs-toggle="modal" data-bs-target="#viewAllCropsModal">
                             <span class="view"><i class="bi bi-eye-fill"></i></span>
-                            View All Crops
+                            All Crops
                         </a>
                     </div>
                     <!-- end buttons -->
 
                     <!-- right image -->
                     <div class="col-12 col-sm-4 col-md-1 col-lg-1 pb-1">
-                        <img src="assets/icon/icon-customer_page_customers.png" class="customer-page-photo" alt="customers photo">
+                        <img src="assets/icon/crop_page_crops.png" class="crop-page-photo" alt="crops photo">
                     </div>
                     <!-- end right image -->
 
@@ -275,22 +276,23 @@
             </div>
             <!-- end up section -->
 
-            <!-- customer table -->
-            <div class="customer-table">
+            <!-- crop table -->
+            <div class="crop-table">
 
                 <div class="scrollable">
 
-                    <table class="table table-warning table-striped table-bordered border-dark table-hover table-sm">
+                    <table class="table table-success table-striped table-bordered border-dark table-hover table-sm">
                         <thead class="table-dark">
-                        <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Address</th>
-                            <th scope="col">Contact</th>
+                        <tr class="table-success">
+                            <th scope="col">Common Name</th>
+                            <th scope="col">Scientific Name</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Season</th>
+                            <th scope="col">Field</th>
                         </tr>
                         </thead>
 
-                        <tbody id="customer-tbl-tbody" class="table-group-divider">
+                        <tbody id="crop-tbl-tbody" class="table-group-divider">
 
                         </tbody>
 
@@ -299,7 +301,7 @@
                 </div>
 
             </div>
-            <!-- end customer table -->
+            <!-- end crop table -->
 
         </div>
         <!-- End Main Section -->
@@ -309,6 +311,163 @@
 
 </section>
 <!-- End Home Section -->
+
+<!------------------------ Sections ------------------------>
+
+
+<!------------------------- Modals -------------------------->
+
+<!-- Search Crop Modal -->
+<!--<div class="modal fade" id="cropDetailsModal" tabindex="-1" aria-labelledby="cropDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 text-center" id="cropDetailsModalLabel">
+
+                </h1>
+                <button id="crop-search-modal-close" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div id="crop-search-modal-body" class="modal-body">
+
+                <form>
+
+                    <div class="mb-3">
+                        <label for="searchedCustomerId" class="form-label fw-semibold">Id</label>
+                        <input type="text" class="form-control disabled-input text-center" id="searchedCustomerId" disabled>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="searchedCustomerName" class="form-label fw-semibold">Name</label>
+                        <input type="text" class="form-control disabled-input text-center" id="searchedCustomerName" disabled>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="searchedCustomerAddress" class="form-label fw-semibold">Address</label>
+                        <input type="text" class="form-control disabled-input text-center" id="searchedCustomerAddress" disabled>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="searchedCustomerPhone" class="form-label fw-semibold">Phone</label>
+                        <input type="text" class="form-control disabled-input text-center" id="searchedCustomerPhone" disabled>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>-->
+<!-- End Crop Customer Modal -->
+
+
+<!-- Add New Crop Modal -->
+<div class="modal fade" id="newCropModal" tabindex="-1" aria-labelledby="newCropModalModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 text-center" id="newCropModalModalLabel">
+                    New Customer
+                    <span class="new-customer"><i class="bi bi-person-plus-fill"></i></span>
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <form>
+
+                    <div class="mb-3">
+                        <label for="customerId" class="form-label fw-semibold">Customer Id</label>
+                        <input type="text" class="form-control search-input" id="customerId">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="customerName" class="form-label fw-semibold">Customer Name</label>
+                        <input type="text" class="form-control search-input" id="customerName">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="customerAddress" class="form-label fw-semibold">Customer Address</label>
+                        <input type="text" class="form-control search-input" id="customerAddress">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="customerPhone" class="form-label fw-semibold">Customer Contact</label>
+                        <input type="tel" class="form-control search-input" id="customerPhone">
+                    </div>
+
+                </form>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button type="button" id="customer-save" class="btn btn-warning">
+                    Save
+                    <span><i class="bi bi-save"></i></span>
+                </button>
+
+                <button type="button" id="customer-update" class="btn btn-warning">
+                    Update
+                    <span><i class="bi bi-pencil-square"></i></span>
+                </button>
+
+                <button type="button" id="customer-delete" class="btn btn-warning">
+                    Delete
+                    <span><i class="bi bi-trash3"></i></span>
+                </button>
+
+                <button type="reset" id="customer-clear" class="btn btn-warning">
+                    Clear
+                    <span><i class="bi bi-backspace-reverse"></i></span>
+                </button>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<!-- End Add New Crop Modal -->
+
+
+<!-- View All Crops Modal -->
+<!--<div class="modal fade" id="viewAllCropsModal" tabindex="-1" aria-labelledby="viewAllCropsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header text-center">
+                <h1 class="modal-title fs-5" id="viewAllCustomerModalLabel">
+                    All Customers
+                    <span class="all-customers"><i class="bi bi-people-fill"></i></span>
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body text-center">
+
+                <table class="table table-warning table-hover table-sm">
+
+                    <tbody id="all-customers-tbl-tbody">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+</div>-->
+<!-- End View All Crops Modal -->
+
+<!------------------------- Modals -------------------------->
+
 
 
 <!-- jQuery js -->

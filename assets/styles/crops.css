@@ -1,5 +1,9 @@
 
-#crop-section .search-customer {
+#crop-section .main-section{
+    margin-top: 10px;
+}
+
+#crop-section .search-crop {
     color: black;
     border-radius: 15px;
     margin: 1vw;
@@ -43,7 +47,7 @@ input:hover{
     border: 3px solid rgb(17, 76, 54);
 }
 
-#newCusBtn {
+#newCropBtn {
     font-weight: 500;
     background-color: rgb(45, 120, 92);
     color: white;
@@ -52,11 +56,11 @@ input:hover{
     box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.64);
 }
 
-#newCusBtn:hover {
+#newCropBtn:hover {
     background-color: rgb(17, 76, 54);
 }
 
-#viewAllCus {
+#viewAllCrops {
     font-weight: 500;
     background-color: rgb(45, 120, 92);
     color: white;
@@ -65,7 +69,7 @@ input:hover{
     box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.64);
 }
 
-#viewAllCus:hover {
+#viewAllCrops:hover {
     background-color: rgb(17, 76, 54);
 }
 
@@ -73,13 +77,13 @@ input:hover{
     opacity: 0.9;
 }
 
-#newCustomerModal .modal-body, #viewAllCustomerModal .modal-body {
-    background-color: #d9c0a0;
-    color: #176e17;
+#newCropModal .modal-body, #viewAllCropsModal .modal-body {
+    background-color: #c3efd6;
+    color: rgb(17, 76, 54);
 }
 
 .modal .modal-footer {
-    background-color: #b6986c;
+    background-color: rgb(45, 120, 92);
 }
 
 .modal .modal-footer .btn {
@@ -91,15 +95,15 @@ input:hover{
 }
 
 .modal .modal-footer .btn:hover {
-    background-color: goldenrod;
+    background-color: rgb(17, 76, 54);
 }
 
 .modal .modal-body .form-label {
-    color: #176e17;
+    background-color: rgb(17, 76, 54);
 }
 
 .modal .modal-header {
-    background-color: #1a791a;
+    background-color: rgb(45, 120, 92);
 }
 
 .modal .modal-header .modal-title {
@@ -107,22 +111,22 @@ input:hover{
     color: gold;
 }
 
-#customerDetailsModal .disabled-input {
+#cropDetailsModal .disabled-input {
     margin-bottom: 1.2em;
     border: none;
-    background-color: #e7cbab;
+    background-color: #c3efd6;
 }
 
-.customer-table {
+.crop-table {
     position: absolute;
-    height: 52%;
+    height: 48%;
     width: 78%;
     border-radius: 15px;
     margin: 1vw;
     margin-top: 2vw;
     padding: 2em 2em 2em 2em ;
     box-shadow: 3px 3px 8px black;
-    background-color: burlywood;
+    background-color: rgba(17, 76, 54, 0.54);
     opacity: 0.7;
 }
 
@@ -146,24 +150,18 @@ input:hover{
     margin: 0.5rem;
 }
 
-.add-to-cart {
-    margin: 1rem;
-}
-
-.view {
-    margin-right: 0.3rem;
-    margin-left: 0.3rem;
+.add-to-cart, .view {
+    margin: 0.5rem;
 }
 
 .new-customer, .all-customers {
-    margin-left: 0.8rem;
+    margin-left: 0.5rem;
 }
 
 .buttons {
     margin-left: 0.2rem;
 }
 
-.customer-page-photo {
-    margin-top: 1.5rem;
-    margin-left: 1rem;
+.crop-page-photo {
+    margin: 0.5rem;
 }
