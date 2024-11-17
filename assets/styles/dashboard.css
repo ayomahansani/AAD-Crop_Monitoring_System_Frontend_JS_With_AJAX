@@ -1,0 +1,158 @@
+
+/* Customize sidebar and main content styles here */
+body, html {
+    margin: 0;
+    padding: 0;
+    background: #c3efd6; /* Apply the desired background color */
+}
+.sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    height: 100vh;
+    overflow-y: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(17, 76, 54, 0.79);
+    border-right: 10px solid rgb(7, 58, 39);
+    transition: transform 0.3s ease;
+}
+.sidebar-header img {
+    width: 80%;
+    margin: 2px auto;
+    display: block;
+}
+.sidebar ul {
+    padding-left: 0;
+    margin-bottom: 10px;
+}
+.sidebar ul li {
+    margin: 0.5rem 0;
+    list-style: none;
+
+}
+.sidebar ul li span {
+    border: 2px solid #c3efd6;
+    padding: 10px 15px;
+    display: block;
+    text-decoration: none;
+    font-size: 20px;
+    color: #c3efd6;
+    font-weight: bold;
+    font-family: "Baloo 2";
+}
+
+.sidebar ul li span i {
+    margin-right: 10px;
+}
+.sidebar ul li span:hover {
+    background: #c3efd6;
+    color: #114728;
+    border: 2px solid #114728;
+    cursor: pointer;
+}
+
+.main-content {
+    background: #c3efd6;
+    margin-top: 50px;
+    margin-left: 250px;
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+}
+.custom-nav{
+    background-color: rgba(17, 76, 54, 0.79);
+    margin-left: 250px;
+    display: flex;
+    justify-content: flex-end; /* Align to the right */
+    padding-right: 20px; /* Add padding for space */
+    border-bottom: 10px solid rgb(7, 58, 39);
+}
+
+.dashboard-topic{
+    color: #c3efd6;
+    font-weight: bolder;
+    font-size: 34px;
+    font-family: "Comic Sans MS";
+    margin: 0; /* Remove any default margins */
+}
+
+.dashboard-topic:hover{
+    color: #114728;
+}
+
+.dashboard-cards .glass-card {
+    width: 80%; /* Adjust the width to your desired size */
+    max-width: 400px; /* Optional: Set a maximum width */
+    background-color: rgba(17, 76, 54, 0.54);
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.15); /* Soft shadow */
+    backdrop-filter: blur(10px); /* Frosted glass effect */
+    padding: 20px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth animation */
+    margin: 10px auto; /* Center cards and add space between them */
+}
+
+
+.dashboard-cards .glass-card:hover {
+    background: rgb(39, 77, 64,0.15); /* Transparent white */
+    transform: translateY(-5px); /* Lift on hover */
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3), 0 12px 30px rgba(0, 0, 0, 0.25); /* Stronger shadow */
+}
+
+.dashboard-cards .glass-card:hover .card-title, .dashboard-cards .glass-card:hover .card-text {
+    color: #114728;
+}
+
+.glass-card .card-title, .glass-card .card-text {
+    color: #c3efd6;
+}
+
+.dashboard-cards {
+    margin-top: 26px;
+}
+
+.menu-toggle i{
+    font-size: 22px;
+    padding-right: 20px;
+    color: #274D40;
+    cursor: pointer;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+    .sidebar.active {
+        transform: translateX(0);
+        display: block !important;
+        z-index: 10;
+        top: 61px;
+
+    }
+    .dashboard-cards{
+        margin-top: 60px;
+    }
+    .main-content {
+        margin-left: 0;
+    }
+    .top-navbar {
+        position: fixed;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 10;
+        background: #f7f7f7;
+        padding: 10px 20px;
+        border-bottom: 1px solid #ddd;
+        margin-bottom: 2rem;
+    }
+    .top-navbar .menu-toggle {
+        cursor: pointer;
+    }
+    .custom-nav{
+        display: none;
+    }
+
+}
