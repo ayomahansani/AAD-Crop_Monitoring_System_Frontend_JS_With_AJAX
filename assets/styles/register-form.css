@@ -1,0 +1,127 @@
+#register-form-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+    margin: 0;
+    background-color: #779e8a; /* Fallback color for dark green */
+    font-family: Arial, sans-serif;
+    color: #3b3b3b;
+    background-image: url('../images/register-background.jpg'); /* Replace with your image URL */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Main container styling */
+#register-form-section .container {
+    background-color: rgba(17, 76, 54, 0.79); /* Light green translucent box */
+    padding: 50px 100px;
+    width: 100%;
+    max-width: 800px; /* Increased max width for a broader form */
+    min-height: 500px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+/* Title styling */
+#register-form-section h2 {
+    text-align: center;
+    color: #b8edd2;
+    font-size: 30px;
+    margin-bottom: 25px;
+    font-weight: bold;
+}
+
+/* Label styling for username and password */
+#register-form-section label {
+    color: #9ccab3;
+    font-weight: bold;
+}
+
+/* Input styling for username and password */
+#register-form-section input[type="text"], input[type="password"] {
+    background-color: #d0eddf;
+    color: rgb(0, 0, 0);
+    border: 1px solid #7f9b8c;
+    border-radius: 5px;
+}
+
+#register-form-section input[type="text"]:focus, input[type="password"]:focus {
+    background-color: #d0eddf;
+    border-color: #b8edd2; /* Change border color on focus */
+    box-shadow: 0 0 5px rgba(184, 237, 210, 0.8); /* Add glow effect on focus */
+}
+
+/* Styling for the select dropdown to match the input fields */
+#register-form-section .custom-select {
+    appearance: none; /* Remove default dropdown */
+    background-color: #d0eddf; /* Same as input background color */
+    color: rgba(67, 67, 67, 0.91); /* Same text color as input fields */
+    border: 1px solid #7f9b8c; /* Same border color */
+    border-radius: 5px; /* Rounded corners like input fields */
+    padding: 10px; /* Add padding for a similar look */
+    font-size: 16px; /* Font size matches input fields */
+    height: auto; /* Adjust height to match other fields */
+}
+
+/* Focus state for the select dropdown */
+#register-form-section .custom-select:focus {
+    background-color: #d0eddf;
+    border-color: #b8edd2; /* Change border color on focus */
+    box-shadow: 0 0 5px rgba(184, 237, 210, 0.8); /* Add glow effect */
+    outline: none; /* Remove default outline */
+}
+
+/* Wrapper for the select dropdown */
+#register-form-section .custom-select-wrapper {
+    position: relative;
+    width: 100%; /* Adjust as needed */
+}
+
+/* Dropdown icon styling */
+#register-form-section .dropdown-icon {
+    position: absolute;
+    top: 50%;
+    right: 15px; /* Adjust as needed */
+    transform: translateY(-50%);
+    color: #373737; /* Icon color */
+    pointer-events: none; /* Prevent interaction */
+}
+
+/* Button styling */
+#register-form-section .register-btn {
+    background-color: #b8edd2;
+    color: #124029;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#register-form-section .register-btn:hover {
+    background-color: #79a69b;
+    color: #b8edd2;
+}
+
+/* Signup link styling */
+#register-form-section .signin-link {
+    color: #8db1a8;
+    text-align: center;
+    margin-top: 25px;
+    font-size: 17px; /* Increased font size */
+    font-weight: bold;
+}
+
+#register-form-section .signin-link a {
+    color: #b8edd2;
+    text-decoration: underline;
+}
+
+#register-form-section .signin-link a:hover {
+    color: #8db1a8;
+}
