@@ -21,12 +21,12 @@
 <body>
 
 <!-- Login Form Section -->
-<section id="login-form-section">
+<!--<section id="login-form-section">
 
     <div class="container">
         <h2>Green Shadow</h2>
 
-        <!-- Username -->
+        &lt;!&ndash; Username &ndash;&gt;
         <div class="mb-3">
             <label for="username" class="form-label">
                 <i class="fas fa-user ms-2" style="color: #9ccab3;"></i>
@@ -35,7 +35,7 @@
             <input type="text" id="username" class="form-control" placeholder="Enter your email">
         </div>
 
-        <!-- Password -->
+        &lt;!&ndash; Password &ndash;&gt;
         <div class="mb-3">
             <label for="password" class="form-label">
                 <i class="fas fa-lock ms-2" style="color: #9ccab3;"></i>
@@ -44,22 +44,77 @@
             <input type="password" id="password" class="form-control" placeholder="Enter your password">
         </div>
 
-        <!-- Forgot password link (right-aligned) -->
+        &lt;!&ndash; Forgot password link (right-aligned) &ndash;&gt;
         <div class="d-flex justify-content-end mb-3">
             <a id="forgotPw" href="#">Forgot your password?</a>
         </div>
 
-        <!-- Login Button -->
+        &lt;!&ndash; Login Button &ndash;&gt;
         <button class="btn login-btn w-100 mb-3">Login</button>
 
-        <!-- Sign Up Link -->
+        &lt;!&ndash; Sign Up Link &ndash;&gt;
         <div class="signup-link">
             Don't have an account? <a href="#">Signup Here</a>
         </div>
     </div>
 
-</section>
+</section>-->
 <!-- End Login Form Section -->
+
+<!-- Register Form Section -->
+<section id="register-form-section">
+
+    <div class="container">
+        <h2>Sign Up</h2>
+
+        <!-- Username -->
+        <div class="mb-3">
+            <label for="signup-username" class="form-label">
+                <i class="fas fa-user ms-2" style="color: #9ccab3;"></i>
+                Username
+            </label>
+            <input type="text" id="signup-username" class="form-control" placeholder="Enter your email">
+        </div>
+
+        <!-- Password -->
+        <div class="mb-3">
+            <label for="signup-password" class="form-label">
+                <i class="fas fa-lock ms-2" style="color: #9ccab3;"></i>
+                Password
+            </label>
+            <input type="password" id="signup-password" class="form-control" placeholder="Enter your password">
+        </div>
+
+        <!-- Role -->
+        <div class="mb-5">
+            <label for="select-role" class="form-label">
+                <i class="fas fa-user-tag ms-2" style="color: #9ccab3;"></i>
+                Role
+            </label>
+            <div class="custom-select-wrapper">
+                <select id="select-role" class="form-control custom-select" required>
+                    <option value="">Choose your role</option>
+                    <option value="ADMINISTRATOR">Admin</option>
+                    <option value="MANAGER">Manager</option>
+                    <option value="SCIENTIST">Scientist</option>
+                    <option value="OTHER">Other</option>
+                </select>
+                <i class="fas fa-chevron-down dropdown-icon"></i>
+            </div>
+        </div>
+
+
+        <!-- Register Button -->
+        <button class="btn register-btn w-100 mb-3">Register</button>
+
+        <!-- Sign In Link -->
+        <div class="signin-link">
+            Already have an account? <a href="#">Signin Here</a>
+        </div>
+    </div>
+
+</section>
+<!-- End Register Form Section -->
 
 
 
