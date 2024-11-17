@@ -36,6 +36,7 @@ $("#nav-vehicles").click(function () {
 
 
 function handleNavClick(clickedElementId,title){
+
     $(".dashboard-topic").text(title);
 
     switch (clickedElementId) {
@@ -70,6 +71,19 @@ function handleNavClick(clickedElementId,title){
     }
 }
 
+//-------------------------- The start - show error alert --------------------------
+function showErrorAlert(message){
+    Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: message,
+        width: '38em',
+        confirmButtonColor: 'rgba(17, 76, 54, 0.79)',
+        iconColor: 'rgba(131,193,170,0.79)',
+    });
+}
+//-------------------------- The end - show error alert --------------------------
+
 
 $(document).ready(function() { // This function runs when the document is ready
 
@@ -88,16 +102,14 @@ $(document).ready(function() { // This function runs when the document is ready
         $("#register-form-section").css(css1);
     });
 
-    /* $("#login-signIn").click(function () {
-
-     });*/
 
     // Sign-Up
 
     $('#signUpBtn').click(function () {
-        const email = $('#signUp-email').val();
-        const password = $('#signUp-password').val();
-        const role = $('#SelectRole').val();
+
+        const email = $('#signup-username').val();
+        const password = $('#signup-password').val();
+        const role = $('#select-role').val();
         console.log(email,password,role)
 
         $.ajax({
@@ -108,21 +120,36 @@ $(document).ready(function() { // This function runs when the document is ready
             success: function (response) {
                 // Store the token from the response
                 localStorage.setItem('token', response.token);
-                showAlert("Sign-up successful!","success");
-                $("#login-section").css(css2);
-                $("#signUp-section").css(css1);
+
+                // show
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Sign Up successful!',
+                    showConfirmButton: false,
+                    timer: 1500,
+                    iconColor: 'rgba(131,193,170,0.79)'
+                });
+
+                console.log("Sign-up successful!")
+                $("#login-form-section").css(css2);
+                $("#register-form-section").css(css1);
             },
             error: function () {
-                showAlert("Sign-up failed. Please try again.","error");
+                showErrorAlert("Sign-up failed. Please try again.")
+                console.log("Sign-up failed. Please try again.")
+
+                $('#signup-username').val("");
+                $('#signup-password').val("");
             }
         });
     });
 
 
-// Sign-In
+    // Sign-In
     $('#login-signIn').click(function () {
-        const email = $('#login-email').val();
-        const password = $('#login-password').val();
+
+        const email = $('#username').val();
+        const password = $('#password').val();
 
         $.ajax({
             url: 'http://localhost:5052/cropMonitoringSystem/api/v1/auth/signIn',
@@ -133,19 +160,30 @@ $(document).ready(function() { // This function runs when the document is ready
                 // Store the token from the response
                 localStorage.setItem('token', response.token);
                 localStorage.setItem('email',email)
-                showAlert("Sign-in successful!",'success');
-                $("#login-section").css(css1);
-                $("#signUp-section").css(css1);
-                $("#homeSection").css(css2)
-                handleNavClick("nav-dashboard");
-                $("body").css({
-                    backgroundColor:"#FAF5E6"
-                })
 
+                // show
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Sign In successful!',
+                    showConfirmButton: false,
+                    timer: 1500,
+                    iconColor: 'rgba(131,193,170,0.79)'
+                });
+
+                console.log("Sign-in successful!")
+                $("#login-form-section").css(css1);
+                $("#register-form-section").css(css1);
+                $("#home-section").css(css2)
+
+                handleNavClick("nav-dashboard");
 
             },
             error: function () {
-                showAlert("Sign-in failed. Please try again.",'error');
+                showErrorAlert("Sign In failed. Please try again.")
+                console.log("Sign In failed. Please try again.")
+
+                $('#username').val("");
+                $('#password').val("");
             }
         });
     });
