@@ -78,7 +78,7 @@ input:hover{
     z-index: 1055;
 }
 
-#newCropModal .modal-body, #viewAllCropsModal .modal-body {
+#newCropModal .modal-body, #viewAllCropsModal .modal-body, #cropDetailsModal .modal-body {
     background-color: #668f78;
     color: rgb(17, 76, 54);
 }
@@ -157,7 +157,7 @@ input:hover{
     margin: 0.5rem;
 }
 
-.new-crop, .all-customers {
+.new-crop, .all-crops {
     margin-left: 0.5rem;
 }
 
