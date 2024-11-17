@@ -5,7 +5,6 @@
     width: 100vw;
     height: 100vh;
     position: relative;
-    overflow-x: hidden;
     margin: 0;
     background-color: #779e8a; /* Fallback color for dark green */
     font-family: Arial, sans-serif;

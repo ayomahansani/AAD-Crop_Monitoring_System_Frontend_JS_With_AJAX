@@ -18,9 +18,11 @@
     <link rel="stylesheet" href="assets/styles/login-form.css">
     <link rel="stylesheet" href="assets/styles/register-form.css">
     <link rel="stylesheet" href="assets/styles/dashboard.css">
+    <link rel="stylesheet" href="assets/styles/crops.css">
 
 </head>
 <body>
+
 
 <!-- Login Form Section -->
 <section id="login-form-section">
@@ -62,6 +64,7 @@
 
 </section>
 <!-- End Login Form Section -->
+
 
 <!-- Register Form Section -->
 <section id="register-form-section">
@@ -118,16 +121,17 @@
 </section>
 <!-- End Register Form Section -->
 
+
 <!-- Home Section -->
 <section id="home-section">
+
     <header>
+
         <!-- Top Navbar for mobile view -->
         <div class="top-navbar d-md-none d-flex justify-content-between align-items-center">
-  <span class="menu-toggle">
+            <span class="menu-toggle">
             <i class="fas fa-bars fa-lg"></i>
-
-
-  </span>
+            </span>
             <img src="assets/images/dashboard-icon.png" alt="Green Shadow Logo" class="img-fluid" style="height: 40px;">
         </div>
 
@@ -147,10 +151,12 @@
                 <li><span id="nav-log-out"><i class="fas fa-sign-out-alt"></i> Log Out</span></li>
             </ul>
         </nav>
+
         <!-- Top Navbar -->
         <nav class="navbar mb-4 custom-nav">
             <span class="navbar-brand dashboard-topic">Green Shadow</span>
         </nav>
+
     </header>
 
     <!--dashboard section -->
@@ -216,11 +222,100 @@
 
     </section>
 
+
     <!--crops section -->
-    <section id="field-section"></section>
+    <section id="crop-section">
+
+        <!-- Title Section -->
+        <div class="main-title me-auto main-content">
+            <img class="customerImg" src="assets/icon/icon-customer_page_title.png" alt="">
+            <h6 class="title">Customers</h6>
+        </div>
+        <!-- End Title Section -->
+
+        <!-- Main Section -->
+        <div class="main-content main-section">
+
+            <!-- up section -->
+            <div class="search-customer">
+
+                <form class="row">
+
+                    <!-- customer search -->
+                    <div class="col-8 col-sm-6 col-md-4 col-lg-4 pb-4">
+                        <label for="searchCustomer" class="form-label fw-semibold">
+                            Search Customer
+                        </label>
+                        <input type="search" class="form-control search-input" id="searchCustomer" placeholder="Input ID / Name Here">
+                    </div>
+                    <div class="col-4 col-sm-6 col-md-3 col-lg-3 pb-4">
+                        <button type="button" class="btn btn-warning search-btn" id="customer-search-btn" data-bs-toggle="modal" data-bs-target="#customerDetailsModal">
+                            Search
+                            <span class="search"><i class="bi bi-search"></i></span>
+                        </button>
+                    </div>
+                    <!-- end customer search -->
+
+                    <!-- buttons -->
+                    <div class="col-6 col-sm-4 col-md-2 col-lg-2 pb-1">
+                        <a href="" id="newCusBtn" role="button" class="btn" data-bs-toggle="modal" data-bs-target="#newCustomerModal">
+                            <span class="add-to-cart"><i class="bi bi-plus-circle-fill"></i></span>
+                            New Customer
+                        </a>
+                    </div>
+                    <div class="col-6 col-sm-4 col-md-2 col-lg-2 pb-1">
+                        <a href="" id="viewAllCus" role="button" class="btn" data-bs-toggle="modal" data-bs-target="#viewAllCustomerModal">
+                            <span class="view"><i class="bi bi-eye-fill"></i></span>
+                            View All Customers
+                        </a>
+                    </div>
+                    <!-- end buttons -->
+
+                    <!-- right image -->
+                    <div class="col-12 col-sm-4 col-md-1 col-lg-1 pb-1">
+                        <img src="assets/icon/icon-customer_page_customers.png" class="customer-page-photo" alt="customers photo">
+                    </div>
+                    <!-- end right image -->
+
+                </form>
+
+            </div>
+            <!-- end up section -->
+
+            <!-- customer table -->
+            <div class="customer-table">
+
+                <div class="scrollable">
+
+                    <table class="table table-warning table-striped table-bordered border-dark table-hover table-sm">
+                        <thead class="table-dark">
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">Contact</th>
+                        </tr>
+                        </thead>
+
+                        <tbody id="customer-tbl-tbody" class="table-group-divider">
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+            <!-- end customer table -->
+
+        </div>
+        <!-- End Main Section -->
+
+    </section>
+
 
 </section>
-<!-- Home Section -->
+<!-- End Home Section -->
 
 
 <!-- jQuery js -->
@@ -233,8 +328,8 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <!-- plug the js files -->
-<script src="js/main.js"></script>
-<script src="js/dashboard.js"></script>
+<script type="module" src="js/main.js"></script>
+<script type="module" src="js/dashboard.js"></script>
 
 </body>
 </html>
