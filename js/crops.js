@@ -40,6 +40,11 @@ $(document).ready(function () {
 });
 
 
+$('#newCropModal').click(function () {
+    loadFieldNamesComboBoxAndSetFieldCodes()
+});
+
+
 
 // -------------------------- The start - when click crop save button --------------------------
 $("#crop-save").on('click', () => {
@@ -47,7 +52,7 @@ $("#crop-save").on('click', () => {
     // get values from inputs
     const cropCommonName = $("#cropCommonName").val();      // crop Common Name value
     const cropScientificName = $("#cropScientificName").val();      // crop Scientific Name value
-    const fieldName = $("#fieldNamesComboBox").val();        // field Name value
+    const fieldCode = $("#fieldNamesComboBox").val();        // field Code value
     const cropCategory = $("#cropCategory").val();        // crop Category value
     const cropSeason = $("#cropSeason").val();        // crop Season value
     const cropImage = $("#cropImage")[0].files[0];       // file Name value
@@ -55,7 +60,7 @@ $("#crop-save").on('click', () => {
     // check whether print those values
     console.log("cropCommonName: " , cropCommonName);
     console.log("cropScientificName: " , cropScientificName);
-    console.log("selectedFieldName: " , fieldName);
+    console.log("selectedFieldCode: " , fieldCode);
     console.log("cropCategory: " , cropCategory);
     console.log("cropSeason: " , cropSeason);
 
@@ -81,7 +86,7 @@ $("#crop-save").on('click', () => {
     formData.append("cropScientificName", cropScientificName);
     formData.append("cropCategory", cropCategory);
     formData.append("cropSeason", cropSeason);
-    formData.append("fieldCode", fieldName);
+    formData.append("fieldCode", fieldCode);
 
     // Check if file is selected
     if (cropImage) {
@@ -140,7 +145,7 @@ $("#crop-save").on('click', () => {
 
 
 // -------------------------- The start - Function to fetch fields and populate the select element --------------------------
-function fetchAndPopulateFields() {
+function loadFieldNamesComboBoxAndSetFieldCodes() {
     $.ajax({
         url: "http://localhost:5052/cropMonitoringSystem/api/v1/fields",
         type: "GET",
@@ -156,13 +161,13 @@ function fetchAndPopulateFields() {
 
             // Populate the select element with field names and IDs
             response.forEach(field => {
-                const option = `<option value="${field.fieldId}">${field.name}</option>`;
-                fieldSelect.append(option);
+                const option = `<option value="${field.fieldCode}">${field.fieldName}</option>`;
+                selectedFieldName.append(option);
             });
         },
         error: function (error) {
             console.error("Error fetching fields:", error);
-            showAlert("Failed to load fields. Please try again later.",'error');
+            showErrorAlert("Failed to load fields. Please try again later.");
         }
     });
 }
