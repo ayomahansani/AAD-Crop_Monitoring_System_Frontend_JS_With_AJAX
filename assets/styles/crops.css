@@ -28,57 +28,14 @@
     background-color: rgb(17, 76, 54);
 }
 
-form .search-input {
+form .search-input, form #cropImage {
     border: none;
     background-color: rgba(195, 239, 214, 0.85);
-}
-
-form .search-input:hover {
-    background-color: rgba(195, 239, 214, 0.85);
-    border: 3px solid rgb(17, 76, 54);
 }
 
 form .search-input:focus {
     background-color: rgba(195, 239, 214, 0.85);
     border: 3px solid rgb(17, 76, 54);
-}
-
-.btn-custom-file {
-    background-color: rgba(195, 239, 214, 0.85);
-    height: 35px;
-    width: 150px; /* Set a fixed width for better centering */
-    text-align: center;
-    display: flex; /* Flexbox for centering */
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    color: black;
-    border: none;
-    border-radius: 5px;
-    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
-    cursor: pointer;
-    white-space: nowrap; /* Prevents text wrapping */
-}
-
-.btn-custom-file:hover {
-    background-color: rgba(41, 94, 74, 0.73);
-    color: white;
-}
-
-#fileName {
-    border: none;
-    padding: 0; /* Remove extra padding */
-    height: 35px;
-    width: 220px; /* Set a fixed width for consistency */
-    background-color: rgba(195, 239, 214, 0.85);
-    color: rgba(0, 0, 0, 0.64);
-    font-size: 16px;
-    text-align: center; /* Center text horizontally */
-    display: flex; /* Flexbox for centering */
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    margin-left: 15px; /* Adds spacing between the button and file name */
-    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
-    border-radius: 5px;
 }
 
 input {

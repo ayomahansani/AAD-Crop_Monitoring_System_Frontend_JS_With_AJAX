@@ -87,6 +87,7 @@ function showErrorAlert(message){
 
 $(document).ready(function() { // This function runs when the document is ready
 
+    // hide unwanted sections
     $("#home-section").css(css1);
     $("#register-form-section").css(css1);
     $("#crop-section").css(css1);
@@ -104,7 +105,8 @@ $(document).ready(function() { // This function runs when the document is ready
     });
 
 
-    // Sign-Up
+
+    // <!------------------------ Sign-Up ------------------------>
 
     $('#signUpBtn').click(function () {
 
@@ -144,9 +146,11 @@ $(document).ready(function() { // This function runs when the document is ready
             }
         });
     });
+    // <!------------------------ Sign-Up ------------------------>
 
 
-    // Sign-In
+
+    // <!------------------------ Sign-In ------------------------>
     $('#login-signIn').click(function () {
 
         const email = $('#username').val();
@@ -188,5 +192,7 @@ $(document).ready(function() { // This function runs when the document is ready
             }
         });
     });
+    // <!------------------------ End Sign-In ------------------------>
+
 
 });
