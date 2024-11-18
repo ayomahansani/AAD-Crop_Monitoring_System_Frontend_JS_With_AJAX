@@ -371,7 +371,7 @@
 <!-- Add New Crop Modal -->
 <div class="modal fade" id="newCropModal" tabindex="-1" aria-labelledby="newCropModalModalLabel" aria-hidden="true">
 
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
 
             <div class="modal-header">
@@ -384,42 +384,72 @@
 
             <div class="modal-body">
 
-                <form>
+                <form enctype="multipart/form-data">
 
-                    <div class="mb-3">
-                        <label for="cropCommonName" class="form-label fw-semibold">Common Name</label>
-                        <input type="text" class="form-control search-input" id="cropCommonName">
+                    <div class="row">
+                        <!-- Left Column -->
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="cropCommonName" class="form-label fw-semibold">Common Name</label>
+                                <input type="text" class="form-control search-input" id="cropCommonName">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="cropScientificName" class="form-label fw-semibold">Scientific Name</label>
+                                <input type="text" class="form-control search-input" id="cropScientificName">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="fieldNamesComboBox" class="form-label fw-semibold">Select Field :</label>
+                                <select class="form-select search-input" aria-label="Default select example" id="fieldNamesComboBox">
+                                    <option selected>Choose a field</option>
+                                    <option value="1">Field A</option>
+                                    <option value="2">Field B</option>
+                                    <option value="3">Field C</option>
+                                    <option value="4">Field D</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Right Column -->
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="cropCategory" class="form-label fw-semibold">Category</label>
+                                <input type="text" class="form-control search-input" id="cropCategory">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="cropSeason" class="form-label fw-semibold">Season</label>
+                                <input type="text" class="form-control search-input" id="cropSeason">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="cropImage" class="form-label fw-semibold">Upload Crop Image</label>
+                                <input type="file" class="form-control d-none" id="cropImage" accept="image/*"> <!-- Hidden File Input -->
+                                <div class="d-flex align-items-center">
+                                    <button type="button" class="btn btn-custom-file">Choose a file</button> <!-- Custom Button -->
+                                    <p class="ms-3 mb-0" id="fileName">No file chosen</p> <!-- File Name Display -->
+                                </div>
+                            </div>
+
+
+
+                        </div>
                     </div>
 
+                    <!-- Image Preview -->
                     <div class="mb-3">
-                        <label for="cropScientificName" class="form-label fw-semibold">Scientific Name</label>
-                        <input type="text" class="form-control search-input" id="cropScientificName">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="fieldNamesComboBox" class="form-label fw-semibold">Select Field :</label>
-                        <select class="form-select search-input" aria-label="Default select example" id="fieldNamesComboBox">
-                            <option selected>choose a field &nbsp;&nbsp;&nbsp;&nbsp;</option>
-                            <option value="1">Field A</option>
-                            <option value="2">Field B</option>
-                            <option value="3">Field C</option>
-                            <option value="4">Field D</option>
-                        </select>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="cropCategory" class="form-label fw-semibold">Category</label>
-                        <input type="text" class="form-control search-input" id="cropCategory">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="cropSeason" class="form-label fw-semibold">Season</label>
-                        <input type="tel" class="form-control search-input" id="cropSeason">
+                        <label class="form-label fw-semibold">Image Preview</label>
+                        <div id="cropImagePreview" class="border rounded p-2 text-center">
+                            <img id="previewImage" src="#" alt="Preview" class="img-fluid" style="max-height: 180px; display: none;">
+                            <p class="text-muted" id="noImageText">No image selected</p>
+                        </div>
                     </div>
 
                 </form>
 
             </div>
+
 
             <div class="modal-footer">
 
@@ -450,6 +480,7 @@
 
 </div>
 <!-- End Add New Crop Modal -->
+
 
 
 <!-- View All Crops Modal -->
@@ -498,7 +529,7 @@
 <!-- plug the js files -->
 <script type="module" src="js/main.js"></script>
 <script type="module" src="js/dashboard.js"></script>
-<!--<script type="module" src="js/crops.js"></script>-->
+<script type="module" src="js/crops.js"></script>
 
 </body>
 </html>
