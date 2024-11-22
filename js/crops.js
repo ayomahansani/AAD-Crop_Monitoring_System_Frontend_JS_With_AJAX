@@ -1,8 +1,9 @@
-/*$(document).ready(function () {
-    loadCropsTable()
-});*/
+$(document).ready(function () {
+    loadFieldNamesComboBoxAndSetFieldCodes();
+    loadCropsTable();
+});
 
-
+var cropRecordIndex;
 
 // upload crop image
 $('#cropImage').on('change', function () {
@@ -40,48 +41,67 @@ $("#cropImage").on("change", function () {
     $("#fileName").text(fileName);
 });
 
-// When select add crop modal, want to load combobox
+/*// When select add crop modal, want to load combobox
 $('#newCropBtn').click(function () {
-    loadFieldNamesComboBoxAndSetFieldCodes()
-});
+
+});*/
 
 
 
 // -------------------------- The start - crop table loading --------------------------
 function loadCropsTable() {
-
+    // Fetch fields first to build a lookup table
     $.ajax({
-        url : "http://localhost:5052/cropMonitoringSystem/api/v1/crops",   // request eka yanna one thana
+        url: "http://localhost:5052/cropMonitoringSystem/api/v1/fields", // Fields API
         method: 'GET',
         headers: {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
         },
-        success : function (results) {
-            console.log(results)
-            //alert('Get All Data Successfully...')
+        success: function (fields) {
+            // Build a lookup table for fields
+            const fieldLookup = {};
+            fields.forEach(field => {
+                fieldLookup[field.fieldCode] = field.fieldName; // Map fieldCode to fieldName
+            });
 
-            // Clear the existing table body
-            $('#crop-tbl-tbody').empty();
+            // Fetch crops and populate the table
+            $.ajax({
+                url: "http://localhost:5052/cropMonitoringSystem/api/v1/crops", // Crops API
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                },
+                success: function (results) {
+                    console.log(results);
+                    $('#crop-tbl-tbody').empty(); // Clear existing table body
 
-            // Iterate over the results and append rows to the table
-            results.forEach(function(customer) {
-                let row = `
-                    <tr>
-                        <td class="customer-id-value">${customer.id}</td>
-                        <td class="customer-name-value">${customer.name}</td>
-                        <td class="customer-address-value">${customer.address}</td>
-                        <td class="customer-phone-value">${customer.phone}</td>
-                    </tr>
-                `;
-                $('#crop-tbl-tbody').append(row);
-                $("#crop-tbl-tbody").css("font-weight", 600);
+                    // Iterate over crops and append rows with field names
+                    results.forEach(function (crop) {
+                        const fieldName = fieldLookup[crop.fieldCode] || "No Field Name"; // Match fieldCode to fieldName
+                        let row = `
+                            <tr>
+                                <td class="crop-common-name-value">${crop.cropCommonName}</td>
+                                <td class="crop-scientific-name-value">${crop.cropScientificName}</td>
+                                <td class="crop-category-value">${crop.cropCategory}</td>
+                                <td class="crop-season-value">${crop.cropSeason}</td>
+                                <td class="crop-field-value">${fieldName}</td>
+                            </tr>
+                        `;
+                        $('#crop-tbl-tbody').append(row);
+                        $("#crop-tbl-tbody").css("font-weight", 600);
+                    });
+                },
+                error: function (error) {
+                    console.log(error);
+                    alert('Failed to load crop data.');
+                }
             });
         },
-        error : function (error) {
-            console.log(error)
-            alert('Not Get All Crop Data...')
+        error: function (error) {
+            console.error("Error fetching fields:", error);
+            alert("Failed to load fields. Please try again later.");
         }
-    })
+    });
 }
 // -------------------------- The end - crop table loading --------------------------
 
@@ -98,8 +118,8 @@ function loadFieldNamesComboBoxAndSetFieldCodes() {
 
             // Assuming response is an array of FieldDto objects
             const selectedFieldName = $("#fieldNamesComboBox");
-            selectedFieldName.empty(); // Clear existing options
-            selectedFieldName.append('<option value="">Choose a field</option>'); // Add default option
+            //selectedFieldName.empty(); // Clear existing options
+            //selectedFieldName.append('<option value="">Choose a field</option>'); // Add default option
 
             // Populate the select element with field names and IDs
             response.forEach(field => {
@@ -114,6 +134,54 @@ function loadFieldNamesComboBoxAndSetFieldCodes() {
     });
 }
 // -------------------------- The end - Function to fetch fields and populate the select element --------------------------
+
+
+
+
+// -------------------------- The start - when click a crop table row --------------------------
+$("#crop-tbl-tbody").on('click', 'tr', function () {
+
+    // Extract values from the clicked row
+    let cropCommonName = $(this).find(".crop-common-name-value").text().trim();
+    let cropScientificName = $(this).find(".crop-scientific-name-value").text().trim();
+    let cropCategory = $(this).find(".crop-category-value").text().trim();
+    let cropSeason = $(this).find(".crop-season-value").text().trim();
+    let cropFieldName = $(this).find(".crop-field-value").text().trim();
+
+    // Debug: Log extracted values
+    console.log("Crop Field Text:", cropFieldName);
+
+    // Assign values to the input fields
+    $("#cropCommonName").val(cropCommonName);
+    $("#cropScientificName").val(cropScientificName);
+    $("#cropCategory").val(cropCategory);
+    $("#cropSeason").val(cropSeason);
+
+    // Find the fieldCode for the cropFieldName
+    $.ajax({
+        url: "http://localhost:5052/cropMonitoringSystem/api/v1/fields",
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        success: function (fields) {
+            // Find the fieldCode that corresponds to the cropFieldName
+            const field = fields.find(f => f.fieldName === cropFieldName);
+            if (field) {
+                // Set the fieldCode as the selected value in the combobox
+                $("#fieldNamesComboBox").val(field.fieldCode);
+            } else {
+                console.warn("Field not found for crop:", cropFieldName);
+            }
+        },
+        error: function (error) {
+            console.error("Error fetching fields:", error);
+        }
+    });
+});
+
+// -------------------------- The end - when click a crop table row --------------------------
+
 
 
 
