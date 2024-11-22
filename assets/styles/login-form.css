@@ -42,14 +42,15 @@
 }
 
 /* Input styling for username and password */
-#login-form-section input[type="text"], input[type="password"] {
+#login-form-section input[type="text"], #login-form-section input[type="password"] {
     background-color: #d0eddf; /* Set input field background color */
     color: rgb(0, 0, 0); /* Set input field text color */
     border: 1px solid #7f9b8c; /* Set a border color */
     border-radius: 5px; /* Optional: add rounded corners */
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-#login-form-section input[type="text"]:focus, input[type="password"]:focus {
+#login-form-section input[type="text"]:focus, #login-form-section input[type="password"]:focus {
     background-color: #d0eddf;
     border-color: #b8edd2; /* Change border color on focus */
     box-shadow: 0 0 5px rgba(184, 237, 210, 0.8); /* Add glow effect on focus */
