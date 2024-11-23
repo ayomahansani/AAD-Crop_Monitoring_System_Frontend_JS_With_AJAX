@@ -126,8 +126,6 @@ function loadFieldNamesComboBoxAndSetFieldCodes() {
 
             // Assuming response is an array of FieldDto objects
             const selectedFieldName = $("#fieldNamesComboBox");
-            //selectedFieldName.empty(); // Clear existing options
-            //selectedFieldName.append('<option value="">Choose a field</option>'); // Add default option
 
             // Populate the select element with field names and IDs
             response.forEach(field => {
@@ -485,6 +483,19 @@ $("#crop-delete").on('click', () => {
 // -------------------------- The end - when click crop delete button --------------------------
 
 
+
+// -------------------------- The start - when click crop clear button --------------------------
+$("#crop-clear").on('click', () => {
+
+    $("#newCropModal form").trigger('reset');
+
+    // Reset image preview
+    $("#previewImage").attr("src", "#").hide();
+    $("#noImageText").show();
+    $("#cropImageText").hide();
+
+});
+// -------------------------- The end - when click crop clear button --------------------------
 
 
 
