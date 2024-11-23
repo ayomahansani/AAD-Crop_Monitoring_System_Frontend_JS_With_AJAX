@@ -305,7 +305,7 @@ $("#crop-save").on('click', () => {
             });
 
             // load the table
-            //loadCustomerTable();
+            loadCropsTable()
 
             // clean the inputs values
             $("#newCropModal form").trigger('reset');
@@ -329,6 +329,132 @@ $("#crop-save").on('click', () => {
 
 });
 // -------------------------- The end - when click crop save button --------------------------
+
+
+
+
+// -------------------------- The start - when click crop update button --------------------------
+$("#crop-update").on('click', () => {
+
+    // get values from inputs
+    const cropCommonName = $("#cropCommonName").val();      // crop Common Name value
+    const cropScientificName = $("#cropScientificName").val();      // crop Scientific Name value
+    const fieldCode = $("#fieldNamesComboBox").val();        // field Code value
+    const cropCategory = $("#cropCategory").val();        // crop Category value
+    const cropSeason = $("#cropSeason").val();        // crop Season value
+    const cropImage = $("#cropImage")[0].files[0];       // file Name value
+
+    // check whether print those values
+    console.log("cropCommonName: " , cropCommonName);
+    console.log("cropScientificName: " , cropScientificName);
+    console.log("selectedFieldCode: " , fieldCode);
+    console.log("cropCategory: " , cropCategory);
+    console.log("cropSeason: " , cropSeason);
+
+
+    //let customerValidated = checkCustomerValidation(idOfCustomer,nameOfCustomer,addressOfCustomer,phoneOfCustomer);
+
+
+    //if(customerValidated) {
+
+    // Check for duplicate customer IDs
+    //isDuplicateCustomerId(idOfCustomer).then(isDuplicated => {
+
+    /*if (isDuplicated) {
+
+        // Show error message for duplicate customer ID
+        showErrorAlert("Customer ID already exists. Please enter a different ID.");
+
+    } else {*/
+
+    let cropCode = "";
+
+    // Find the crop code for the cropCommonName
+    $.ajax({
+        url: "http://localhost:5052/cropMonitoringSystem/api/v1/crops",
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        success: function (results) {
+            // Find the crop code that corresponds to the cropCommonName
+            const crop = results.find(crop => (crop.cropCommonName === cropCommonName) && (crop.cropCategory === cropCategory));
+            if (crop) {
+                cropCode = crop.cropCode;
+            } else {
+                console.warn("Crop not found :", cropCode);
+            }
+        },
+        error: function (error) {
+            console.error("Error fetching crops:", error);
+        }
+    });
+
+    // Create a FormData object to send data as multipart/form-data
+    let formData = new FormData();
+    formData.append("cropCommonName", cropCommonName);
+    formData.append("cropScientificName", cropScientificName);
+    formData.append("cropCategory", cropCategory);
+    formData.append("cropSeason", cropSeason);
+    formData.append("fieldCode", fieldCode);
+
+    // Check if file is selected
+    if (cropImage) {
+        formData.append("cropImage", cropImage);  // Append the image file
+    }
+
+    // For testing
+    console.log("FormData Object : " + formData);
+
+
+    // ========= Ajax with JQuery =========
+
+    $.ajax({
+        url: `http://localhost:5052/cropMonitoringSystem/api/v1/crops/${cropCode}`,
+        type: "PUT",
+        data: formData,
+        processData: false, // Prevent jQuery from automatically transforming the data
+        contentType: false,
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("token")
+        },
+
+        success: function (results) {
+
+            // show crop saved pop up
+            Swal.fire({
+                icon: 'success',
+                title: 'Crop updated successfully!',
+                showConfirmButton: false,
+                timer: 1500,
+                iconColor: 'rgba(131,193,170,0.79)'
+            });
+
+            // load the table
+            loadCropsTable()
+
+            // clean the inputs values
+            $("#newCropModal form").trigger('reset');
+
+            // Remove the image preview
+            $("#previewImage").attr("src", "#").hide(); // Reset the image source and hide it
+            $("#noImageText").show();                  // Show the "No image selected" text
+
+        },
+
+        error: function (error) {
+            console.log(error)
+            showErrorAlert('Crop not updated...')
+        }
+    });
+    //}
+
+    //})
+
+    //}
+
+});
+// -------------------------- The end - when click crop update button --------------------------
 
 
 
