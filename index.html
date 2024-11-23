@@ -423,7 +423,8 @@
 
                             <div class="mb-3">
                                 <label for="cropImage" class="form-label fw-semibold">Upload Crop Image</label>
-                                <input type="file" class="form-control" id="cropImage" accept="image/*"> <!-- File Input -->
+                                <input type="file" class="form-control mb-1" id="cropImage" accept="image/*"> <!-- File Input -->
+                                <label id="cropImageText" class="form-label"></label>
                             </div>
 
 
@@ -434,7 +435,7 @@
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Image Preview</label>
                         <div id="cropImagePreview" class="border rounded p-2 text-center">
-                            <img id="previewImage" src="#" alt="Preview" class="img-fluid" style="max-height: 180px; display: none;">
+                            <img id="previewImage" src="#" alt="Preview" class="img-fluid" style="max-height: 150px; display: none;">
                             <p class="text-muted" id="noImageText">No image selected</p>
                         </div>
                     </div>

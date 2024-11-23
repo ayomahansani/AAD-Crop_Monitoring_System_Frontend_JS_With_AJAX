@@ -5,7 +5,6 @@ $(document).ready(function () {
 
 
 
-
 // upload crop image
 $('#cropImage').on('change', function () {
 
@@ -176,6 +175,7 @@ $("#crop-tbl-tbody").on('click', 'tr', function (e) {
     if (cropImage) {
         $("#previewImage").attr("src", `data:image/jpeg;base64,${cropImage}`).show(); // Display the image
         $("#noImageText").hide(); // Hide the 'No image selected' text
+        $("#cropImageText").text("please again select an image...");
     } else {
         $("#previewImage").hide(); // Hide the image element if no image
         $("#noImageText").show(); // Show the 'No image selected' text
@@ -226,7 +226,6 @@ $('#crop-tbl-tbody').on('click', '.view-crop-image', function (e) {
     e.stopPropagation();
 });
 // -------------------------- The end - Handle click event for viewing crop image --------------------------
-
 
 
 
@@ -312,8 +311,8 @@ $("#crop-save").on('click', () => {
 
             // Remove the image preview
             $("#previewImage").attr("src", "#").hide(); // Reset the image source and hide it
-            $("#noImageText").show();                  // Show the "No image selected" text
-
+            $("#noImageText").show();// Show the "No image selected" text
+            $("#cropImageText").hide();
         },
 
         error: function (error) {
@@ -332,42 +331,16 @@ $("#crop-save").on('click', () => {
 
 
 
-
 // -------------------------- The start - when click crop update button --------------------------
 $("#crop-update").on('click', () => {
 
-    // get values from inputs
-    const cropCommonName = $("#cropCommonName").val();      // crop Common Name value
-    const cropScientificName = $("#cropScientificName").val();      // crop Scientific Name value
-    const fieldCode = $("#fieldNamesComboBox").val();        // field Code value
-    const cropCategory = $("#cropCategory").val();        // crop Category value
-    const cropSeason = $("#cropSeason").val();        // crop Season value
-    const cropImage = $("#cropImage")[0].files[0];       // file Name value
-
-    // check whether print those values
-    console.log("cropCommonName: " , cropCommonName);
-    console.log("cropScientificName: " , cropScientificName);
-    console.log("selectedFieldCode: " , fieldCode);
-    console.log("cropCategory: " , cropCategory);
-    console.log("cropSeason: " , cropSeason);
-
-
-    //let customerValidated = checkCustomerValidation(idOfCustomer,nameOfCustomer,addressOfCustomer,phoneOfCustomer);
-
-
-    //if(customerValidated) {
-
-    // Check for duplicate customer IDs
-    //isDuplicateCustomerId(idOfCustomer).then(isDuplicated => {
-
-    /*if (isDuplicated) {
-
-        // Show error message for duplicate customer ID
-        showErrorAlert("Customer ID already exists. Please enter a different ID.");
-
-    } else {*/
-
-    let cropCode = "";
+    // Get values from inputs
+    const cropCommonName = $("#cropCommonName").val();
+    const cropScientificName = $("#cropScientificName").val();
+    const fieldCode = $("#fieldNamesComboBox").val();
+    const cropCategory = $("#cropCategory").val();
+    const cropSeason = $("#cropSeason").val();
+    const cropImage = $("#cropImage")[0].files[0];
 
     // Find the crop code for the cropCommonName
     $.ajax({
@@ -377,83 +350,73 @@ $("#crop-update").on('click', () => {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
         },
         success: function (results) {
-            // Find the crop code that corresponds to the cropCommonName
+            // Find the crop matching the input
             const crop = results.find(crop => (crop.cropCommonName === cropCommonName) && (crop.cropCategory === cropCategory));
             if (crop) {
-                cropCode = crop.cropCode;
+                const cropCode = crop.cropCode; // Set the crop code
+                console.log("Crop code: ", cropCode);
+
+                // Create FormData
+                let formData = new FormData();
+                formData.append("cropCommonName", cropCommonName);
+                formData.append("cropScientificName", cropScientificName);
+                formData.append("cropCategory", cropCategory);
+                formData.append("cropSeason", cropSeason);
+                formData.append("fieldCode", fieldCode);
+
+                // Check if file is selected
+                if (cropImage) {
+                    formData.append("cropImage", cropImage);
+                }
+
+                // Send the PUT request
+                $.ajax({
+                    url: `http://localhost:5052/cropMonitoringSystem/api/v1/crops/${cropCode}`,
+                    type: "PUT",
+                    data: formData,
+                    processData: false, // Prevent jQuery from transforming data
+                    contentType: false,
+                    headers: {
+                        "Authorization": "Bearer " + localStorage.getItem("token")
+                    },
+                    success: function () {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Crop updated successfully!',
+                            showConfirmButton: false,
+                            timer: 1500,
+                            iconColor: 'rgba(131,193,170,0.79)'
+                        });
+
+                        // Reload the crops table
+                        loadCropsTable();
+
+                        // Reset the form
+                        $("#newCropModal form").trigger('reset');
+
+                        // Reset image preview
+                        $("#previewImage").attr("src", "#").hide();
+                        $("#noImageText").show();
+                        $("#cropImageText").hide();
+                    },
+                    error: function (error) {
+                        console.error("Error updating crop:", error);
+                        showErrorAlert('Crop not updated...');
+                    }
+                });
+
             } else {
-                console.warn("Crop not found :", cropCode);
+                console.warn("Crop not found:", cropCommonName);
+                showErrorAlert('Crop not found for the given details.');
             }
         },
         error: function (error) {
             console.error("Error fetching crops:", error);
+            showErrorAlert('Error fetching crop data.');
         }
     });
-
-    // Create a FormData object to send data as multipart/form-data
-    let formData = new FormData();
-    formData.append("cropCommonName", cropCommonName);
-    formData.append("cropScientificName", cropScientificName);
-    formData.append("cropCategory", cropCategory);
-    formData.append("cropSeason", cropSeason);
-    formData.append("fieldCode", fieldCode);
-
-    // Check if file is selected
-    if (cropImage) {
-        formData.append("cropImage", cropImage);  // Append the image file
-    }
-
-    // For testing
-    console.log("FormData Object : " + formData);
-
-
-    // ========= Ajax with JQuery =========
-
-    $.ajax({
-        url: `http://localhost:5052/cropMonitoringSystem/api/v1/crops/${cropCode}`,
-        type: "PUT",
-        data: formData,
-        processData: false, // Prevent jQuery from automatically transforming the data
-        contentType: false,
-        headers: {
-            "Authorization": "Bearer " + localStorage.getItem("token")
-        },
-
-        success: function (results) {
-
-            // show crop saved pop up
-            Swal.fire({
-                icon: 'success',
-                title: 'Crop updated successfully!',
-                showConfirmButton: false,
-                timer: 1500,
-                iconColor: 'rgba(131,193,170,0.79)'
-            });
-
-            // load the table
-            loadCropsTable()
-
-            // clean the inputs values
-            $("#newCropModal form").trigger('reset');
-
-            // Remove the image preview
-            $("#previewImage").attr("src", "#").hide(); // Reset the image source and hide it
-            $("#noImageText").show();                  // Show the "No image selected" text
-
-        },
-
-        error: function (error) {
-            console.log(error)
-            showErrorAlert('Crop not updated...')
-        }
-    });
-    //}
-
-    //})
-
-    //}
-
 });
+
 // -------------------------- The end - when click crop update button --------------------------
 
 
