@@ -82,16 +82,16 @@ function loadCropsTable() {
                     results.forEach(function (crop) {
                         const fieldName = fieldLookup[crop.fieldCode] || "No Field Name";
                         const imageLink = crop.cropImage
-                            ? `<a href="#" class="view-crop-image" data-image="${crop.cropImage}">Crop Image</a>`
-                            : "No Image";
+                            ? `<a href="#" class="view-crop-image" data-image="${crop.cropImage}" style="color: darkgreen; font-size: 14px;">Crop Image</a>`
+                            : `<span style="color: darkgreen; font-size: 14px;">No Image</span>`;
 
                         let row = `
                             <tr>
-                                <td>${crop.cropCommonName}</td>
-                                <td>${crop.cropScientificName}</td>
-                                <td>${crop.cropCategory}</td>
-                                <td>${crop.cropSeason}</td>
-                                <td>${fieldName}</td>
+                                <td class="crop-common-name-value" >${crop.cropCommonName}</td>
+                                <td class="crop-scientific-name-value" >${crop.cropScientificName}</td>
+                                <td class="crop-category-value" >${crop.cropCategory}</td>
+                                <td class="crop-season-value" >${crop.cropSeason}</td>
+                                <td class="crop-field-value" >${fieldName}</td>
                                 <td>${imageLink}</td>
                             </tr>
                         `;
@@ -148,7 +148,12 @@ function loadFieldNamesComboBoxAndSetFieldCodes() {
 
 
 // -------------------------- The start - when click a crop table row --------------------------
-$("#crop-tbl-tbody").on('click', 'tr', function () {
+$("#crop-tbl-tbody").on('click', 'tr', function (e) {
+
+    // Check if the click was inside the crop image link column
+    if ($(e.target).hasClass("view-crop-image")) {
+        return; // Do nothing if the click was on the image link
+    }
 
     // Extract values from the clicked row
     let cropCommonName = $(this).find(".crop-common-name-value").text().trim();
@@ -188,7 +193,6 @@ $("#crop-tbl-tbody").on('click', 'tr', function () {
         }
     });
 });
-
 // -------------------------- The end - when click a crop table row --------------------------
 
 
@@ -207,6 +211,9 @@ $('#crop-tbl-tbody').on('click', '.view-crop-image', function (e) {
     } else {
         alert("No image available for this crop.");
     }
+
+    // Prevent event propagation to avoid triggering the row click
+    e.stopPropagation();
 });
 // -------------------------- The end - Handle click event for viewing crop image --------------------------
 
