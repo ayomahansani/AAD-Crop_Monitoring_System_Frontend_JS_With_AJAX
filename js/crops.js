@@ -161,6 +161,7 @@ $("#crop-tbl-tbody").on('click', 'tr', function (e) {
     let cropCategory = $(this).find(".crop-category-value").text().trim();
     let cropSeason = $(this).find(".crop-season-value").text().trim();
     let cropFieldName = $(this).find(".crop-field-value").text().trim();
+    let cropImage = $(this).find(".view-crop-image").data("image") || null; // Get the base64 image data if available
 
     // Debug: Log extracted values
     console.log("Crop Field Text:", cropFieldName);
@@ -170,6 +171,15 @@ $("#crop-tbl-tbody").on('click', 'tr', function (e) {
     $("#cropScientificName").val(cropScientificName);
     $("#cropCategory").val(cropCategory);
     $("#cropSeason").val(cropSeason);
+
+    // Set the image preview if image data exists
+    if (cropImage) {
+        $("#previewImage").attr("src", `data:image/jpeg;base64,${cropImage}`).show(); // Display the image
+        $("#noImageText").hide(); // Hide the 'No image selected' text
+    } else {
+        $("#previewImage").hide(); // Hide the image element if no image
+        $("#noImageText").show(); // Show the 'No image selected' text
+    }
 
     // Find the fieldCode for the cropFieldName
     $.ajax({
