@@ -416,8 +416,74 @@ $("#crop-update").on('click', () => {
         }
     });
 });
-
 // -------------------------- The end - when click crop update button --------------------------
+
+
+
+// -------------------------- The start - when click crop delete button --------------------------
+$("#crop-delete").on('click', () => {
+
+    // Get values from inputs
+    const cropCommonName = $("#cropCommonName").val();
+    const cropCategory = $("#cropCategory").val();
+
+    // Find the crop code for the cropCommonName
+    $.ajax({
+        url: "http://localhost:5052/cropMonitoringSystem/api/v1/crops",
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        success: function (results) {
+            // Find the crop matching the input
+            const crop = results.find(crop => (crop.cropCommonName === cropCommonName) && (crop.cropCategory === cropCategory));
+            if (crop) {
+                const cropCode = crop.cropCode; // Set the crop code
+                console.log("Crop code: ", cropCode);
+
+                // Send the DELETE request
+                $.ajax({
+                    url: `http://localhost:5052/cropMonitoringSystem/api/v1/crops/${cropCode}`,
+                    type: "DELETE",
+                    headers: {
+                        "Authorization": "Bearer " + localStorage.getItem("token")
+                    },
+                    success: function () {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Crop deleted successfully!',
+                            showConfirmButton: false,
+                            timer: 1500,
+                            iconColor: 'rgba(131,193,170,0.79)'
+                        });
+
+                        // Reset the form
+                        $("#newCropModal form").trigger('reset');
+
+                        // Reset image preview
+                        $("#previewImage").attr("src", "#").hide();
+                        $("#noImageText").show();
+                        $("#cropImageText").hide();
+                    },
+                    error: function (error) {
+                        console.error("Error deleting crop:", error);
+                        showErrorAlert('Crop not deleted...');
+                    }
+                });
+
+            } else {
+                console.warn("Crop not found:", cropCommonName);
+                showErrorAlert('Crop not found for the given details.');
+            }
+        },
+        error: function (error) {
+            console.error("Error fetching crops:", error);
+            showErrorAlert('Error fetching crop data.');
+        }
+    });
+});
+// -------------------------- The end - when click crop delete button --------------------------
+
 
 
 
