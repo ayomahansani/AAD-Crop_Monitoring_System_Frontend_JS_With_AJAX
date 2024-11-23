@@ -530,6 +530,103 @@ $("#viewAllCrops").on('click', function () {
 
 
 
+// -------------------------- The start - when click crop search button --------------------------
+$("#crop-search-btn").on('click', function () {
+
+    var cropDetail = $("#searchCrop").val();
+
+    $.ajax({
+        url: "http://localhost:5052/cropMonitoringSystem/api/v1/crops",
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        success : function (results) {
+
+            if (results.length !== 0) {
+
+                for (let i=0; i<results.length; i++) {
+
+                    if (results[i].cropCategory === cropDetail) {
+                        $("#searchedCropCommonName").val(results[i].cropCommonName);
+                        $("#searchedCropScientificName").val(results[i].cropScientificName);
+                        $("#searchedCategory").val(results[i].cropCategory);
+                        $("#searchedSeason").val(results[i].cropSeason);
+
+                        $.ajax({
+                            url: "http://localhost:5052/cropMonitoringSystem/api/v1/fields/" + results[i].fieldCode,
+                            method: 'GET',
+                            headers: {
+                                'Authorization': 'Bearer ' + localStorage.getItem('token')
+                            },
+                            success : function (fieldDTO) {
+                                $("#searchedSelectedField").val(fieldDTO.fieldName);
+                            },
+                            error : function (error) {
+                                console.log(error)
+                            }
+                        })
+
+                        $("#cropDetailsModalLabel").html("Crop Details");
+
+                        return;
+                    }
+
+                }
+
+                if(cropDetail !== "") {
+
+                    showErrorAlert("Can't find crop ! Try again...");
+                    searchedCropInputsClear();
+
+                } else {
+
+                    showErrorAlert("Please enter crop category to search !");
+                    searchedCropInputsClear();
+
+                }
+
+            } else {
+
+                showErrorAlert("First you need to add crops ! Then you can search...");
+                searchedCropInputsClear();
+
+            }
+
+        },
+        error : function (error) {
+            console.log(error)
+        }
+    })
+
+});
+// -------------------------- The end - when click crop search button --------------------------
+
+
+
+// -------------------------- The start - clear the crop search bar's value --------------------------
+$("#crop-search-modal-close").on('click', function () {
+
+    $("#searchCrop").val("");
+
+});
+// -------------------------- The end - clear the crop search bar's value --------------------------
+
+
+
+//-------------------------- The start - clear searched inputs --------------------------
+function searchedCropInputsClear(){
+    $("#searchedCropCommonName").val("");
+    $("#searchedCropScientificName").val("");
+    $("#searchedCategory").val("");
+    $("#searchedSeason").val("");
+    $("#searchedSelectedField").val("");
+
+    $("#cropDetailsModalLabel").html("Crop Details");
+}
+//-------------------------- The end - clear searched inputs --------------------------
+
+
 
 //-------------------------- The start - show error alert --------------------------
 function showErrorAlert(message){
