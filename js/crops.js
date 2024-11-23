@@ -33,16 +33,6 @@ $('#cropImage').on('change', function () {
 
 
 
-
-// When the custom upload button is clicked, trigger the file input click
-$(".btn-custom-file").on("click", function () {
-    $("#cropImage").trigger("click");
-});
-
-
-
-
-
 // When a file is selected, update the file name display
 $("#cropImage").on("change", function () {
     var fileName = $(this).val().split("\\").pop() || "No file chosen";
@@ -496,6 +486,48 @@ $("#crop-clear").on('click', () => {
 
 });
 // -------------------------- The end - when click crop clear button --------------------------
+
+
+
+// -------------------------- The start - when click view all crops button --------------------------
+$("#viewAllCrops").on('click', function () {
+
+    $.ajax({
+        url: "http://localhost:5052/cropMonitoringSystem/api/v1/crops",
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        success : function (results) {
+            console.log(results)
+
+            // Clear the existing table body
+            $('#all-crops-tbl-tbody').empty();
+
+            // Iterate over the results and append rows to the table
+            results.forEach(function(crop) {
+                let row = `
+                    <tr>
+                        <td>${crop.cropCommonName}</td>
+                        <td>-</td>
+                        <td>${crop.cropCategory}</td>
+                    </tr>
+                   
+                    
+                `;
+                $('#all-crops-tbl-tbody').append(row);
+                $("#all-crops-tbl-tbody").css("font-weight", 600);
+            });
+        },
+        error : function (error) {
+            console.log(error)
+            alert('Can not get all crops...')
+        }
+    })
+
+});
+// -------------------------- The end - when click view all crops button --------------------------
+
 
 
 
