@@ -3,7 +3,8 @@ $(document).ready(function () {
     loadCropsTable();
 });
 
-var cropRecordIndex;
+
+
 
 // upload crop image
 $('#cropImage').on('change', function () {
@@ -30,10 +31,18 @@ $('#cropImage').on('change', function () {
     }
 });
 
+
+
+
+
 // When the custom upload button is clicked, trigger the file input click
 $(".btn-custom-file").on("click", function () {
     $("#cropImage").trigger("click");
 });
+
+
+
+
 
 // When a file is selected, update the file name display
 $("#cropImage").on("change", function () {
@@ -41,15 +50,12 @@ $("#cropImage").on("change", function () {
     $("#fileName").text(fileName);
 });
 
-/*// When select add crop modal, want to load combobox
-$('#newCropBtn').click(function () {
-
-});*/
 
 
 
 // -------------------------- The start - crop table loading --------------------------
 function loadCropsTable() {
+
     // Fetch fields first to build a lookup table
     $.ajax({
         url: "http://localhost:5052/cropMonitoringSystem/api/v1/fields", // Fields API
@@ -58,7 +64,6 @@ function loadCropsTable() {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
         },
         success: function (fields) {
-            // Build a lookup table for fields
             const fieldLookup = {};
             fields.forEach(field => {
                 fieldLookup[field.fieldCode] = field.fieldName; // Map fieldCode to fieldName
@@ -72,38 +77,42 @@ function loadCropsTable() {
                     'Authorization': 'Bearer ' + localStorage.getItem('token')
                 },
                 success: function (results) {
-                    console.log(results);
                     $('#crop-tbl-tbody').empty(); // Clear existing table body
 
-                    // Iterate over crops and append rows with field names
                     results.forEach(function (crop) {
-                        const fieldName = fieldLookup[crop.fieldCode] || "No Field Name"; // Match fieldCode to fieldName
+                        const fieldName = fieldLookup[crop.fieldCode] || "No Field Name";
+                        const imageLink = crop.cropImage
+                            ? `<a href="#" class="view-crop-image" data-image="${crop.cropImage}">Crop Image</a>`
+                            : "No Image";
+
                         let row = `
                             <tr>
-                                <td class="crop-common-name-value">${crop.cropCommonName}</td>
-                                <td class="crop-scientific-name-value">${crop.cropScientificName}</td>
-                                <td class="crop-category-value">${crop.cropCategory}</td>
-                                <td class="crop-season-value">${crop.cropSeason}</td>
-                                <td class="crop-field-value">${fieldName}</td>
+                                <td>${crop.cropCommonName}</td>
+                                <td>${crop.cropScientificName}</td>
+                                <td>${crop.cropCategory}</td>
+                                <td>${crop.cropSeason}</td>
+                                <td>${fieldName}</td>
+                                <td>${imageLink}</td>
                             </tr>
                         `;
                         $('#crop-tbl-tbody').append(row);
-                        $("#crop-tbl-tbody").css("font-weight", 600);
                     });
                 },
                 error: function (error) {
-                    console.log(error);
+                    console.error("Failed to load crops:", error);
                     alert('Failed to load crop data.');
                 }
             });
         },
         error: function (error) {
-            console.error("Error fetching fields:", error);
+            console.error("Failed to fetch fields:", error);
             alert("Failed to load fields. Please try again later.");
         }
     });
 }
 // -------------------------- The end - crop table loading --------------------------
+
+
 
 
 // -------------------------- The start - Function to fetch fields and populate the select element --------------------------
@@ -182,6 +191,24 @@ $("#crop-tbl-tbody").on('click', 'tr', function () {
 
 // -------------------------- The end - when click a crop table row --------------------------
 
+
+
+// -------------------------- The start - Handle click event for viewing crop image --------------------------
+$('#crop-tbl-tbody').on('click', '.view-crop-image', function (e) {
+    e.preventDefault(); // Prevent default link behavior
+
+    const base64Image = $(this).data('image'); // Get the base64 image from the data attribute
+
+    if (base64Image) {
+        // Set the base64 image in the modal
+        $('#seeCropImage').attr('src', `data:image/jpeg;base64,${base64Image}`);
+        // Show the modal
+        $('#imagePreviewModal').modal('show');
+    } else {
+        alert("No image available for this crop.");
+    }
+});
+// -------------------------- The end - Handle click event for viewing crop image --------------------------
 
 
 
