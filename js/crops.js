@@ -167,6 +167,7 @@ $("#crop-tbl-tbody").on('click', 'tr', function (e) {
     } else {
         $("#previewImage").hide(); // Hide the image element if no image
         $("#noImageText").show(); // Show the 'No image selected' text
+        $("#cropImageText").text("please again select an image...");
     }
 
     // Find the fieldCode for the cropFieldName
@@ -235,7 +236,7 @@ $("#crop-save").on('click', () => {
     console.log("cropCategory: " , cropCategory);
     console.log("cropSeason: " , cropSeason);
 
-    let cropValidated = checkCropValidation(cropCommonName, cropScientificName, cropCategory, cropSeason);
+    let cropValidated = checkCropValidation(cropCommonName, cropScientificName, cropCategory, cropSeason, fieldCode, cropImage);
 
     if(cropValidated) {
 
@@ -314,7 +315,7 @@ $("#crop-update").on('click', () => {
     const cropSeason = $("#cropSeason").val();
     const cropImage = $("#cropImage")[0].files[0];
 
-    let cropValidated = checkCropValidation(cropCommonName, cropScientificName, cropCategory, cropSeason);
+    let cropValidated = checkCropValidation(cropCommonName, cropScientificName, cropCategory, cropSeason, fieldCode, cropImage);
 
     if(cropValidated) {
 
@@ -404,65 +405,64 @@ $("#crop-delete").on('click', () => {
     const cropCommonName = $("#cropCommonName").val();
     const cropCategory = $("#cropCategory").val();
 
-    let cropValidated = checkCropValidation(cropCommonName, cropCategory);
+    // Find the crop code for the cropCommonName
+    $.ajax({
+        url: "http://localhost:5052/cropMonitoringSystem/api/v1/crops",
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        success: function (results) {
+            // Find the crop matching the input
+            const crop = results.find(crop => (crop.cropCommonName === cropCommonName) && (crop.cropCategory === cropCategory));
+            if (crop) {
+                const cropCode = crop.cropCode; // Set the crop code
+                console.log("Crop code: ", cropCode);
 
-    if(cropValidated) {
+                // Send the DELETE request
+                $.ajax({
+                    url: `http://localhost:5052/cropMonitoringSystem/api/v1/crops/${cropCode}`,
+                    type: "DELETE",
+                    headers: {
+                        "Authorization": "Bearer " + localStorage.getItem("token")
+                    },
+                    success: function () {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Crop deleted successfully!',
+                            showConfirmButton: false,
+                            timer: 1500,
+                            iconColor: 'rgba(131,193,170,0.79)'
+                        });
 
-        // Find the crop code for the cropCommonName
-        $.ajax({
-            url: "http://localhost:5052/cropMonitoringSystem/api/v1/crops",
-            method: 'GET',
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('token')
-            },
-            success: function (results) {
-                // Find the crop matching the input
-                const crop = results.find(crop => (crop.cropCommonName === cropCommonName) && (crop.cropCategory === cropCategory));
-                if (crop) {
-                    const cropCode = crop.cropCode; // Set the crop code
-                    console.log("Crop code: ", cropCode);
+                        // load the table
+                        loadCropsTable()
 
-                    // Send the DELETE request
-                    $.ajax({
-                        url: `http://localhost:5052/cropMonitoringSystem/api/v1/crops/${cropCode}`,
-                        type: "DELETE",
-                        headers: {
-                            "Authorization": "Bearer " + localStorage.getItem("token")
-                        },
-                        success: function () {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Crop deleted successfully!',
-                                showConfirmButton: false,
-                                timer: 1500,
-                                iconColor: 'rgba(131,193,170,0.79)'
-                            });
+                        // Reset the form
+                        $("#newCropModal form").trigger('reset');
 
-                            // Reset the form
-                            $("#newCropModal form").trigger('reset');
+                        // Reset image preview
+                        $("#previewImage").attr("src", "#").hide();
+                        $("#noImageText").show();
+                        $("#cropImageText").hide();
+                    },
+                    error: function (error) {
+                        console.error("Error deleting crop:", error);
+                        showErrorAlert('Crop not deleted...');
+                    }
+                });
 
-                            // Reset image preview
-                            $("#previewImage").attr("src", "#").hide();
-                            $("#noImageText").show();
-                            $("#cropImageText").hide();
-                        },
-                        error: function (error) {
-                            console.error("Error deleting crop:", error);
-                            showErrorAlert('Crop not deleted...');
-                        }
-                    });
-
-                } else {
-                    console.warn("Crop not found:", cropCommonName);
-                    showErrorAlert('Crop not found for the given details.');
-                }
-            },
-            error: function (error) {
-                console.error("Error fetching crops:", error);
-                showErrorAlert('Error fetching crop data.');
+            } else {
+                console.warn("Crop not found:", cropCommonName);
+                showErrorAlert('Crop not found for the given details.');
             }
-        });
-    }
+        },
+        error: function (error) {
+            console.error("Error fetching crops:", error);
+            showErrorAlert('Error fetching crop data.');
+        }
+    });
+
 });
 // -------------------------- The end - when click crop delete button --------------------------
 
@@ -609,13 +609,13 @@ $("#crop-search-modal-close").on('click', function () {
 
 
 //-------------------------- The start - check crop validations --------------------------
-function checkCropValidation(commonName, scientificName, category, season) {
+function checkCropValidation(commonName, scientificName, category, season, fieldCode, cropImage) {
 
     if(!commonName){    //check commonName field is empty or not
         showErrorAlert("Common Name is required!")
         return false;
     } else {
-        if(!/^[A-Za-z ]{2,40}$/.test(commonName)){
+        if(!/^[A-Za-z /-]{2,40}$/.test(commonName)){
             showErrorAlert("Please enter a valid name!  Pattern - 'Rice'")
             return false;
         }
@@ -625,8 +625,8 @@ function checkCropValidation(commonName, scientificName, category, season) {
         showErrorAlert("Scientific Name is required!");
         return false;
     } else {
-        if(!/^[A-Za-z ]{2,40}$/.test(scientificName)){
-            showErrorAlert("Please enter a valid name!  Pattern - 'Oryza sativa'")
+        if(!/^[A-Za-z /-]{2,40}$/.test(scientificName)){
+            showErrorAlert("Please enter a valid name!  Pattern - 'Oryza Sativa'")
             return false;
         }
     }
@@ -635,7 +635,7 @@ function checkCropValidation(commonName, scientificName, category, season) {
         showErrorAlert("Category is required!");
         return false;
     } else {
-        if(!/^[A-Za-z ]{2,40}$/.test(category)){
+        if(!/^[A-Z]{2,4} - \d+$/.test(category)){
             showErrorAlert("Please enter a valid category! Pattern - 'BG - 34'")
             return false;
         }
@@ -645,10 +645,20 @@ function checkCropValidation(commonName, scientificName, category, season) {
         showErrorAlert("Season is required!");
         return false;
     } else {
-        if(!/^[A-Za-z ]{2,40}$/.test(season)){
+        if(!/^[A-Za-z /-]{2,40}$/.test(season)){
             showErrorAlert("Please enter a valid season! Pattern - 'Feb-July'")
             return false;
         }
+    }
+
+    if(fieldCode === "Choose a field"){ //check fieldCode field is empty or not
+        showErrorAlert("Field Code is required!");
+        return false;
+    }
+
+    if(!cropImage){ //check cropImage field is empty or not
+        showErrorAlert("Crop Image is required!");
+        return false;
     }
 
     return true;
