@@ -120,6 +120,10 @@ input:hover{
     background-color: rgba(195, 239, 214, 0.85);
 }
 
+.all-crops-table {
+    opacity: 0.7;
+}
+
 .crop-table {
     position: absolute;
     height: 48%;

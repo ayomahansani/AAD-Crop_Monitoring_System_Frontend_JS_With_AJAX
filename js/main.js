@@ -1,3 +1,5 @@
+import {loadCropsCount} from "./crops.js";
+
 var css1 = {
     display:"none"
 }
@@ -104,10 +106,12 @@ $(document).ready(function() { // This function runs when the document is ready
         $("#register-form-section").css(css1);
     });
 
+    // set all crop count to the home page's customer card
+    loadCropsCount();
+
 
 
     // <!------------------------ Sign-Up ------------------------>
-
     $('#signUpBtn').click(function () {
 
         const email = $('#signup-username').val();

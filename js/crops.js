@@ -104,6 +104,28 @@ function loadCropsTable() {
 
 
 
+// -------------------------- The start - crop's count loading --------------------------
+export function loadCropsCount() {
+
+    $.ajax({
+        url: "http://localhost:5052/cropMonitoringSystem/api/v1/crops", // Crops API
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        success : function (results) {
+            $("#crop-count").html(results.length);
+        },
+        error : function (error) {
+            console.log(error)
+        }
+    })
+}
+// -------------------------- The end - crop's count loading --------------------------
+
+
+
+
 // -------------------------- The start - Function to fetch fields and populate the select element --------------------------
 function loadFieldNamesComboBoxAndSetFieldCodes() {
     $.ajax({
