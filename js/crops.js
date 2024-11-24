@@ -705,7 +705,7 @@ function searchedCropInputsClear(){
 
 
 //-------------------------- The start - show error alert --------------------------
-function showErrorAlert(message){
+export function showErrorAlert(message){
     Swal.fire({
         icon: 'error',
         title: 'Oops...',
