@@ -160,7 +160,7 @@
 
     </header>
 
-    <!--dashboard section -->
+    <!-- dashboard section -->
     <section id="dashboard-section" class="main-content">
         <!-- Content -->
         <div class="">
@@ -224,7 +224,7 @@
     </section>
 
 
-    <!--crops section -->
+    <!-- crops section -->
     <section id="crop-section">
 
         <!-- Main Section -->
@@ -306,6 +306,92 @@
         <!-- End Main Section -->
 
     </section>
+    <!-- end crops section -->
+
+
+    <!-- equipments section -->
+    <section id="equipment-section">
+
+        <!-- Main Section -->
+        <div class="main-content main-section">
+
+            <!-- up section -->
+            <div class="search-crop">
+
+                <form class="row">
+
+                    <!-- equipment search -->
+                    <div class="col-8 col-sm-6 col-md-4 col-lg-4 pb-4">
+                        <label for="searchEquipment" class="form-label fw-semibold">Search Equipment</label>
+                        <input type="search" class="form-control search-input" id="searchEquipment" placeholder="Input Name Here">
+                    </div>
+                    <div class="col-4 col-sm-6 col-md-3 col-lg-3 pb-4">
+                        <button type="button" class="btn search-btn" id="equipment-search-btn" data-bs-toggle="modal" data-bs-target="#equipmentDetailsModal">
+                            Search
+                            <span class="search"><i class="bi bi-search"></i></span>
+                        </button>
+                    </div>
+                    <!-- end equipment search -->
+
+                    <!-- buttons -->
+                    <div class="col-6 col-sm-4 col-md-2 col-lg-2 pb-1">
+                        <a href="" id="newEquipmentBtn" role="button" class="btn" data-bs-toggle="modal" data-bs-target="#newEquipmentModal">
+                            <span class="add-to-cart"><i class="bi bi-plus-circle-fill"></i></span>
+                            New Equipment
+                        </a>
+                    </div>
+                    <div class="col-6 col-sm-4 col-md-2 col-lg-2 pb-1">
+                        <a href="" id="viewAllEquipment" role="button" class="btn" data-bs-toggle="modal" data-bs-target="#viewAllEquipmentsModal">
+                            <span class="view"><i class="bi bi-eye-fill"></i></span>
+                            All Equipments
+                        </a>
+                    </div>
+                    <!-- end buttons -->
+
+                    <!-- right image -->
+                    <div class="col-12 col-sm-4 col-md-1 col-lg-1 pb-1">
+                        <img src="assets/icon/crop_page_crops.png" class="equipment-page-photo" alt="equipments photo">
+                    </div>
+                    <!-- end right image -->
+
+                </form>
+
+            </div>
+            <!-- end up section -->
+
+            <!-- equipments table -->
+            <div class="equipment-table">
+
+                <div class="scrollable">
+
+                    <table class="table table-success table-striped table-bordered border-dark table-hover table-sm">
+                        <thead class="table-dark">
+                        <tr class="table-success">
+                            <th scope="col">Name</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Season</th>
+                            <th scope="col">Field</th>
+                            <th scope="col">Staff</th>
+                        </tr>
+                        </thead>
+
+                        <tbody id="equipment-tbl-tbody" class="table-group-divider">
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+            <!-- end equipments table -->
+
+        </div>
+        <!-- End Main Section -->
+
+    </section>
+    <!-- end equipments section -->
 
 
 </section>
