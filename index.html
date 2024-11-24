@@ -404,7 +404,6 @@
 
 <!-- -------- Crop Modals -------- -->
 
-
 <!-- Search Crop Modal -->
 <div class="modal fade" id="cropDetailsModal" tabindex="-1" aria-labelledby="cropDetailsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-sm">
@@ -606,12 +605,10 @@
     </div>
 </div>
 
-
 <!-- -------- End Crop Modals -------- -->
 
 
 <!-- -------- Equipment Modals -------- -->
-
 
 <!-- Search Equipment Modal -->
 <div class="modal fade" id="equipmentDetailsModal" tabindex="-1" aria-labelledby="equipmentDetailsModalLabel" aria-hidden="true">
@@ -744,6 +741,37 @@
 
 </div>
 <!-- End Add New Equipment Modal -->
+
+<!-- View All Equipments Modal -->
+<div class="modal fade" id="viewAllEquipmentsModal" tabindex="-1" aria-labelledby="viewAllEquipmentsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header text-center">
+                <h1 class="modal-title fs-5" id="viewAllEquipmentsModalLabel">
+                    All Equipments
+                    <span class="all-crops"><i class="fas fa-seedling"></i></span>
+                    <span class="all-crops"><i class="fas fa-seedling"></i></span>
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body text-center">
+
+                <table class="table table-success table-striped table-hover table-sm all-equipments-table">
+
+                    <tbody id="all-equipments-tbl-tbody">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- End View All Equipments Modal -->
 
 
 <!-- -------- End Equipment Modals -------- -->
