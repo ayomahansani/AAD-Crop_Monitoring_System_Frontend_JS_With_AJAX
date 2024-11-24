@@ -167,6 +167,74 @@ function staffNamesComboBoxForEquipmentForm() {
 
 
 
+// -------------------------- The start - when click a equipment table row --------------------------
+$("#equipment-tbl-tbody").on('click', 'tr', function (e) {
+
+    // Extract values from the clicked row
+    let equipmentName = $(this).find(".equipment-name-value").text().trim();
+    let equipmentType = $(this).find(".equipment-type-value").text().trim();
+    let equipmentStatus = $(this).find(".equipment-status-value").text().trim();
+    let equipmentFieldName = $(this).find(".equipment-fieldName-value").text().trim();
+    let equipmentStaffName = $(this).find(".equipment-staffName-value").text().trim();
+
+    // Debug: Log extracted values
+    console.log("Equipment Field Text:", equipmentFieldName, "Equipment Staff Text:", equipmentStaffName);
+
+    // Assign values to the input fields
+    $("#equipmentName").val(equipmentName);
+    $("#equipmentType").val(equipmentType);
+    $("#equipmentStatus").val(equipmentStatus);
+
+    // Find the fieldCode for the equipmentFieldName
+    $.ajax({
+        url: "http://localhost:5052/cropMonitoringSystem/api/v1/fields",
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        success: function (fields) {
+            // Find the fieldCode that corresponds to the equipmentFieldName
+            const field = fields.find(f => f.fieldName === equipmentFieldName);
+            if (field) {
+                // Set the fieldCode as the selected value in the combobox
+                $("#fieldNamesComboBoxForEquipmentForm").val(field.fieldCode);
+            } else {
+                console.warn("Field not found for equipment:", equipmentFieldName);
+            }
+        },
+        error: function (error) {
+            console.error("Error fetching fields:", error);
+        }
+    });
+
+    // Find the staffId for the equipmentStaffName
+    $.ajax({
+        url: "http://localhost:5052/cropMonitoringSystem/api/v1/staffs",
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        success: function (staffs) {
+            // Find the fieldCode that corresponds to the equipmentFieldName
+            const staff = staffs.find(s => s.firstName === equipmentStaffName);
+            if (staff) {
+                // Set the staff id as the selected value in the combobox
+                $("#staffFirstNamesComboBoxForEquipmentForm").val(staff.staffId);
+            } else {
+                console.warn("Staff not found for equipment:", equipmentStaffName);
+            }
+        },
+        error: function (error) {
+            console.error("Error fetching staffs:", error);
+        }
+    });
+
+});
+// -------------------------- The end - when click a equipment table row --------------------------
+
+
+
+
 // -------------------------- The start - when click equipment save button --------------------------
 $("#equipment-save").on('click', () => {
 
