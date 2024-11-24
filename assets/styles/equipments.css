@@ -25,10 +25,19 @@
     background-color: rgb(17, 76, 54);
 }
 
+#newEquipmentModal .modal-body, #viewAllEquipmentsModal .modal-body, #equipmentDetailsModal .modal-body {
+    background-color: #668f78;
+    color: rgb(17, 76, 54);
+}
+
 #equipmentDetailsModal .disabled-input {
     margin-bottom: 1.2em;
     border: none;
     background-color: rgba(195, 239, 214, 0.85);
+}
+
+.all-equipments-table {
+    opacity: 0.7;
 }
 
 .equipment-table {
@@ -42,6 +51,14 @@
     box-shadow: 3px 3px 8px black;
     background-color: rgba(17, 76, 54, 0.54);
     opacity: 0.7;
+}
+
+#equipment-section .add-to-cart, #equipment-section .view {
+    margin: 0.2rem;
+}
+
+.new-equipment, .all-equipments {
+    margin-left: 0.5rem;
 }
 
 .equipment-page-photo {
