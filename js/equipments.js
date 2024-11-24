@@ -297,7 +297,7 @@ $("#equipment-save").on('click', () => {
                 });
 
                 // load the table
-                //loadCropsTable()
+                loadEquipmentsTable();
 
                 // clean the inputs values
                 $("#newEquipmentModal form").trigger('reset');
@@ -312,3 +312,103 @@ $("#equipment-save").on('click', () => {
 
 });
 // -------------------------- The end - when click equipment save button --------------------------
+
+
+
+
+// -------------------------- The start - when click equipment update button --------------------------
+$("#equipment-update").on('click', () => {
+
+    // get values from inputs
+    const equipmentName = $("#equipmentName").val();
+    const equipmentType = $("#equipmentType").val();
+    const equipmentStatus = $("#equipmentStatus").val();
+    const fieldCode = $("#fieldNamesComboBoxForEquipmentForm").val();
+    const staffId = $("#staffFirstNamesComboBoxForEquipmentForm").val();
+
+    // check whether print those values
+    console.log("equipmentName: " , equipmentName);
+    console.log("equipmentType: " , equipmentType);
+    console.log("equipmentStatus: " , equipmentStatus);
+    console.log("selectedFieldCode: " , fieldCode);
+    console.log("selectedStaffId: " , staffId);
+
+    //let cropValidated = checkCropValidation(cropCommonName, cropScientificName, cropCategory, cropSeason, fieldCode, cropImage);
+
+    //if(cropValidated) {
+
+        // Find the equipment id for the equipment name
+        $.ajax({
+            url: "http://localhost:5052/cropMonitoringSystem/api/v1/equipments",
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            success: function (results) {
+                // Find the equipment matching the input
+                const equipment = results.find(equipment => (equipment.equipmentName === equipmentName));
+                if (equipment) {
+                    const equipmentId = equipment.equipmentId; // Set the equipment id
+                    console.log("Equipment Id: ", equipmentId);
+
+                    // create an object - Object Literal
+                    let equipment = {
+                        equipmentName: equipmentName,
+                        equipmentType: equipmentType,
+                        equipmentStatus: equipmentStatus,
+                        fieldCode: fieldCode,
+                        staffId: staffId
+                    }
+
+                    // For testing
+                    console.log("JS Object : " + equipment);
+
+                    // Create JSON
+                    // convert js object to JSON object
+                    const jsonEquipment = JSON.stringify(equipment);
+                    console.log("JSON Object : " + jsonEquipment);
+
+                    // Send the PUT request
+                    $.ajax({
+                        url: `http://localhost:5052/cropMonitoringSystem/api/v1/equipments/${equipmentId}`,
+                        type: "PUT",
+                        data: jsonEquipment,
+                        processData: false, // Prevent jQuery from transforming data
+                        contentType: "application/json",
+                        headers: {
+                            "Authorization": "Bearer " + localStorage.getItem("token")
+                        },
+                        success: function () {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Equipment updated successfully!',
+                                showConfirmButton: false,
+                                timer: 1500,
+                                iconColor: 'rgba(131,193,170,0.79)'
+                            });
+
+                            // Reload the crops table
+                            loadEquipmentsTable();
+
+                            // Reset the form
+                            $("#newCropModal form").trigger('reset');
+                        },
+                        error: function (error) {
+                            console.error("Error updating crop:", error);
+                            showErrorAlert('Equipment not updated...');
+                        }
+                    });
+
+                } else {
+                    console.warn("Equipment not found:", equipmentName);
+                    showErrorAlert('Equipment not found for the given details.');
+                }
+            },
+            error: function (error) {
+                console.error("Error fetching equipments:", error);
+                showErrorAlert('Error fetching equipments data.');
+            }
+        });
+    //}
+});
+// -------------------------- The end - when click equipment update button --------------------------
