@@ -664,14 +664,14 @@
 <!-- End Crop Equipment Modal -->
 
 <!-- Add New Equipment Modal -->
-<div class="modal fade" id="newEquipmentModal" tabindex="-1" aria-labelledby="newEquipmentModalModalLabel" aria-hidden="true">
+<div class="modal fade" id="newEquipmentModal" tabindex="-1" aria-labelledby="newEquipmentModalLabel" aria-hidden="true">
 
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
 
             <div class="modal-header">
-                <h1 class="modal-title fs-5 text-center" id="newCropModalModalLabel">
-                    New Crop
+                <h1 class="modal-title fs-5 text-center" id="newEquipmentModalLabel">
+                    New Equipment
                     <span class="new-crop"><i class="fas fa-carrot"></i></span>
                 </h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -679,58 +679,35 @@
 
             <div class="modal-body">
 
-                <form enctype="multipart/form-data">
+                <form>
 
-                    <div class="row">
-                        <!-- Left Column -->
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="cropCommonName" class="form-label fw-semibold">Common Name</label>
-                                <input type="text" class="form-control search-input" id="cropCommonName">
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="cropScientificName" class="form-label fw-semibold">Scientific Name</label>
-                                <input type="text" class="form-control search-input" id="cropScientificName">
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="fieldNamesComboBox" class="form-label fw-semibold">Select Field :</label>
-                                <select class="form-select search-input" aria-label="Default select example" id="fieldNamesComboBox">
-                                    <option selected>Choose a field</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- Right Column -->
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="cropCategory" class="form-label fw-semibold">Category</label>
-                                <input type="text" class="form-control search-input" id="cropCategory">
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="cropSeason" class="form-label fw-semibold">Season</label>
-                                <input type="text" class="form-control search-input" id="cropSeason">
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="cropImage" class="form-label fw-semibold">Upload Crop Image</label>
-                                <input type="file" class="form-control mb-1" id="cropImage" accept="image/*"> <!-- File Input -->
-                                <label id="cropImageText" class="form-label"></label>
-                            </div>
-
-
-                        </div>
+                    <div class="mb-3">
+                        <label for="equipmentName" class="form-label fw-semibold">Name</label>
+                        <input type="text" class="form-control search-input" id="equipmentName">
                     </div>
 
-                    <!-- Image Preview -->
                     <div class="mb-3">
-                        <label class="form-label fw-semibold">Image Preview</label>
-                        <div id="cropImagePreview" class="border rounded p-2 text-center">
-                            <img id="previewImage" src="#" alt="Preview" class="img-fluid" style="max-height: 150px; display: none;">
-                            <p class="text-muted" id="noImageText">No image selected</p>
-                        </div>
+                        <label for="equipmentType" class="form-label fw-semibold">Type</label>
+                        <input type="text" class="form-control search-input" id="equipmentType">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="equipmentStatus" class="form-label fw-semibold">Status</label>
+                        <input type="text" class="form-control search-input" id="equipmentStatus">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="fieldNamesComboBoxForEquipmentForm" class="form-label fw-semibold">Select Field :</label>
+                        <select class="form-select search-input" aria-label="Default select example" id="fieldNamesComboBoxForEquipmentForm">
+                            <option selected>Choose a field</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="staffEmailsComboBoxForEquipmentForm" class="form-label fw-semibold">Select Field :</label>
+                        <select class="form-select search-input" aria-label="Default select example" id="staffEmailsComboBoxForEquipmentForm">
+                            <option selected>Choose a staff</option>
+                        </select>
                     </div>
 
                 </form>
@@ -740,22 +717,22 @@
 
             <div class="modal-footer">
 
-                <button type="button" id="crop-save" class="btn">
+                <button type="button" id="equipment-save" class="btn">
                     Save
                     <span><i class="bi bi-save"></i></span>
                 </button>
 
-                <button type="button" id="crop-update" class="btn">
+                <button type="button" id="equipment-update" class="btn">
                     Update
                     <span><i class="bi bi-pencil-square"></i></span>
                 </button>
 
-                <button type="button" id="crop-delete" class="btn">
+                <button type="button" id="equipment-delete" class="btn">
                     Delete
                     <span><i class="bi bi-trash3"></i></span>
                 </button>
 
-                <button type="reset" id="crop-clear" class="btn">
+                <button type="reset" id="equipment-clear" class="btn">
                     Clear
                     <span><i class="bi bi-backspace-reverse"></i></span>
                 </button>
