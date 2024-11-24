@@ -371,7 +371,6 @@
                             <th scope="col">Name</th>
                             <th scope="col">Type</th>
                             <th scope="col">Status</th>
-                            <th scope="col">Season</th>
                             <th scope="col">Field</th>
                             <th scope="col">Staff</th>
                         </tr>
@@ -402,6 +401,9 @@
 
 
 <!------------------------- Modals -------------------------->
+
+<!-- -------- Crop Modals -------- -->
+
 
 <!-- Search Crop Modal -->
 <div class="modal fade" id="cropDetailsModal" tabindex="-1" aria-labelledby="cropDetailsModalLabel" aria-hidden="true">
@@ -452,8 +454,6 @@
     </div>
 </div>
 <!-- End Crop Customer Modal -->
-
-
 
 <!-- Add New Crop Modal -->
 <div class="modal fade" id="newCropModal" tabindex="-1" aria-labelledby="newCropModalModalLabel" aria-hidden="true">
@@ -560,8 +560,6 @@
 </div>
 <!-- End Add New Crop Modal -->
 
-
-
 <!-- View All Crops Modal -->
 <div class="modal fade" id="viewAllCropsModal" tabindex="-1" aria-labelledby="viewAllCropsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -593,8 +591,6 @@
 </div>
 <!-- End View All Crops Modal -->
 
-
-
 <!-- Image Preview Modal -->
 <div class="modal fade" id="imagePreviewModal" tabindex="-1" aria-labelledby="imagePreviewModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-sm">
@@ -609,6 +605,171 @@
         </div>
     </div>
 </div>
+
+
+<!-- -------- End Crop Modals -------- -->
+
+
+<!-- -------- Equipment Modals -------- -->
+
+
+<!-- Search Equipment Modal -->
+<div class="modal fade" id="equipmentDetailsModal" tabindex="-1" aria-labelledby="equipmentDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 text-center" id="equipmentDetailsModalLabel">
+
+                </h1>
+                <button id="equipment-search-modal-close" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div id="equipment-search-modal-body" class="modal-body">
+
+                <form>
+
+                    <div class="mb-3">
+                        <label for="searchedEquipmentName" class="form-label fw-semibold">Name</label>
+                        <input type="text" class="form-control disabled-input text-center" id="searchedEquipmentName" disabled>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="searchedEquipmentType" class="form-label fw-semibold">Type</label>
+                        <input type="text" class="form-control disabled-input text-center" id="searchedEquipmentType" disabled>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="searchedEquipmentStatus" class="form-label fw-semibold">Status</label>
+                        <input type="text" class="form-control disabled-input text-center" id="searchedEquipmentStatus" disabled>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="searchedSelectedFieldForEquipment" class="form-label fw-semibold">Selected Field</label>
+                        <input type="text" class="form-control disabled-input text-center" id="searchedSelectedFieldForEquipment" disabled>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="searchedSelectedStaffForEquipment" class="form-label fw-semibold">Selected Staff</label>
+                        <input type="text" class="form-control disabled-input text-center" id="searchedSelectedStaffForEquipment" disabled>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- End Crop Equipment Modal -->
+
+<!-- Add New Equipment Modal -->
+<div class="modal fade" id="newEquipmentModal" tabindex="-1" aria-labelledby="newEquipmentModalModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 text-center" id="newCropModalModalLabel">
+                    New Crop
+                    <span class="new-crop"><i class="fas fa-carrot"></i></span>
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <form enctype="multipart/form-data">
+
+                    <div class="row">
+                        <!-- Left Column -->
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="cropCommonName" class="form-label fw-semibold">Common Name</label>
+                                <input type="text" class="form-control search-input" id="cropCommonName">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="cropScientificName" class="form-label fw-semibold">Scientific Name</label>
+                                <input type="text" class="form-control search-input" id="cropScientificName">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="fieldNamesComboBox" class="form-label fw-semibold">Select Field :</label>
+                                <select class="form-select search-input" aria-label="Default select example" id="fieldNamesComboBox">
+                                    <option selected>Choose a field</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Right Column -->
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="cropCategory" class="form-label fw-semibold">Category</label>
+                                <input type="text" class="form-control search-input" id="cropCategory">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="cropSeason" class="form-label fw-semibold">Season</label>
+                                <input type="text" class="form-control search-input" id="cropSeason">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="cropImage" class="form-label fw-semibold">Upload Crop Image</label>
+                                <input type="file" class="form-control mb-1" id="cropImage" accept="image/*"> <!-- File Input -->
+                                <label id="cropImageText" class="form-label"></label>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <!-- Image Preview -->
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Image Preview</label>
+                        <div id="cropImagePreview" class="border rounded p-2 text-center">
+                            <img id="previewImage" src="#" alt="Preview" class="img-fluid" style="max-height: 150px; display: none;">
+                            <p class="text-muted" id="noImageText">No image selected</p>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+
+
+            <div class="modal-footer">
+
+                <button type="button" id="crop-save" class="btn">
+                    Save
+                    <span><i class="bi bi-save"></i></span>
+                </button>
+
+                <button type="button" id="crop-update" class="btn">
+                    Update
+                    <span><i class="bi bi-pencil-square"></i></span>
+                </button>
+
+                <button type="button" id="crop-delete" class="btn">
+                    Delete
+                    <span><i class="bi bi-trash3"></i></span>
+                </button>
+
+                <button type="reset" id="crop-clear" class="btn">
+                    Clear
+                    <span><i class="bi bi-backspace-reverse"></i></span>
+                </button>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<!-- End Add New Equipment Modal -->
+
+
+<!-- -------- End Equipment Modals -------- -->
 
 <!------------------------- Modals -------------------------->
 

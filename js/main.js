@@ -1,93 +1,18 @@
 import {loadCropsCount} from "./crops.js";
 
+
+
 var css1 = {
     display:"none"
 }
 var css2 ={
     display: "block",
-
 }
 
-function showSection(sectionId){
-    $("#dashboard-section").css(css1);
-    $(`#${sectionId}`).css(css2);
-}
-
-// Set up click listeners for each navigation item
-$("#nav-dashboard").click(function () {
-    handleNavClick($(this).attr("id"), "Dashboard");
-});
-$("#nav-field").click(function () {
-    handleNavClick($(this).attr("id"), "Field Management");
-});
-$("#nav-crop").click(function () {
-    handleNavClick($(this).attr("id"), "Crops Management");
-});
-$("#nav-equipment").click(function () {
-    handleNavClick($(this).attr("id"), "Equipment Management");
-});
-$("#nav-logs").click(function () {
-    handleNavClick($(this).attr("id"), "Monitoring Logs");
-});
-$("#nav-staff").click(function () {
-    handleNavClick($(this).attr("id"), "Staff Management");
-});
-$("#nav-vehicles").click(function () {
-    handleNavClick($(this).attr("id"), "Vehicles Management");
-});
 
 
-function handleNavClick(clickedElementId,title){
 
-    $(".dashboard-topic").text(title);
-
-    switch (clickedElementId) {
-        case "nav-dashboard":
-            showSection("dashboard-section");
-            break;
-        case "nav-field":
-            showSection("field-section");
-            break;
-        case "nav-crop":
-            showSection("crop-section");
-            break;
-        case "nav-equipment":
-            showSection("equipment-section");
-            break;
-
-        case "nav-logs":
-            showSection("logs-section");
-            break;
-
-        case "nav-staff":
-            showSection("staff-section");
-            break;
-
-        case "nav-vehicles":
-            showSection("vehicle-section");
-            break;
-
-        case "nav-profile":
-            showSection("profile-section");
-
-    }
-}
-
-//-------------------------- The start - show error alert --------------------------
-function showErrorAlert(message){
-    Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: message,
-        width: '38em',
-        confirmButtonColor: 'rgba(17, 76, 54, 0.79)',
-        iconColor: 'rgba(131,193,170,0.79)',
-    });
-}
-//-------------------------- The end - show error alert --------------------------
-
-
-$(document).ready(function() { // This function runs when the document is ready
+$(document).ready(function() {
 
     // hide unwanted sections
     $("#home-section").css(css1);
@@ -201,3 +126,97 @@ $(document).ready(function() { // This function runs when the document is ready
 
 
 });
+
+
+
+
+// Set up click listeners for each navigation item
+$("#nav-dashboard").click(function () {
+    handleNavClick($(this).attr("id"), "Dashboard");
+});
+$("#nav-field").click(function () {
+    handleNavClick($(this).attr("id"), "Field Management");
+});
+$("#nav-crop").click(function () {
+    handleNavClick($(this).attr("id"), "Crops Management");
+});
+$("#nav-equipment").click(function () {
+    handleNavClick($(this).attr("id"), "Equipment Management");
+});
+$("#nav-logs").click(function () {
+    handleNavClick($(this).attr("id"), "Monitoring Logs");
+});
+$("#nav-staff").click(function () {
+    handleNavClick($(this).attr("id"), "Staff Management");
+});
+$("#nav-vehicles").click(function () {
+    handleNavClick($(this).attr("id"), "Vehicles Management");
+});
+
+
+
+
+//-------------------------- The start - handle navbar clicking--------------------------
+function handleNavClick(clickedElementId,title){
+
+    $(".dashboard-topic").text(title);
+
+    switch (clickedElementId) {
+        case "nav-dashboard":
+            showSection("dashboard-section");
+            break;
+        case "nav-field":
+            showSection("field-section");
+            break;
+        case "nav-crop":
+            showSection("crop-section");
+            break;
+        case "nav-equipment":
+            showSection("equipment-section");
+            break;
+        case "nav-logs":
+            showSection("logs-section");
+            break;
+
+        case "nav-staff":
+            showSection("staff-section");
+            break;
+
+        case "nav-vehicles":
+            showSection("vehicle-section");
+            break;
+
+        case "nav-profile":
+            showSection("profile-section");
+
+    }
+}
+//-------------------------- The end - handle navbar clicking --------------------------
+
+
+
+
+//-------------------------- The start - show section --------------------------
+function showSection(sectionId){
+    $("#dashboard-section").css(css1);
+    $("#crop-section").css(css1);
+    $("#equipment-section").css(css1);
+    $(`#${sectionId}`).css(css2);
+}
+//-------------------------- The end - show section --------------------------
+
+
+
+
+//-------------------------- The start - show error alert --------------------------
+function showErrorAlert(message){
+    Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: message,
+        width: '38em',
+        confirmButtonColor: 'rgba(17, 76, 54, 0.79)',
+        iconColor: 'rgba(131,193,170,0.79)',
+    });
+}
+//-------------------------- The end - show error alert --------------------------
