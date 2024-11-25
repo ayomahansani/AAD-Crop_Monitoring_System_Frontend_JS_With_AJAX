@@ -3,6 +3,70 @@ import {showErrorAlert} from "./crops.js";
 
 
 
+// -------------------------- The start - staff table loading --------------------------
+function loadStaffTable() {
+
+    // Fetch fields first to build a lookup table
+    $.ajax({
+        url: "http://localhost:5052/cropMonitoringSystem/api/v1/fields", // Fields API
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        success: function (fields) {
+            const fieldLookup = {};
+            fields.forEach(field => {
+                fieldLookup[field.fieldCode] = field.fieldName; // Map fieldCode to fieldName
+            });
+
+            // Fetch staffs and populate the table
+            $.ajax({
+                url: "http://localhost:5052/cropMonitoringSystem/api/v1/staffs", // Staffs API
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                },
+                success: function (results) {
+                    $('#staff-tbl-tbody').empty(); // Clear existing table body
+
+                    results.forEach(function (staff) {
+                        const fieldNames = [fieldLookup[staff.fieldIds]];
+
+                        let row = `
+                            <tr>
+                                <td class="crop-common-name-value" >${staff.firstName}</td>
+                                <td class="crop-scientific-name-value" >${staff.lastName}</td>
+                                <td class="crop-category-value" >${staff.email}</td>
+                                <td class="crop-season-value" >${staff.gender}</td>
+                                <td class="crop-season-value" >${staff.address}</td>
+                                <td class="crop-season-value" >${staff.dob}</td>
+                                <td class="crop-season-value" >${staff.contactNo}</td>
+                                <td class="crop-season-value" >${staff.joinedDate}</td>
+                                <td class="crop-season-value" >${staff.designation}</td>
+                                <td class="crop-field-value" >${staff.role}</td>
+                                <td class="crop-field-value" >${fieldNames}</td>
+                            </tr>
+                        `;
+                        $('#staff-tbl-tbody').append(row);
+                    });
+                },
+                error: function (error) {
+                    console.error("Failed to load staffs:", error);
+                    alert('Failed to load staff data.');
+                }
+            });
+        },
+        error: function (error) {
+            console.error("Failed to fetch fields:", error);
+            alert("Failed to load fields. Please try again later.");
+        }
+    });
+}
+// -------------------------- The end - staff table loading --------------------------
+
+
+
+
 // -------------------------- The start - Function to fetch fields and populate the select element --------------------------
 function loadFieldNamesComboBoxAndSetFieldCodes() {
     $.ajax({
