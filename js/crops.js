@@ -218,6 +218,7 @@ $("#crop-tbl-tbody").on('click', 'tr', function (e) {
 
 
 
+
 // -------------------------- The start - Handle click event for viewing crop image --------------------------
 $('#crop-tbl-tbody').on('click', '.view-crop-image', function (e) {
     e.preventDefault(); // Prevent default link behavior
@@ -237,6 +238,7 @@ $('#crop-tbl-tbody').on('click', '.view-crop-image', function (e) {
     e.stopPropagation();
 });
 // -------------------------- The end - Handle click event for viewing crop image --------------------------
+
 
 
 
@@ -323,6 +325,7 @@ $("#crop-save").on('click', () => {
 
 });
 // -------------------------- The end - when click crop save button --------------------------
+
 
 
 
@@ -420,6 +423,7 @@ $("#crop-update").on('click', () => {
 
 
 
+
 // -------------------------- The start - when click crop delete button --------------------------
 $("#crop-delete").on('click', () => {
 
@@ -490,6 +494,7 @@ $("#crop-delete").on('click', () => {
 
 
 
+
 // -------------------------- The start - when click crop clear button --------------------------
 $("#crop-clear").on('click', () => {
 
@@ -502,6 +507,7 @@ $("#crop-clear").on('click', () => {
 
 });
 // -------------------------- The end - when click crop clear button --------------------------
+
 
 
 
@@ -543,6 +549,7 @@ $("#viewAllCrops").on('click', function () {
 
 });
 // -------------------------- The end - when click view all crops button --------------------------
+
 
 
 
@@ -620,6 +627,7 @@ $("#crop-search-btn").on('click', function () {
 
 
 
+
 // -------------------------- The start - clear the crop search bar's value --------------------------
 $("#crop-search-modal-close").on('click', function () {
 
@@ -627,6 +635,7 @@ $("#crop-search-modal-close").on('click', function () {
 
 });
 // -------------------------- The end - clear the crop search bar's value --------------------------
+
 
 
 
@@ -690,6 +699,7 @@ function checkCropValidation(commonName, scientificName, category, season, field
 
 
 
+
 //-------------------------- The start - clear searched inputs --------------------------
 function searchedCropInputsClear(){
     $("#searchedCropCommonName").val("");
@@ -701,6 +711,7 @@ function searchedCropInputsClear(){
     $("#cropDetailsModalLabel").html("Crop Details");
 }
 //-------------------------- The end - clear searched inputs --------------------------
+
 
 
 

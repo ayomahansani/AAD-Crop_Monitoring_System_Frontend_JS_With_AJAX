@@ -390,8 +390,8 @@ $("#equipment-update").on('click', () => {
                             // Reload the crops table
                             loadEquipmentsTable();
 
-                            // Reset the form
-                            $("#newCropModal form").trigger('reset');
+                            // clean the inputs values
+                            $("#newEquipmentModal form").trigger('reset');
                         },
                         error: function (error) {
                             console.error("Error updating crop:", error);
@@ -412,3 +412,205 @@ $("#equipment-update").on('click', () => {
     //}
 });
 // -------------------------- The end - when click equipment update button --------------------------
+
+
+
+
+// -------------------------- The start - when click equipment delete button --------------------------
+$("#equipment-delete").on('click', () => {
+
+    // Get values from inputs
+    const equipmentName = $("#equipmentName").val();
+
+    // Find the crop code for the cropCommonName
+    $.ajax({
+        url: "http://localhost:5052/cropMonitoringSystem/api/v1/equipments",
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        success: function (results) {
+            // Find the equipment matching the input
+            const equipment = results.find(equipment => (equipment.equipmentName === equipmentName));
+            if (equipment) {
+                const equipmentId = equipment.equipmentId; // Set the equipment id
+                console.log("Equipment Id: ", equipmentId);
+
+                // Send the DELETE request
+                $.ajax({
+                    url: `http://localhost:5052/cropMonitoringSystem/api/v1/equipments/${equipmentId}`,
+                    type: "DELETE",
+                    headers: {
+                        "Authorization": "Bearer " + localStorage.getItem("token")
+                    },
+                    success: function () {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Equipment deleted successfully!',
+                            showConfirmButton: false,
+                            timer: 1500,
+                            iconColor: 'rgba(131,193,170,0.79)'
+                        });
+
+                        // load the table
+                        loadEquipmentsTable();
+
+                        // clean the inputs values
+                        $("#newEquipmentModal form").trigger('reset');
+                    },
+                    error: function (error) {
+                        console.error("Error deleting equipment:", error);
+                        showErrorAlert('Equipment not deleted...');
+                    }
+                });
+
+            } else {
+                console.warn("Equipment not found:", equipmentName);
+                showErrorAlert('Equipment not found for the given details.');
+            }
+        },
+        error: function (error) {
+            console.error("Error fetching equipments:", error);
+            showErrorAlert('Error fetching equipment data.');
+        }
+    });
+
+});
+// -------------------------- The end - when click equipment delete button --------------------------
+
+
+
+
+// -------------------------- The start - when click equipment clear button --------------------------
+$("#equipment-clear").on('click', () => {
+
+    $("#newEquipmentModal form").trigger('reset');
+
+});
+// -------------------------- The end - when click equipment clear button --------------------------
+
+
+
+
+// -------------------------- The start - when click view all equipments button --------------------------
+$("#viewAllEquipment").on('click', function () {
+
+    $.ajax({
+        url: "http://localhost:5052/cropMonitoringSystem/api/v1/equipments",
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        success : function (results) {
+            console.log(results)
+
+            // Clear the existing table body
+            $('#all-equipments-tbl-tbody').empty();
+
+            // Iterate over the results and append rows to the table
+            results.forEach(function(equipment) {
+                let row = `
+                    <tr>
+                        <td>${equipment.equipmentName}</td>
+                    </tr>
+                `;
+                $('#all-equipments-tbl-tbody').append(row);
+                $("#all-equipments-tbl-tbody").css("font-weight", 600);
+            });
+        },
+        error : function (error) {
+            console.log(error)
+            alert('Can not get all equipments...')
+        }
+    })
+
+});
+// -------------------------- The end - when click view all equipments button --------------------------
+
+
+
+
+// -------------------------- The start - when click equipment search button --------------------------
+$("#equipment-search-btn").on('click', function () {
+
+    var equipmentDetail = $("#searchEquipment").val();
+
+    $.ajax({
+        url: "http://localhost:5052/cropMonitoringSystem/api/v1/equipments",
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        success : function (results) {
+
+            if (results.length !== 0) {
+
+                for (let i=0; i<results.length; i++) {
+
+                    if (results[i].equipmentName === equipmentDetail) {
+                        $("#searchedEquipmentName").val(results[i].equipmentName);
+                        $("#searchedEquipmentType").val(results[i].equipmentType);
+                        $("#searchedEquipmentStatus").val(results[i].equipmentStatus);
+
+                        $.ajax({
+                            url: "http://localhost:5052/cropMonitoringSystem/api/v1/fields/" + results[i].fieldCode,
+                            method: 'GET',
+                            headers: {
+                                'Authorization': 'Bearer ' + localStorage.getItem('token')
+                            },
+                            success : function (fieldDTO) {
+                                $("#searchedSelectedFieldForEquipment").val(fieldDTO.fieldName);
+                            },
+                            error : function (error) {
+                                console.log(error)
+                            }
+                        })
+
+                        $.ajax({
+                            url: "http://localhost:5052/cropMonitoringSystem/api/v1/staffs/" + results[i].staffId,
+                            method: 'GET',
+                            headers: {
+                                'Authorization': 'Bearer ' + localStorage.getItem('token')
+                            },
+                            success : function (fieldDTO) {
+                                $("#searchedSelectedFieldForEquipment").val(fieldDTO.fieldName);
+                            },
+                            error : function (error) {
+                                console.log(error)
+                            }
+                        })
+
+                        $("#cropDetailsModalLabel").html("Crop Details");
+
+                        return;
+                    }
+
+                }
+
+                if(cropDetail !== "") {
+
+                    showErrorAlert("Can't find crop ! Try again...");
+                    //searchedCropInputsClear();
+
+                } else {
+
+                    showErrorAlert("Please enter crop category to search !");
+                    //searchedCropInputsClear();
+
+                }
+
+            } else {
+
+                showErrorAlert("First you need to add equipments ! Then you can search...");
+                //searchedCropInputsClear();
+
+            }
+
+        },
+        error : function (error) {
+            console.log(error)
+        }
+    })
+
+});
+// -------------------------- The end - when click equipment search button --------------------------
