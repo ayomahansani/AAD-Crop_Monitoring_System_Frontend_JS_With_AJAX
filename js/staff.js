@@ -74,9 +74,15 @@ $("#staff-save").on('click', () => {
     const designation = $("#staffDesignation").val();
     const role = $("#staffRole").val();
 
-    const assignedFields = [];
+    // Get all selected field IDs
+    const assignedFields= [];
 
-
+    $(".fieldForStaff").each(function () {
+        const fieldId = $(this).val();
+        if (fieldId) {
+            assignedFields.push(fieldId);
+        }
+    });
 
     // check whether print those values
     console.log("firstName: " , firstName);
@@ -89,36 +95,42 @@ $("#staff-save").on('click', () => {
     console.log("joinedDate: " , joinedDate);
     console.log("designation: " , designation);
     console.log("role: " , role);
+    console.log("assignedFields: " , assignedFields);
 
     //let cropValidated = checkCropValidation(cropCommonName, cropScientificName, cropCategory, cropSeason, fieldCode, cropImage);
 
     //if(cropValidated) {
 
-        // Create a FormData object to send data as multipart/form-data
-        let formData = new FormData();
-        formData.append("cropCommonName", cropCommonName);
-        formData.append("cropScientificName", cropScientificName);
-        formData.append("cropCategory", cropCategory);
-        formData.append("cropSeason", cropSeason);
-        formData.append("fieldCode", fieldCode);
-
-        // Check if file is selected
-        if (cropImage) {
-            formData.append("cropImage", cropImage);  // Append the image file
+        // create an object - Object Literal
+        let staff = {
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            address: address,
+            gender: gender,
+            contactNo:contactNo,
+            dob: dob,
+            joinedDate: joinedDate,
+            designation: designation,
+            role:role,
+            fieldIds: assignedFields // Field IDs as a list
         }
 
         // For testing
-        console.log("FormData Object : " + formData);
+        console.log("JS Object : " + staff);
 
+        // Create JSON
+        // convert js object to JSON object
+        const jsonStaff = JSON.stringify(staff);
+        console.log("JSON Object : " + jsonStaff);
 
         // ========= Ajax with JQuery =========
 
         $.ajax({
-            url: "http://localhost:5052/cropMonitoringSystem/api/v1/crops",
+            url: "http://localhost:5052/cropMonitoringSystem/api/v1/staffs",
             type: "POST",
-            data: formData,
-            processData: false, // Prevent jQuery from automatically transforming the data
-            contentType: false,
+            data: jsonStaff,
+            contentType: "application/json",
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("token")
             },
@@ -128,27 +140,22 @@ $("#staff-save").on('click', () => {
                 // show crop saved pop up
                 Swal.fire({
                     icon: 'success',
-                    title: 'Crop saved successfully!',
+                    title: 'Staff saved successfully!',
                     showConfirmButton: false,
                     timer: 1500,
                     iconColor: 'rgba(131,193,170,0.79)'
                 });
 
                 // load the table
-                loadCropsTable()
+                //loadCropsTable()
 
                 // clean the inputs values
-                $("#newCropModal form").trigger('reset');
-
-                // Remove the image preview
-                $("#previewImage").attr("src", "#").hide(); // Reset the image source and hide it
-                $("#noImageText").show();// Show the "No image selected" text
-                $("#cropImageText").hide();
+                $("#newStaffModal form").trigger('reset');
             },
 
             error: function (error) {
                 console.log(error)
-                showErrorAlert('Crop not saved...')
+                showErrorAlert('Staff not saved...')
             }
         });
     //}

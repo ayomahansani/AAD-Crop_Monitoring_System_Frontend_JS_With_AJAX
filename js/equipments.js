@@ -282,7 +282,6 @@ $("#equipment-save").on('click', () => {
             url: "http://localhost:5052/cropMonitoringSystem/api/v1/equipments",
             type: "POST",
             data: jsonEquipment,
-            processData: false, // Prevent jQuery from automatically transforming the data
             contentType: "application/json",
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("token")
