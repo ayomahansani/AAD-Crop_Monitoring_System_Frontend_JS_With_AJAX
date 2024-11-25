@@ -162,7 +162,7 @@ function staffNamesComboBoxForEquipmentForm() {
 
 
 
-// -------------------------- The start - when click a equipment table row --------------------------
+// -------------------------- The start - when click an equipment table row --------------------------
 $("#equipment-tbl-tbody").on('click', 'tr', function (e) {
 
     // Extract values from the clicked row
@@ -223,9 +223,8 @@ $("#equipment-tbl-tbody").on('click', 'tr', function (e) {
             console.error("Error fetching staffs:", error);
         }
     });
-
 });
-// -------------------------- The end - when click a equipment table row --------------------------
+// -------------------------- The end - when click an equipment table row --------------------------
 
 
 
@@ -304,7 +303,6 @@ $("#equipment-save").on('click', () => {
             }
         });
     }
-
 });
 // -------------------------- The end - when click equipment save button --------------------------
 
@@ -469,7 +467,6 @@ $("#equipment-delete").on('click', () => {
             showErrorAlert('Error fetching equipment data.');
         }
     });
-
 });
 // -------------------------- The end - when click equipment delete button --------------------------
 
@@ -478,9 +475,7 @@ $("#equipment-delete").on('click', () => {
 
 // -------------------------- The start - when click equipment clear button --------------------------
 $("#equipment-clear").on('click', () => {
-
     $("#newEquipmentModal form").trigger('reset');
-
 });
 // -------------------------- The end - when click equipment clear button --------------------------
 
