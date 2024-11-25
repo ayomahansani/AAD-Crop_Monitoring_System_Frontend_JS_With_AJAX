@@ -1023,6 +1023,20 @@
 
                     </div>
 
+                    <!-- Assigned Fields with Dynamic Combo Boxes -->
+                    <div class="mb-3">
+                        <label for="fieldNamesComboBoxForStaffForm" class="form-label fw-semibold">Assign Field/s :</label>
+                        <div id="assignedFieldsContainer">
+                            <div class="d-flex align-items-center mb-2">
+                                <select class="form-select search-input" aria-label="Default select example" id="fieldNamesComboBoxForStaffForm">
+                                    <option selected>Choose a field</option>
+                                </select>
+                                <button type="button" class="btn btn-sm custom-btn" onclick="removeField(this)"><i class="fa-regular fa-trash-can" style="color:green"></i></button>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-sm custom-btn mt-2" onclick="addField()" style="color: #274D40">+ Add Field</button>
+                    </div>
+
                 </form>
 
             </div>
@@ -1057,6 +1071,37 @@
 
 </div>
 <!-- End Add New Staff Modal -->
+
+<!-- View All Staffs Modal -->
+<div class="modal fade" id="viewAllStaffsModal" tabindex="-1" aria-labelledby="viewAllStaffsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header text-center">
+                <h1 class="modal-title fs-5" id="viewAllStaffsModalLabel">
+                    All Staffs
+                    <span class="all-equipments"><i class="fas fa-tools"></i></span>
+                    <span class="all-equipments"><i class="fas fa-tools"></i></span>
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body text-center">
+
+                <table class="table table-success table-striped table-hover table-sm all-staffs-table">
+
+                    <tbody id="all-staffs-tbl-tbody">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- End View All Staffs Modal -->
 
 <!-- -------- End Staff Modals -------- -->
 
