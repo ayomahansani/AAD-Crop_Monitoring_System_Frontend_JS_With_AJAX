@@ -310,7 +310,7 @@ $("#staff-update").on('click', () => {
         }
     });
 
-    //let cropValidated = checkCropValidation(cropCommonName, cropScientificName, cropCategory, cropSeason, fieldCode, cropImage);
+    let staffValidated = checkStaffValidation(firstName, lastName, email, address, gender, contactNo, dob, joinedDate, designation, role);
 
     //if(cropValidated) {
 
@@ -575,6 +575,106 @@ $("#staff-search-btn").on('click', function () {
     })
 });
 // -------------------------- The end - when click staff search button --------------------------
+
+
+
+
+// -------------------------- The start - clear the staff search bar's value --------------------------
+$("#staff-search-modal-close").on('click', function () {
+    $("#searchStaff").val("");
+});
+// -------------------------- The end - clear the staff search bar's value --------------------------
+
+
+
+
+//-------------------------- The start - check staff validations --------------------------
+function checkStaffValidation(firstName, lastName, email, address, gender, contactNo, dob, joinedDate, designation, role) {
+
+    if(!firstName){    //check firstName field is empty or not
+        showErrorAlert("First Name is required!")
+        return false;
+    } else {
+        if(!/^[A-Za-z]{2,40}$/.test(firstName)){
+            showErrorAlert("Please enter a valid name!  Pattern - 'Shovel'")
+            return false;
+        }
+    }
+
+    if(!lastName){ //check lastName field is empty or not
+        showErrorAlert("Last Name is required!");
+        return false;
+    } else {
+        if(!/^[A-Za-z]{2,40}$/.test(lastName)){
+            showErrorAlert("Please enter a valid name!  Pattern - 'Mechanical'")
+            return false;
+        }
+    }
+
+    if(!email){ //check category field is empty or not
+        showErrorAlert("Email is required!");
+        return false;
+    } else {
+        if(!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/.test(email)){
+            showErrorAlert("Please enter a valid email! Pattern - 'Available'")
+            return false;
+        }
+    }
+
+    if(!address){ //check address field is empty or not
+        showErrorAlert("address is required!");
+        return false;
+    } else {
+        if(!/^[A-Za-z\d\s\-']{2,50}$/.test(address)){
+            showErrorAlert("Please enter a valid address! Pattern - 'Available'")
+            return false;
+        }
+    }
+
+    if(!designation){ //check designation field is empty or not
+        showErrorAlert("Designation is required!");
+        return false;
+    } else {
+        if(!/^[A-Za-z ]{2,40}$/.test(designation)){
+            showErrorAlert("Please enter a valid designation!  Pattern - 'Mechanical'")
+            return false;
+        }
+    }
+
+    if(!contactNo){ //check contactNo field is empty or not
+        showErrorAlert("Contact Number is required!");
+        return false;
+    } else {
+        if(!/^(?:0?(77|76|78|34|75|72|74)[0-9]{7}|(77|76|78|34|75|72|74)[0-9]{8})$/.test(contactNo)){
+            showErrorAlert("Please enter a valid contact number!  Pattern - 'Mechanical'")
+            return false;
+        }
+    }
+
+    if(gender === "Select the gender"){ //check gender is empty or not
+        showErrorAlert("Gender is required!");
+        return false;
+    }
+
+    if(role === "Select the role"){ //check role is empty or not
+        showErrorAlert("Role is required!");
+        return false;
+    }
+
+    if(!dob){ //check dob is empty or not
+        showErrorAlert("DOB is required!");
+        return false;
+    }
+
+    if(!joinedDate){ //check joinedDate is empty or not
+        showErrorAlert("Joined Date is required!");
+        return false;
+    }
+
+    return true;
+
+}
+//-------------------------- The end - check staff validations --------------------------
 
 
 
