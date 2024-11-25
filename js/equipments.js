@@ -572,37 +572,37 @@ $("#equipment-search-btn").on('click', function () {
                             headers: {
                                 'Authorization': 'Bearer ' + localStorage.getItem('token')
                             },
-                            success : function (fieldDTO) {
-                                $("#searchedSelectedFieldForEquipment").val(fieldDTO.fieldName);
+                            success : function (staffDTO) {
+                                $("#searchedSelectedStaffForEquipment").val(staffDTO.firstName);
                             },
                             error : function (error) {
                                 console.log(error)
                             }
                         })
 
-                        $("#cropDetailsModalLabel").html("Crop Details");
+                        $("#equipmentDetailsModalLabel").html("Equipment Details");
 
                         return;
                     }
 
                 }
 
-                if(cropDetail !== "") {
+                if(equipmentDetail !== "") {
 
-                    showErrorAlert("Can't find crop ! Try again...");
-                    //searchedCropInputsClear();
+                    showErrorAlert("Can't find equipment ! Try again...");
+                    searchedEquipmentsInputsClear();
 
                 } else {
 
-                    showErrorAlert("Please enter crop category to search !");
-                    //searchedCropInputsClear();
+                    showErrorAlert("Please enter equipment name to search !");
+                    searchedEquipmentsInputsClear();
 
                 }
 
             } else {
 
                 showErrorAlert("First you need to add equipments ! Then you can search...");
-                //searchedCropInputsClear();
+                searchedEquipmentsInputsClear();
 
             }
 
@@ -614,3 +614,29 @@ $("#equipment-search-btn").on('click', function () {
 
 });
 // -------------------------- The end - when click equipment search button --------------------------
+
+
+
+
+// -------------------------- The start - clear the equipment search bar's value --------------------------
+$("#equipment-search-modal-close").on('click', function () {
+
+    $("#searchEquipment").val("");
+
+});
+// -------------------------- The end - clear the equipment search bar's value --------------------------
+
+
+
+
+//-------------------------- The start - clear searched inputs --------------------------
+function searchedEquipmentsInputsClear(){
+    $("#searchedEquipmentName").val("");
+    $("#searchedEquipmentType").val("");
+    $("#searchedEquipmentStatus").val("");
+    $("#searchedSelectedFieldForEquipment").val("");
+    $("#searchedSelectedStaffForEquipment").val("");
+
+    $("#equipmentDetailsModalLabel").html("Equipment Details");
+}
+//-------------------------- The end - clear searched inputs --------------------------
