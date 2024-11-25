@@ -513,7 +513,6 @@ $("#viewAllEquipment").on('click', function () {
             alert('Can not get all equipments...')
         }
     })
-
 });
 // -------------------------- The end - when click view all equipments button --------------------------
 
@@ -574,34 +573,24 @@ $("#equipment-search-btn").on('click', function () {
 
                         return;
                     }
-
                 }
 
                 if(equipmentDetail !== "") {
-
                     showErrorAlert("Can't find equipment ! Try again...");
                     searchedEquipmentsInputsClear();
-
                 } else {
-
                     showErrorAlert("Please enter equipment name to search !");
                     searchedEquipmentsInputsClear();
-
                 }
-
             } else {
-
                 showErrorAlert("First you need to add equipments ! Then you can search...");
                 searchedEquipmentsInputsClear();
-
             }
-
         },
         error : function (error) {
             console.log(error)
         }
     })
-
 });
 // -------------------------- The end - when click equipment search button --------------------------
 
@@ -610,9 +599,7 @@ $("#equipment-search-btn").on('click', function () {
 
 // -------------------------- The start - clear the equipment search bar's value --------------------------
 $("#equipment-search-modal-close").on('click', function () {
-
     $("#searchEquipment").val("");
-
 });
 // -------------------------- The end - clear the equipment search bar's value --------------------------
 
@@ -677,7 +664,6 @@ function searchedEquipmentsInputsClear(){
     $("#searchedEquipmentStatus").val("");
     $("#searchedSelectedFieldForEquipment").val("");
     $("#searchedSelectedStaffForEquipment").val("");
-
     $("#equipmentDetailsModalLabel").html("Equipment Details");
 }
 //-------------------------- The end - clear searched inputs --------------------------
