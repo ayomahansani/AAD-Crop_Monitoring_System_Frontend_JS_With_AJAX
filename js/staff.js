@@ -322,7 +322,7 @@ $("#staff-update").on('click', () => {
                 'Authorization': 'Bearer ' + localStorage.getItem('token')
             },
             success: function (results) {
-                // Find the crop matching the input
+                // Find the staff matching the input
                 const staff = results.find(staff => (staff.email === email));
                 if (staff) {
                     const staffId = staff.staffId; // Set the staff id
@@ -395,3 +395,67 @@ $("#staff-update").on('click', () => {
     //}
 });
 // -------------------------- The end - when click staff update button --------------------------
+
+
+
+
+// -------------------------- The start - when click staff delete button --------------------------
+$("#staff-delete").on('click', () => {
+
+    // Get values from inputs
+    const email = $("#staffEmail").val();
+
+    // Find the staff id for the staff email
+    $.ajax({
+        url: "http://localhost:5052/cropMonitoringSystem/api/v1/staffs",
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        success: function (results) {
+            // Find the staff matching the input
+            const staff = results.find(staff => (staff.email === email));
+            if (staff) {
+                const staffId = staff.staffId; // Set the staff id
+                console.log("Staff Id: ", staffId);
+
+                // Send the DELETE request
+                $.ajax({
+                    url: `http://localhost:5052/cropMonitoringSystem/api/v1/staffs/${staffId}`,
+                    type: "DELETE",
+                    headers: {
+                        "Authorization": "Bearer " + localStorage.getItem("token")
+                    },
+                    success: function () {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Staff deleted successfully!',
+                            showConfirmButton: false,
+                            timer: 1500,
+                            iconColor: 'rgba(131,193,170,0.79)'
+                        });
+
+                        // load the table
+                        //loadEquipmentsTable();
+
+                        // clean the inputs values
+                        $("#newStaffModal form").trigger('reset');
+                    },
+                    error: function (error) {
+                        console.error("Error deleting staff:", error);
+                        showErrorAlert('Staff not deleted...');
+                    }
+                });
+
+            } else {
+                console.warn("Staff not found:", email);
+                showErrorAlert('Staff not found for the given details.');
+            }
+        },
+        error: function (error) {
+            console.error("Error fetching staffs:", error);
+            showErrorAlert('Error fetching staff data.');
+        }
+    });
+});
+// -------------------------- The end - when click staff delete button --------------------------
