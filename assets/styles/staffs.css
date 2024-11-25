@@ -1,0 +1,65 @@
+#newStaffBtn {
+    font-weight: 500;
+    background-color: rgb(45, 120, 92);
+    color: white;
+    border: none;
+    margin-top: 2em;
+    box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.64);
+}
+
+#newStaffBtn:hover {
+    background-color: rgb(17, 76, 54);
+}
+
+#viewAllStaffs {
+    font-weight: 500;
+    background-color: rgb(45, 120, 92);
+    color: white;
+    border: none;
+    margin-top: 2em;
+    box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.64);
+}
+
+#viewAllStaffs:hover {
+    background-color: rgb(17, 76, 54);
+}
+
+#newStaffModal .modal-body, #viewAllStaffsModal .modal-body, #staffDetailsModal .modal-body {
+    background-color: #668f78;
+    color: rgb(17, 76, 54);
+}
+
+#staffDetailsModal .disabled-input {
+    margin-bottom: 1.2em;
+    border: none;
+    background-color: rgba(195, 239, 214, 0.85);
+}
+
+.all-staffs-table {
+    opacity: 0.7;
+}
+
+.staff-table {
+    position: absolute;
+    height: 48%;
+    width: 78%;
+    border-radius: 15px;
+    margin: 1vw;
+    margin-top: 2vw;
+    padding: 2em 2em 2em 2em ;
+    box-shadow: 3px 3px 8px black;
+    background-color: rgba(17, 76, 54, 0.54);
+    opacity: 0.7;
+}
+
+#equipment-section .add-to-cart, #equipment-section .view {
+    margin: 0.2rem;
+}
+
+.new-staff, .all-staffs {
+    margin-left: 0.5rem;
+}
+
+.staff-page-photo {
+    margin-top: 2rem;
+}
