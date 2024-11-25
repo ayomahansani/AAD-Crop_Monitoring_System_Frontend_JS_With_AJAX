@@ -67,6 +67,28 @@ function loadStaffTable() {
 
 
 
+// -------------------------- The start - staff's count loading --------------------------
+export function loadStaffsCount() {
+
+    $.ajax({
+        url: "http://localhost:5052/cropMonitoringSystem/api/v1/staffs", // Staffs API
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        success : function (results) {
+            $("#staff-count").html(results.length);
+        },
+        error : function (error) {
+            console.log(error)
+        }
+    })
+}
+// -------------------------- The end - staff's count loading --------------------------
+
+
+
+
 // -------------------------- The start - Function to fetch fields and populate the select element --------------------------
 function loadFieldNamesComboBoxAndSetFieldCodes() {
     $.ajax({
