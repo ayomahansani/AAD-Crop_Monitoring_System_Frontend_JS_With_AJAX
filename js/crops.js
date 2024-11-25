@@ -683,7 +683,7 @@ function checkCropValidation(commonName, scientificName, category, season, field
     }
 
     if(fieldCode === "Choose a field"){ //check fieldCode field is empty or not
-        showErrorAlert("Field Code is required!");
+        showErrorAlert("Field is required!");
         return false;
     }
 

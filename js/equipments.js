@@ -252,9 +252,9 @@ $("#equipment-save").on('click', () => {
     console.log("selectedFieldCode: " , fieldCode);
     console.log("selectedStaffId: " , staffId);
 
-    //let cropValidated = checkCropValidation(cropCommonName, cropScientificName, cropCategory, cropSeason, fieldCode, cropImage);
+    let equipmentValidated = checkEquipmentValidation(equipmentName, equipmentType, equipmentStatus, fieldCode, staffId);
 
-    //if(cropValidated) {
+    if(equipmentValidated) {
 
         // create an object - Object Literal
         let equipment = {
@@ -308,7 +308,7 @@ $("#equipment-save").on('click', () => {
                 showErrorAlert('Equipment not saved...')
             }
         });
-    //}
+    }
 
 });
 // -------------------------- The end - when click equipment save button --------------------------
@@ -333,9 +333,9 @@ $("#equipment-update").on('click', () => {
     console.log("selectedFieldCode: " , fieldCode);
     console.log("selectedStaffId: " , staffId);
 
-    //let cropValidated = checkCropValidation(cropCommonName, cropScientificName, cropCategory, cropSeason, fieldCode, cropImage);
+    let equipmentValidated = checkEquipmentValidation(equipmentName, equipmentType, equipmentStatus, fieldCode, staffId);
 
-    //if(cropValidated) {
+    if(equipmentValidated) {
 
         // Find the equipment id for the equipment name
         $.ajax({
@@ -409,7 +409,7 @@ $("#equipment-update").on('click', () => {
                 showErrorAlert('Error fetching equipments data.');
             }
         });
-    //}
+    }
 });
 // -------------------------- The end - when click equipment update button --------------------------
 
@@ -625,6 +625,57 @@ $("#equipment-search-modal-close").on('click', function () {
 
 });
 // -------------------------- The end - clear the equipment search bar's value --------------------------
+
+
+
+
+//-------------------------- The start - check equipment validations --------------------------
+function checkEquipmentValidation(equipmentName, equipmentType, equipmentStatus, fieldCode, staffId) {
+
+    if(!equipmentName){    //check equipmentName field is empty or not
+        showErrorAlert("Equipment Name is required!")
+        return false;
+    } else {
+        if(!/^[A-Za-z0-9 /-]{2,40}$/.test(equipmentName)){
+            showErrorAlert("Please enter a valid name!  Pattern - 'Shovel'")
+            return false;
+        }
+    }
+
+    if(!equipmentType){ //check equipmentType field is empty or not
+        showErrorAlert("Equipment Type is required!");
+        return false;
+    } else {
+        if(!/^[A-Za-z /-]{2,40}$/.test(equipmentType)){
+            showErrorAlert("Please enter a valid name!  Pattern - 'Mechanical'")
+            return false;
+        }
+    }
+
+    if(!equipmentStatus){ //check category field is empty or not
+        showErrorAlert("Equipment Status is required!");
+        return false;
+    } else {
+        if(!/^[A-Za-z /-]{2,40}$/.test(equipmentStatus)){
+            showErrorAlert("Please enter a valid category! Pattern - 'Available'")
+            return false;
+        }
+    }
+
+    if(fieldCode === "Choose a field"){ //check fieldCode field is empty or not
+        showErrorAlert("Field is required!");
+        return false;
+    }
+
+    if(staffId === "Choose a staff"){ //check staffId field is empty or not
+        showErrorAlert("Staff is required!");
+        return false;
+    }
+
+    return true;
+
+}
+//-------------------------- The end - check equipment validations --------------------------
 
 
 
