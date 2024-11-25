@@ -79,17 +79,17 @@ input:hover{
 }
 
 #newCropModal .modal-body, #viewAllCropsModal .modal-body, #cropDetailsModal .modal-body, #imagePreviewModal .modal-body {
-    background-color: #668f78;
+    background-color: #8dbca1;
     color: rgb(17, 76, 54);
 }
 
 .modal .modal-footer {
-    background-color: rgb(17, 76, 54);
+    background-color: rgba(17, 76, 54, 0.85)
 }
 
 .modal .modal-footer .btn {
-    background-color: #668f78;
-    color: rgb(195, 239, 214);
+    background-color: #c3e1d4;
+    color: rgb(12, 58, 41);
     border: none;
     width: 98px;
     height: 40px;
@@ -98,7 +98,8 @@ input:hover{
 }
 
 .modal .modal-footer .btn:hover {
-    background-color: rgb(57, 104, 87);
+    background-color: #8dbca1;
+    color: #fdffff;
 }
 
 .modal .modal-body .form-label {
@@ -106,7 +107,7 @@ input:hover{
 }
 
 .modal .modal-header {
-    background-color: rgb(17, 76, 54);
+    background-color: rgba(17, 76, 54, 0.85);
 }
 
 .modal .modal-header .modal-title {

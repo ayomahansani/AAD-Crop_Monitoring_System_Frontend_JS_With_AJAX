@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="assets/styles/dashboard.css">
     <link rel="stylesheet" href="assets/styles/crops.css">
     <link rel="stylesheet" href="assets/styles/equipments.css">
+    <link rel="stylesheet" href="assets/styles/staffs.css">
 
 </head>
 <body>
@@ -266,7 +267,7 @@
 
                     <!-- right image -->
                     <div class="col-12 col-sm-4 col-md-1 col-lg-1 pb-1">
-                        <img src="assets/icon/crop_page_crops.png" class="crop-page-photo" alt="crops photo">
+                        <img src="assets/icon/crops.png" class="crop-page-photo" alt="crops photo">
                     </div>
                     <!-- end right image -->
 
@@ -317,7 +318,7 @@
         <div class="main-content main-section">
 
             <!-- up section -->
-            <div class="search-crop">
+            <div class="search-equipment">
 
                 <form class="row">
 
@@ -351,7 +352,7 @@
 
                     <!-- right image -->
                     <div class="col-12 col-sm-4 col-md-1 col-lg-1 pb-1">
-                        <img src="assets/icon/equipment-page-equipments.png" class="equipment-page-photo" alt="equipments photo">
+                        <img src="assets/icon/equipments.png" class="equipment-page-photo" alt="equipments photo">
                     </div>
                     <!-- end right image -->
 
@@ -435,7 +436,7 @@
 
                     <!-- right image -->
                     <div class="col-12 col-sm-4 col-md-1 col-lg-1 pb-1">
-                        <img src="assets/icon/crop_page_crops.png" class="staff-page-photo" alt="staff photo">
+                        <img src="assets/icon/staffs.png" class="staff-page-photo" alt="staff photo">
                     </div>
                     <!-- end right image -->
 
@@ -952,7 +953,7 @@
             <div class="modal-header">
                 <h1 class="modal-title fs-5 text-center" id="newStaffModalLabel">
                     New Staff
-                    <span class="new-staff"><i class="fas fa-carrot"></i></span>
+                    <span class="new-staff"><i class="fas fa-user-tie"></i></span>
                 </h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -967,11 +968,11 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="staffFirstName" class="form-label fw-semibold">First Name</label>
-                                <input type="text" class="form-control disabled-input text-center" id="staffFirstName">
+                                <input type="text" class="form-control search-input" id="staffFirstName">
                             </div>
                             <div class="mb-3">
                                 <label for="staffEmail" class="form-label fw-semibold">Email</label>
-                                <input type="text" class="form-control disabled-input text-center" id="staffEmail">
+                                <input type="text" class="form-control search-input" id="staffEmail">
                             </div>
                             <div class="mb-3">
                                 <label for="staffGender" class="form-label fw-semibold">Select Gender :</label>
@@ -982,34 +983,34 @@
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label for="staffPhone" class="form-label fw-semibold">Phone</label>
-                                <input type="text" class="form-control disabled-input text-center" id="staffPhone">
+                                <label for="staffDOB" class="form-label fw-semibold">Date Of Birth</label>
+                                <input type="date" class="form-control search-input" id="staffDOB">
                             </div>
                             <div class="mb-3">
                                 <label for="staffDesignation" class="form-label fw-semibold">Designation</label>
-                                <input type="text" class="form-control disabled-input text-center" id="staffDesignation">
+                                <input type="text" class="form-control search-input" id="staffDesignation">
                             </div>
-                            <div class="mb-3">
                         </div>
 
                         <!-- Right Column -->
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="staffLastName" class="form-label fw-semibold">Last Name</label>
-                                <input type="text" class="form-control disabled-input text-center" id="staffLastName">
+                                <input type="text" class="form-control search-input" id="staffLastName">
                             </div>
                             <div class="mb-3">
                                 <label for="staffAddress" class="form-label fw-semibold">Address</label>
-                                <input type="text" class="form-control disabled-input text-center" id="staffAddress">
+                                <input type="text" class="form-control search-input" id="staffAddress">
                             </div>
                             <div class="mb-3">
-                                <label for="staffDOB" class="form-label fw-semibold">Date Of Birth</label>
-                                <input type="date" class="form-control disabled-input text-center" id="staffDOB">
+                                <label for="staffPhone" class="form-label fw-semibold">Phone</label>
+                                <input type="text" class="form-control search-input" id="staffPhone">
                             </div>
                             <div class="mb-3">
                                 <label for="staffJoinedDate" class="form-label fw-semibold">Joined Date</label>
-                                <input type="date" class="form-control disabled-input text-center" id="staffJoinedDate">
+                                <input type="date" class="form-control search-input" id="staffJoinedDate">
                             </div>
+                            <div class="mb-3">
                                 <label for="staffRole" class="form-label fw-semibold">Role</label>
                                 <select class="form-select search-input" aria-label="Default select example" id="staffRole">
                                     <option selected>Select the role</option>
@@ -1034,7 +1035,6 @@
                                 <button type="button" class="btn btn-sm custom-btn" onclick="removeField(this)"><i class="fa-regular fa-trash-can" style="color:green"></i></button>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-sm custom-btn mt-2" onclick="addField()" style="color: #274D40">+ Add Field</button>
                     </div>
 
                 </form>
@@ -1080,8 +1080,7 @@
             <div class="modal-header text-center">
                 <h1 class="modal-title fs-5" id="viewAllStaffsModalLabel">
                     All Staffs
-                    <span class="all-staffs"><i class="fas fa-tools"></i></span>
-                    <span class="all-staffs"><i class="fas fa-tools"></i></span>
+                    <span class="all-staffs"><i class="fas fa-users"></i></span>
                 </h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
