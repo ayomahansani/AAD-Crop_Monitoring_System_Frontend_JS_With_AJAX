@@ -457,8 +457,8 @@
                             <th scope="col">Email</th>
                             <th scope="col">Gender</th>
                             <th scope="col">Address</th>
-                            <th scope="col">Phone</th>
                             <th scope="col">DOB</th>
+                            <th scope="col">Phone</th>
                             <th scope="col">Joined Date</th>
                             <th scope="col">Designation</th>
                             <th scope="col">Role</th>
@@ -540,7 +540,7 @@
         </div>
     </div>
 </div>
-<!-- End Crop Customer Modal -->
+<!-- End Search Crop Modal -->
 
 <!-- Add New Crop Modal -->
 <div class="modal fade" id="newCropModal" tabindex="-1" aria-labelledby="newCropModalModalLabel" aria-hidden="true">
@@ -692,6 +692,7 @@
         </div>
     </div>
 </div>
+<!-- End Image Preview Modal -->
 
 <!-- -------- End Crop Modals -------- -->
 
@@ -746,7 +747,7 @@
         </div>
     </div>
 </div>
-<!-- End Crop Equipment Modal -->
+<!-- End Search Equipment Modal -->
 
 <!-- Add New Equipment Modal -->
 <div class="modal fade" id="newEquipmentModal" tabindex="-1" aria-labelledby="newEquipmentModalLabel" aria-hidden="true">
@@ -865,6 +866,191 @@
 
 
 <!-- -------- Staff Modals -------- -->
+
+<!-- Search Staff Modal -->
+<div class="modal fade" id="staffDetailsModal" tabindex="-1" aria-labelledby="staffDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-m">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 text-center" id="staffDetailsModalLabel">
+
+                </h1>
+                <button id="staff-search-modal-close" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div id="staff-search-modal-body" class="modal-body">
+
+                <form>
+
+                    <div class="row">
+
+                        <!-- First Column -->
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="searchedStaffFirstName" class="form-label fw-semibold">First Name</label>
+                                <input type="text" class="form-control disabled-input text-center" id="searchedStaffFirstName" disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label for="searchedStaffLastName" class="form-label fw-semibold">Last Name</label>
+                                <input type="text" class="form-control disabled-input text-center" id="searchedStaffLastName" disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label for="searchedStaffEmail" class="form-label fw-semibold">Email</label>
+                                <input type="text" class="form-control disabled-input text-center" id="searchedStaffEmail" disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label for="searchedStaffGender" class="form-label fw-semibold">Gender</label>
+                                <input type="text" class="form-control disabled-input text-center" id="searchedStaffGender" disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label for="searchedStaffAddress" class="form-label fw-semibold">Address</label>
+                                <input type="text" class="form-control disabled-input text-center" id="searchedStaffAddress" disabled>
+                            </div>
+                        </div>
+
+                        <!-- Second Column -->
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="searchedStaffDOB" class="form-label fw-semibold">DOB</label>
+                                <input type="text" class="form-control disabled-input text-center" id="searchedStaffDOB" disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label for="searchedStaffPhone" class="form-label fw-semibold">Phone</label>
+                                <input type="text" class="form-control disabled-input text-center" id="searchedStaffPhone" disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label for="searchedStaffJoinedDate" class="form-label fw-semibold">Joined Date</label>
+                                <input type="text" class="form-control disabled-input text-center" id="searchedStaffJoinedDate" disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label for="searchedStaffDesignation" class="form-label fw-semibold">Designation</label>
+                                <input type="text" class="form-control disabled-input text-center" id="searchedStaffDesignation" disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label for="searchedStaffRole" class="form-label fw-semibold">Role</label>
+                                <input type="text" class="form-control disabled-input text-center" id="searchedStaffRole" disabled>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- End Search Staff Modal -->
+
+<!-- Add New Staff Modal -->
+<div class="modal fade" id="newStaffModal" tabindex="-1" aria-labelledby="newStaffModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 text-center" id="newStaffModalLabel">
+                    New Staff
+                    <span class="new-crop"><i class="fas fa-carrot"></i></span>
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <form>
+
+                    <div class="row">
+
+                        <!-- Left Column -->
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="staffFirstName" class="form-label fw-semibold">First Name</label>
+                                <input type="text" class="form-control disabled-input text-center" id="staffFirstName">
+                            </div>
+                            <div class="mb-3">
+                                <label for="staffLastName" class="form-label fw-semibold">Last Name</label>
+                                <input type="text" class="form-control disabled-input text-center" id="staffLastName">
+                            </div>
+                            <div class="mb-3">
+                                <label for="staffEmail" class="form-label fw-semibold">Email</label>
+                                <input type="text" class="form-control disabled-input text-center" id="staffEmail">
+                            </div>
+                            <div class="mb-3">
+                                <label for="staffGender" class="form-label fw-semibold">Select Gender :</label>
+                                <select class="form-select search-input" aria-label="Default select example" id="staffGender">
+                                    <option selected>Select the gender</option>
+                                    <option value="MALE">Male</option>
+                                    <option value="FEMALE">Female</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="staffAddress" class="form-label fw-semibold">Address</label>
+                                <input type="text" class="form-control disabled-input text-center" id="staffAddress">
+                            </div>
+                        </div>
+
+                        <!-- Right Column -->
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="staffDOB" class="form-label fw-semibold">Date Of Birth</label>
+                                <input type="date" class="form-control disabled-input text-center" id="staffDOB">
+                            </div>
+                            <div class="mb-3">
+                                <label for="staffPhone" class="form-label fw-semibold">Phone</label>
+                                <input type="text" class="form-control disabled-input text-center" id="staffPhone">
+                            </div>
+                            <div class="mb-3">
+                                <label for="staffJoinedDate" class="form-label fw-semibold">Joined Date</label>
+                                <input type="date" class="form-control disabled-input text-center" id="staffJoinedDate">
+                            </div>
+                            <div class="mb-3">
+                                <label for="staffDesignation" class="form-label fw-semibold">Designation</label>
+                                <input type="text" class="form-control disabled-input text-center" id="staffDesignation">
+                            </div>
+                            <div class="mb-3">
+                                <label for="staffRole" class="form-label fw-semibold">Role</label>
+                                <input type="text" class="form-control disabled-input text-center" id="staffRole">
+                            </div>
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+
+            <div class="modal-footer">
+
+                <button type="button" id="staff-save" class="btn">
+                    Save
+                    <span><i class="bi bi-save"></i></span>
+                </button>
+
+                <button type="button" id="staff-update" class="btn">
+                    Update
+                    <span><i class="bi bi-pencil-square"></i></span>
+                </button>
+
+                <button type="button" id="staff-delete" class="btn">
+                    Delete
+                    <span><i class="bi bi-trash3"></i></span>
+                </button>
+
+                <button type="reset" id="staff-clear" class="btn">
+                    Clear
+                    <span><i class="bi bi-backspace-reverse"></i></span>
+                </button>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<!-- End Add New Staff Modal -->
 
 <!-- -------- End Staff Modals -------- -->
 

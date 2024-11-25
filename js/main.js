@@ -19,6 +19,7 @@ $(document).ready(function() {
     $("#register-form-section").css(css1);
     $("#crop-section").css(css1);
     $("#equipment-section").css(css1);
+    $("#staff-section").css(css1);
 
     // Show signup section and hide login section when signup button is clicked
     $("#login-signUp").click(function () {
@@ -177,18 +178,14 @@ function handleNavClick(clickedElementId,title){
         case "nav-logs":
             showSection("logs-section");
             break;
-
         case "nav-staff":
             showSection("staff-section");
             break;
-
         case "nav-vehicles":
             showSection("vehicle-section");
             break;
-
         case "nav-profile":
             showSection("profile-section");
-
     }
 }
 //-------------------------- The end - handle navbar clicking --------------------------
@@ -201,6 +198,7 @@ function showSection(sectionId){
     $("#dashboard-section").css(css1);
     $("#crop-section").css(css1);
     $("#equipment-section").css(css1);
+    $("#staff-section").css(css1);
     $(`#${sectionId}`).css(css2);
 }
 //-------------------------- The end - show section --------------------------
