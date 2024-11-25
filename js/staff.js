@@ -34,17 +34,17 @@ function loadStaffTable() {
 
                         let row = `
                             <tr>
-                                <td class="crop-common-name-value" >${staff.firstName}</td>
-                                <td class="crop-scientific-name-value" >${staff.lastName}</td>
-                                <td class="crop-category-value" >${staff.email}</td>
-                                <td class="crop-season-value" >${staff.gender}</td>
-                                <td class="crop-season-value" >${staff.address}</td>
-                                <td class="crop-season-value" >${staff.dob}</td>
-                                <td class="crop-season-value" >${staff.contactNo}</td>
-                                <td class="crop-season-value" >${staff.joinedDate}</td>
-                                <td class="crop-season-value" >${staff.designation}</td>
-                                <td class="crop-field-value" >${staff.role}</td>
-                                <td class="crop-field-value" >${fieldNames}</td>
+                                <td class="staff-firstName-value" >${staff.firstName}</td>
+                                <td class="staff-lastName-value" >${staff.lastName}</td>
+                                <td class="staff-email-value" >${staff.email}</td>
+                                <td class="staff-gender-value" >${staff.gender}</td>
+                                <td class="staff-address-value" >${staff.address}</td>
+                                <td class="staff-dob-value" >${staff.dob}</td>
+                                <td class="staff-contactNo-value" >${staff.contactNo}</td>
+                                <td class="staff-joinedDate-value" >${staff.joinedDate}</td>
+                                <td class="staff-designation-value" >${staff.designation}</td>
+                                <td class="staff-role-value" >${staff.role}</td>
+                                <td class="staff-assigned-fieldNames" >${fieldNames}</td>
                             </tr>
                         `;
                         $('#staff-tbl-tbody').append(row);
@@ -119,6 +119,38 @@ function loadFieldNamesComboBoxAndSetFieldCodes() {
 
 
 
+// -------------------------- The start - when click a staff table row --------------------------
+$("#staff-tbl-tbody").on('click', 'tr', function (e) {
+
+    // Extract values from the clicked row
+    let firstName = $(this).find(".staff-firstName-value").text().trim();
+    let lastName = $(this).find(".staff-lastName-value").text().trim();
+    let email = $(this).find(".staff-email-value").text().trim();
+    let address = $(this).find(".staff-address-value").text().trim();
+    let gender = $(this).find(".staff-gender-value").text().trim();
+    let contactNo = $(this).find(".staff-contactNo-value").text().trim();
+    let dob = $(this).find(".staff-dob-value").text().trim();
+    let joinedDate = $(this).find(".staff-joinedDate-value").text().trim();
+    let designation = $(this).find(".staff-designation-value").text().trim();
+    let role = $(this).find(".staff-role-value").text().trim();
+
+    // Assign values to the input fields
+    $("#staffFirstName").val(firstName);
+    $("#staffLastName").val(lastName);
+    $("#staffEmail").val(email);
+    $("#staffAddress").val(address);
+    $("#staffGender").val(gender);
+    $("#staffPhone").val(contactNo);
+    $("#staffDOB").val(dob);
+    $("#staffJoinedDate").val(joinedDate);
+    $("#staffDesignation").val(designation);
+    $("#staffRole").val(role);
+});
+// -------------------------- The end - when click a staff table row --------------------------
+
+
+
+
 // -------------------------- The start - Function to add an assigned field combo box --------------------------
 function addField() {
 
@@ -138,6 +170,7 @@ function addField() {
             <i class="fa-regular fa-trash-can" style="color:rgb(17, 76, 54);"></i>
         </button>
     `;
+
     container.appendChild(fieldDiv);
 }
 // -------------------------- The start - Function to add an assigned field combo box --------------------------
