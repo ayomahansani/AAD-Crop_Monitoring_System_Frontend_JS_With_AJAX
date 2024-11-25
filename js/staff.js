@@ -459,3 +459,12 @@ $("#staff-delete").on('click', () => {
     });
 });
 // -------------------------- The end - when click staff delete button --------------------------
+
+
+
+
+// -------------------------- The start - when click staff clear button --------------------------
+$("#staff-clear").on('click', () => {
+    $("#newStaffModal form").trigger('reset');
+});
+// -------------------------- The end - when click staff clear button --------------------------
