@@ -19,7 +19,6 @@ function loadEquipmentsTable() {
                 fieldLookup[field.fieldCode] = field.fieldName; // Map fieldCode to fieldName
             });
 
-
             // Fetch staffs first to build a lookup table
             $.ajax({
                 url: "http://localhost:5052/cropMonitoringSystem/api/v1/staffs", // Staffs API
@@ -32,7 +31,6 @@ function loadEquipmentsTable() {
                     staffs.forEach(staff => {
                         staffLookup[staff.staffId] = staff.firstName; // Map staff id to staff name
                     });
-
 
                     // Fetch equipments and populate the table
                     $.ajax({
@@ -65,14 +63,11 @@ function loadEquipmentsTable() {
                             alert('Failed to load equipments data.');
                         }
                     });
-
-
                 }, error: function (error) {
                     console.error("Failed to fetch staffs:", error);
                     alert("Failed to load staffs. Please try again later.");
                 }
             });
-
         },
         error: function (error) {
             console.error("Failed to fetch fields:", error);
