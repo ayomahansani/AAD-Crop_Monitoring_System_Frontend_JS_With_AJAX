@@ -505,3 +505,92 @@ $("#viewAllStaffs").on('click', function () {
     })
 });
 // -------------------------- The end - when click view all staffs button --------------------------
+
+
+
+// -------------------------- The start - when click staff search button --------------------------
+$("#staff-search-btn").on('click', function () {
+
+    var staffDetail = $("#searchStaff").val();
+
+    $.ajax({
+        url: "http://localhost:5052/cropMonitoringSystem/api/v1/staffs",
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        success : function (results) {
+
+            if (results.length !== 0) {
+
+                for (let i=0; i<results.length; i++) {
+
+                    if (results[i].email === staffDetail) {
+                        $("#searchedStaffFirstName").val(results[i].firstName);
+                        $("#searchedStaffLastName").val(results[i].lastName);
+                        $("#searchedStaffDesignation").val(results[i].designation);
+                        $("#searchedStaffGender").val(results[i].gender);
+                        $("#searchedStaffJoinedDate").val(results[i].joinedDate);
+                        $("#searchedStaffDOB").val(results[i].dob);
+                        $("#searchedStaffAddress").val(results[i].address);
+                        $("#searchedStaffPhone").val(results[i].contactNo);
+                        $("#searchedStaffEmail").val(results[i].email);
+                        $("#searchedStaffRole").val(results[i].role);
+
+                    /*    $.ajax({
+                            url: "http://localhost:5052/cropMonitoringSystem/api/v1/fields/" + results[i].fieldCode,
+                            method: 'GET',
+                            headers: {
+                                'Authorization': 'Bearer ' + localStorage.getItem('token')
+                            },
+                            success : function (fieldDTO) {
+                                $("#searchedSelectedFieldForEquipment").val(fieldDTO.fieldName);
+                            },
+                            error : function (error) {
+                                console.log(error)
+                            }
+                        })*/
+
+                        $("#staffDetailsModalLabel").html("Staff Details");
+
+                        return;
+                    }
+                }
+
+                if(staffDetail !== "") {
+                    showErrorAlert("Can't find staff ! Try again...");
+                    searchedStaffInputsClear();
+                } else {
+                    showErrorAlert("Please enter staff email to search !");
+                    searchedStaffInputsClear();
+                }
+            } else {
+                showErrorAlert("First you need to add staff ! Then you can search...");
+                searchedStaffInputsClear();
+            }
+        },
+        error : function (error) {
+            console.log(error)
+        }
+    })
+});
+// -------------------------- The end - when click staff search button --------------------------
+
+
+
+
+//-------------------------- The start - clear searched inputs --------------------------
+function searchedStaffInputsClear(){
+    $("#searchedStaffFirstName").val("");
+    $("#searchedStaffLastName").val("");
+    $("#searchedStaffDesignation").val("");
+    $("#searchedStaffGender").val("");
+    $("#searchedStaffJoinedDate").val("");
+    $("#searchedStaffDOB").val("");
+    $("#searchedStaffAddress").val("");
+    $("#searchedStaffPhone").val("");
+    $("#searchedStaffEmail").val("");
+    $("#searchedStaffRole").val("");
+    $("#staffDetailsModalLabel").html("Staff Details");
+}
+//-------------------------- The end - clear searched inputs --------------------------
