@@ -468,3 +468,40 @@ $("#staff-clear").on('click', () => {
     $("#newStaffModal form").trigger('reset');
 });
 // -------------------------- The end - when click staff clear button --------------------------
+
+
+
+
+// -------------------------- The start - when click view all staffs button --------------------------
+$("#viewAllStaffs").on('click', function () {
+
+    $.ajax({
+        url: "http://localhost:5052/cropMonitoringSystem/api/v1/staffs",
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        success : function (results) {
+            console.log(results)
+
+            // Clear the existing table body
+            $('#all-staffs-tbl-tbody').empty();
+
+            // Iterate over the results and append rows to the table
+            results.forEach(function(staff) {
+                let row = `
+                    <tr>
+                        <td>${staff.firstName}</td>
+                    </tr>
+                `;
+                $('#all-staffs-tbl-tbody').append(row);
+                $("#all-staffs-tbl-tbody").css("font-weight", 600);
+            });
+        },
+        error : function (error) {
+            console.log(error)
+            alert('Can not get all staffs...')
+        }
+    })
+});
+// -------------------------- The end - when click view all staffs button --------------------------
