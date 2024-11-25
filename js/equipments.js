@@ -3,6 +3,15 @@ import {showErrorAlert} from "./crops.js";
 
 
 
+$(document).ready(function () {
+    loadFieldNamesComboBoxForEquipmentForm();
+    loadStaffNamesComboBoxForEquipmentForm();
+    loadEquipmentsTable();
+});
+
+
+
+
 // -------------------------- The start - equipment table loading --------------------------
 function loadEquipmentsTable() {
 
@@ -103,7 +112,7 @@ export function loadEquipmentCount() {
 
 
 // -------------------------- The start - Function to fetch fields and populate the select element --------------------------
-function fieldNamesComboBoxForEquipmentForm() {
+function loadFieldNamesComboBoxForEquipmentForm() {
     $.ajax({
         url: "http://localhost:5052/cropMonitoringSystem/api/v1/fields",
         type: "GET",
@@ -133,7 +142,7 @@ function fieldNamesComboBoxForEquipmentForm() {
 
 
 // -------------------------- The start - Function to fetch staffs and populate the select element --------------------------
-function staffNamesComboBoxForEquipmentForm() {
+function loadStaffNamesComboBoxForEquipmentForm() {
     $.ajax({
         url: "http://localhost:5052/cropMonitoringSystem/api/v1/staffs",
         type: "GET",
