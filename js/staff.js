@@ -24,8 +24,11 @@ function loadStaffTable() {
 
             staffList.forEach(function (staff) {
                 let assignedFieldsLink = `
-                    <a href="#" class="assigned-fields-link" data-staff-id="${staff.staffId}" data-bs-toggle="modal" data-bs-target="#assignedFieldsModal">
-                        View Fields
+                    <a href="#" class="assigned-fields-link" 
+                        data-staff-id="${staff.staffId}" 
+                        style="color: darkgreen; font-size: 14px; font-weight: 600;" 
+                        data-bs-toggle="modal" data-bs-target="#assignedFieldsModal">
+                            View Fields
                     </a>
                 `;
 

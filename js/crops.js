@@ -71,7 +71,7 @@ function loadCropsTable() {
                     results.forEach(function (crop) {
                         const fieldName = fieldLookup[crop.fieldCode] || "No Field Name";
                         const imageLink = crop.cropImage
-                            ? `<a href="#" class="view-crop-image" data-image="${crop.cropImage}" style="color: darkgreen; font-size: 14px;">Crop Image</a>`
+                            ? `<a href="#" class="view-crop-image" data-image="${crop.cropImage}" style="color: darkgreen; font-size: 14px; font-weight: 600;" >Crop Image</a>`
                             : `<span style="color: darkgreen; font-size: 14px;">No Image</span>`;
 
                         let row = `
