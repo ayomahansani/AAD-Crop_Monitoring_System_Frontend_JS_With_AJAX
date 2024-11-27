@@ -3,66 +3,100 @@ import {showErrorAlert} from "./crops.js";
 
 
 
+$(document).ready(function () {
+    loadStaffTable();
+});
+
+
+
+
 // -------------------------- The start - staff table loading --------------------------
 function loadStaffTable() {
-
-    // Fetch fields first to build a lookup table
+    // Fetch staff data
     $.ajax({
-        url: "http://localhost:5052/cropMonitoringSystem/api/v1/fields", // Fields API
+        url: "http://localhost:5052/cropMonitoringSystem/api/v1/staffs",
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        success: function (staffList) {
+            $('#staff-tbl-tbody').empty(); // Clear existing table body
+
+            staffList.forEach(function (staff) {
+                let assignedFieldsLink = `
+                    <a href="#" class="assigned-fields-link" data-staff-id="${staff.staffId}" data-bs-toggle="modal" data-bs-target="#assignedFieldsModal">
+                        View Fields
+                    </a>
+                `;
+
+                let row = `
+                    <tr>
+                        <td class="staff-firstName-value" >${staff.firstName}</td>
+                        <td class="staff-lastName-value" >${staff.lastName}</td>
+                        <td class="staff-email-value" >${staff.email}</td>
+                        <td class="staff-gender-value" >${staff.gender}</td>
+                        <td class="staff-address-value" >${staff.address}</td>
+                        <td class="staff-dob-value" >${staff.dob}</td>
+                        <td class="staff-contactNo-value" >${staff.contactNo}</td>
+                        <td class="staff-joinedDate-value" >${staff.joinedDate}</td>
+                        <td class="staff-designation-value" >${staff.designation}</td>
+                        <td class="staff-role-value" >${staff.role}</td>
+                        <td class="staff-assigned-fieldNames">${assignedFieldsLink}</td>
+                    </tr>
+                `;
+                $('#staff-tbl-tbody').append(row);
+            });
+
+            // Attach event listener for the "Assigned Fields" links
+            $('.assigned-fields-link').on('click', function () {
+                const staffId = $(this).data('staff-id');
+                loadAssignedFieldsModal(staffId);
+            });
+        },
+        error: function (error) {
+            console.error("Failed to load staff data:", error);
+            alert('Failed to load staff data.');
+        }
+    });
+}
+// -------------------------- The end - staff table loading --------------------------
+
+
+
+
+
+// ------------------ The start - Load assigned fields for a specific staff and update the modal ------------------
+function loadAssignedFieldsModal(staffId) {
+    // Clear the modal content
+    $('#fieldInputsContainer').empty();
+
+    $.ajax({
+        url: `http://localhost:5052/cropMonitoringSystem/api/v1/staffs/${staffId}/field`,
         method: 'GET',
         headers: {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
         },
         success: function (fields) {
-            const fieldLookup = {};
-            fields.forEach(field => {
-                fieldLookup[field.fieldCode] = field.fieldName; // Map fieldCode to fieldName
-            });
-
-            // Fetch staffs and populate the table
-            $.ajax({
-                url: "http://localhost:5052/cropMonitoringSystem/api/v1/staffs", // Staffs API
-                method: 'GET',
-                headers: {
-                    'Authorization': 'Bearer ' + localStorage.getItem('token')
-                },
-                success: function (results) {
-                    $('#staff-tbl-tbody').empty(); // Clear existing table body
-
-                    results.forEach(function (staff) {
-                        const fieldNames = [fieldLookup[staff.fieldIds]];
-
-                        let row = `
-                            <tr>
-                                <td class="staff-firstName-value" >${staff.firstName}</td>
-                                <td class="staff-lastName-value" >${staff.lastName}</td>
-                                <td class="staff-email-value" >${staff.email}</td>
-                                <td class="staff-gender-value" >${staff.gender}</td>
-                                <td class="staff-address-value" >${staff.address}</td>
-                                <td class="staff-dob-value" >${staff.dob}</td>
-                                <td class="staff-contactNo-value" >${staff.contactNo}</td>
-                                <td class="staff-joinedDate-value" >${staff.joinedDate}</td>
-                                <td class="staff-designation-value" >${staff.designation}</td>
-                                <td class="staff-role-value" >${staff.role}</td>
-                                <td class="staff-assigned-fieldNames" >${fieldNames}</td>
-                            </tr>
-                        `;
-                        $('#staff-tbl-tbody').append(row);
-                    });
-                },
-                error: function (error) {
-                    console.error("Failed to load staffs:", error);
-                    alert('Failed to load staff data.');
-                }
-            });
+            if (fields.length === 0) {
+                $('#fieldInputsContainer').append('<p>No fields assigned.</p>');
+            } else {
+                fields.forEach((field, index) => {
+                    let inputHtml = `
+                        <div class="mb-3">
+                            <input type="text" class="form-control" value="${field.fieldName}" readonly>
+                        </div>
+                    `;
+                    $('#fieldInputsContainer').append(inputHtml);
+                });
+            }
         },
         error: function (error) {
-            console.error("Failed to fetch fields:", error);
-            alert("Failed to load fields. Please try again later.");
+            console.error(`Failed to load fields for staff ${staffId}:`, error);
+            $('#fieldInputsContainer').append('<p>Error loading fields.</p>');
         }
     });
 }
-// -------------------------- The end - staff table loading --------------------------
+// ------------------ The start - Load assigned fields for a specific staff and update the modal ------------------
 
 
 
