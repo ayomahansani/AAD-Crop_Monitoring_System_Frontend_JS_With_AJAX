@@ -1,5 +1,5 @@
 import {loadCropsCount} from "./crops.js";
-import {loadStaffsCount} from "./staff";
+import {loadStaffsCount} from "./staff.js";
 
 
 
@@ -38,7 +38,6 @@ $(document).ready(function() {
     loadCropsCount();
     // set all staff count to the home page's customer card
     loadStaffsCount();
-
 
 
     // <!------------------------ Sign-Up ------------------------>

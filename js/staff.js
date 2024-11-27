@@ -5,6 +5,7 @@ import {showErrorAlert} from "./crops.js";
 
 $(document).ready(function () {
     loadStaffTable();
+    loadFieldNamesComboBoxAndSetFieldCodes();
 });
 
 
@@ -161,22 +162,43 @@ $("#staff-tbl-tbody").on('click', 'tr', function (e) {
     let firstName = $(this).find(".staff-firstName-value").text().trim();
     let lastName = $(this).find(".staff-lastName-value").text().trim();
     let email = $(this).find(".staff-email-value").text().trim();
-    let address = $(this).find(".staff-address-value").text().trim();
+    //let address = $(this).find(".staff-address-value").text().trim();
+    //let dob = $(this).find(".staff-dob-value").text().trim();
     let gender = $(this).find(".staff-gender-value").text().trim();
     let contactNo = $(this).find(".staff-contactNo-value").text().trim();
-    let dob = $(this).find(".staff-dob-value").text().trim();
     let joinedDate = $(this).find(".staff-joinedDate-value").text().trim();
     let designation = $(this).find(".staff-designation-value").text().trim();
     let role = $(this).find(".staff-role-value").text().trim();
+
+
+    $.ajax({
+        url: "http://localhost:5052/cropMonitoringSystem/api/v1/staffs", // Endpoint to fetch all staff
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token') // Token if required
+        },
+        success: function (staffList) {
+            // Find the staff object with the matching email
+            let staff = staffList.find(staff => staff.email === email);
+
+            $("#staffAddress").val(staff.address);
+            $("#staffDOB").val(staff.dob);
+
+        },
+        error: function (error) {
+            console.error("Error fetching staff list:", error);
+            alert('An error occurred while fetching staff data.');
+        }
+    });
 
     // Assign values to the input fields
     $("#staffFirstName").val(firstName);
     $("#staffLastName").val(lastName);
     $("#staffEmail").val(email);
-    $("#staffAddress").val(address);
+    //$("#staffAddress").val(address);
+    //$("#staffDOB").val(dob);
     $("#staffGender").val(gender);
     $("#staffPhone").val(contactNo);
-    $("#staffDOB").val(dob);
     $("#staffJoinedDate").val(joinedDate);
     $("#staffDesignation").val(designation);
     $("#staffRole").val(role);
