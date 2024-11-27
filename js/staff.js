@@ -208,6 +208,15 @@ $("#staff-tbl-tbody").on('click', 'tr', function (e) {
 
 
 
+// -------------------------- The start - when click a addFieldBtn in add staff modal --------------------------
+$("#addFieldBtn").on('click', () => {
+    addField();
+});
+// -------------------------- The end - when click a addFieldBtn in add staff modal --------------------------
+
+
+
+
 // -------------------------- The start - Function to add an assigned field combo box --------------------------
 function addField() {
 
@@ -323,7 +332,7 @@ $("#staff-save").on('click', () => {
                 });
 
                 // load the table
-                //loadCropsTable()
+                //loadStaffTable();
 
                 // clean the inputs values
                 $("#newStaffModal form").trigger('reset');
