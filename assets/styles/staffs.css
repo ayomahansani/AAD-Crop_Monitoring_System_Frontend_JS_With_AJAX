@@ -34,7 +34,7 @@
     background-color: rgb(17, 76, 54);
 }
 
-#newStaffModal .modal-body, #viewAllStaffsModal .modal-body, #staffDetailsModal .modal-body {
+#newStaffModal .modal-body, #viewAllStaffsModal .modal-body, #staffDetailsModal .modal-body, #assignedFieldsModal .modal-body {
     background-color: #8dbca1;
     color: rgb(17, 76, 54);
 }
@@ -62,6 +62,10 @@
     opacity: 0.7;
 }
 
+.staff-table td{
+    font-size: 14px;
+}
+
 #staff-section .add-to-cart, #staff-section .view {
     margin: 0.5rem;
 }
@@ -73,4 +77,19 @@
 .staff-page-photo {
     /*margin: 0.5rem;*/
     margin-top: 1.3rem;
+}
+
+.assigned-fields-modal-input {
+    box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.4);
+    border: none;
+    background-color: rgba(195, 239, 214, 0.85);
+}
+
+.assigned-fields-modal-input:focus {
+    background-color: rgba(195, 239, 214, 0.85);
+    border: 3px solid rgb(17, 76, 54);
+}
+
+.assigned-fields-modal-input:hover{
+    border: 3px solid rgb(17, 76, 54);
 }

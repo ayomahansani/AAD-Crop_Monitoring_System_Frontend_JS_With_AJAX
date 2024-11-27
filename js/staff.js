@@ -38,8 +38,6 @@ function loadStaffTable() {
                         <td class="staff-lastName-value" >${staff.lastName}</td>
                         <td class="staff-email-value" >${staff.email}</td>
                         <td class="staff-gender-value" >${staff.gender}</td>
-                        <td class="staff-address-value" >${staff.address}</td>
-                        <td class="staff-dob-value" >${staff.dob}</td>
                         <td class="staff-contactNo-value" >${staff.contactNo}</td>
                         <td class="staff-joinedDate-value" >${staff.joinedDate}</td>
                         <td class="staff-designation-value" >${staff.designation}</td>
@@ -86,7 +84,7 @@ function loadAssignedFieldsModal(staffId) {
                 fields.forEach((field, index) => {
                     let inputHtml = `
                         <div class="mb-3">
-                            <input type="text" class="form-control" value="${field.fieldName}" readonly>
+                            <input type="text" class="form-control assigned-fields-modal-input" style="text-align: center;" value="${field.fieldName}" readonly>
                         </div>
                     `;
                     $('#fieldInputsContainer').append(inputHtml);
