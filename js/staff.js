@@ -318,7 +318,7 @@ $("#staff-save").on('click', () => {
     console.log("role: " , role);
     console.log("assignedFields: " , assignedFields);
 
-    //let cropValidated = checkCropValidation(cropCommonName, cropScientificName, cropCategory, cropSeason, fieldCode, cropImage);
+    //let staffValidated = checkStaffValidation(firstName, lastName, email, address, gender, contactNo, dob, joinedDate, designation, role, assignedFields);
 
     //if(cropValidated) {
 
@@ -715,14 +715,14 @@ $("#staff-search-modal-close").on('click', function () {
 
 
 //-------------------------- The start - check staff validations --------------------------
-function checkStaffValidation(firstName, lastName, email, address, gender, contactNo, dob, joinedDate, designation, role) {
+function checkStaffValidation(firstName, lastName, email, address, gender, contactNo, dob, joinedDate, designation, role, assignedFields) {
 
     if(!firstName){    //check firstName field is empty or not
         showErrorAlert("First Name is required!")
         return false;
     } else {
         if(!/^[A-Za-z]{2,40}$/.test(firstName)){
-            showErrorAlert("Please enter a valid name!  Pattern - 'Shovel'")
+            showErrorAlert("Please enter a valid name!  Pattern - 'Shonel'")
             return false;
         }
     }
@@ -732,7 +732,7 @@ function checkStaffValidation(firstName, lastName, email, address, gender, conta
         return false;
     } else {
         if(!/^[A-Za-z]{2,40}$/.test(lastName)){
-            showErrorAlert("Please enter a valid name!  Pattern - 'Mechanical'")
+            showErrorAlert("Please enter a valid name!  Pattern - 'Nohen'")
             return false;
         }
     }
@@ -742,17 +742,17 @@ function checkStaffValidation(firstName, lastName, email, address, gender, conta
         return false;
     } else {
         if(!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/.test(email)){
-            showErrorAlert("Please enter a valid email! Pattern - 'Available'")
+            showErrorAlert("Please enter a valid email!  Pattern - 'shonelNohen0@gmail.com'")
             return false;
         }
     }
 
     if(!address){ //check address field is empty or not
-        showErrorAlert("address is required!");
+        showErrorAlert("Address is required!");
         return false;
     } else {
         if(!/^[A-Za-z\d\s\-']{2,50}$/.test(address)){
-            showErrorAlert("Please enter a valid address! Pattern - 'Available'")
+            showErrorAlert("Please enter a valid address!  Pattern - 'Colombo'")
             return false;
         }
     }
@@ -762,7 +762,7 @@ function checkStaffValidation(firstName, lastName, email, address, gender, conta
         return false;
     } else {
         if(!/^[A-Za-z ]{2,40}$/.test(designation)){
-            showErrorAlert("Please enter a valid designation!  Pattern - 'Mechanical'")
+            showErrorAlert("Please enter a valid designation!  Pattern - 'Assistant Manager'")
             return false;
         }
     }
@@ -772,7 +772,7 @@ function checkStaffValidation(firstName, lastName, email, address, gender, conta
         return false;
     } else {
         if(!/^(?:0?(77|76|78|34|75|72|74)[0-9]{7}|(77|76|78|34|75|72|74)[0-9]{8})$/.test(contactNo)){
-            showErrorAlert("Please enter a valid contact number!  Pattern - 'Mechanical'")
+            showErrorAlert("Please enter a valid contact number!  Pattern - '0774521905'")
             return false;
         }
     }
@@ -797,6 +797,14 @@ function checkStaffValidation(firstName, lastName, email, address, gender, conta
         return false;
     }
 
+    // Check for duplicates in assignedFields
+    const uniqueFields = [...new Set(assignedFields)]; // Remove duplicates
+    if (uniqueFields.length !== assignedFields.length) {
+        // If there are duplicates, show an error alert
+        showErrorAlert("Duplicate fields selected! Add another field.");
+        return false;
+    }
+
     return true;
 
 }
@@ -818,6 +826,7 @@ function searchedStaffInputsClear(){
     $("#searchedStaffPhone").val("");
     $("#searchedStaffEmail").val("");
     $("#searchedStaffRole").val("");
+    $("#searchedAssignedFields").val('');
     $("#staffDetailsModalLabel").html("Staff Details");
 }
 //-------------------------- The end - clear searched inputs --------------------------
