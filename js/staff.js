@@ -23,9 +23,6 @@ function loadStaffTable() {
         success: function (staffList) {
             $('#staff-tbl-tbody').empty(); // Clear existing table body
 
-            // Sort staffList by staffId in ascending order
-            staffList.sort((a, b) => a.staffId - b.staffId);
-
             staffList.forEach(function (staff) {
                 // Nested AJAX to fetch fields for each staff
                 $.ajax({
@@ -646,7 +643,8 @@ $("#staff-search-btn").on('click', function () {
 
                 for (let i=0; i<results.length; i++) {
 
-                    if (results[i].email === staffDetail) {
+                    if (results[i].email === staffDetail || results[i].firstName === staffDetail || results[i].lastName === staffDetail) {
+
                         $("#searchedStaffFirstName").val(results[i].firstName);
                         $("#searchedStaffLastName").val(results[i].lastName);
                         $("#searchedStaffDesignation").val(results[i].designation);
@@ -658,19 +656,24 @@ $("#staff-search-btn").on('click', function () {
                         $("#searchedStaffEmail").val(results[i].email);
                         $("#searchedStaffRole").val(results[i].role);
 
-                    /*    $.ajax({
-                            url: "http://localhost:5052/cropMonitoringSystem/api/v1/fields/" + results[i].fieldCode,
-                            method: 'GET',
+                        // Nested AJAX to fetch fields for each staff
+                        $.ajax({
+                            url: `http://localhost:5052/cropMonitoringSystem/api/v1/staffs/${results[i].staffId}/field`,
+                            type: "GET",
                             headers: {
-                                'Authorization': 'Bearer ' + localStorage.getItem('token')
+                                "Authorization": "Bearer " + localStorage.getItem("token")
                             },
-                            success : function (fieldDTO) {
-                                $("#searchedSelectedFieldForEquipment").val(fieldDTO.fieldName);
+                            success: function (fields) {
+
+                                // Collect field names into a comma-separated string
+                                const fieldNames = fields.map(field => field.fieldName).join(", ");
+
+                                $("#searchedAssignedFields").val(fieldNames);
                             },
                             error : function (error) {
                                 console.log(error)
                             }
-                        })*/
+                        })
 
                         $("#staffDetailsModalLabel").html("Staff Details");
 
