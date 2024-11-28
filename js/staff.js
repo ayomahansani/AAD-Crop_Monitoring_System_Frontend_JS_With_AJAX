@@ -69,42 +69,6 @@ function loadStaffTable() {
 
 
 
-// ------------------ The start - Load assigned fields for a specific staff and update the modal ------------------
-function loadAssignedFieldsModal(staffId) {
-    $('#fieldInputsContainer').empty();
-
-    $.ajax({
-        url: `http://localhost:5052/cropMonitoringSystem/api/v1/staffs/${staffId}/field`,
-        method: 'GET',
-        headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem('token')
-        },
-        success: function (fields) {
-            if (fields.length === 0) {
-                $('#fieldInputsContainer').append('<p>No fields assigned.</p>');
-            } else {
-                fields.forEach(field => {
-                    let inputHtml = `
-                        <div class="mb-3">
-                            <input type="text" class="form-control assigned-fields-modal-input" style="text-align: center;" value="${field.fieldName}" readonly>
-                        </div>
-                    `;
-                    $('#fieldInputsContainer').append(inputHtml);
-                });
-            }
-        },
-        error: function (error) {
-            console.error(`Failed to load fields for staff ${staffId}:`, error);
-            $('#fieldInputsContainer').append('<p>Error loading fields.</p>');
-        }
-    });
-}
-// ------------------ The start - Load assigned fields for a specific staff and update the modal ------------------
-
-
-
-
-
 // -------------------------- The start - staff's count loading --------------------------
 export function loadStaffsCount() {
 
@@ -123,6 +87,7 @@ export function loadStaffsCount() {
     })
 }
 // -------------------------- The end - staff's count loading --------------------------
+
 
 
 
@@ -157,6 +122,7 @@ function loadFieldNamesComboBoxAndSetFieldCodes() {
 
 
 
+
 // -------------------------- The start - when click a staff table row --------------------------
 $("#staff-tbl-tbody").on('click', 'tr', function () {
     const staffEmail = $(this).find(".staff-email-value").text().trim();
@@ -181,6 +147,8 @@ $("#staff-tbl-tbody").on('click', 'tr', function () {
             $("#staffLastName").val(staff.lastName);
             $("#staffEmail").val(staff.email);
             $("#staffGender").val(staff.gender);
+            $("#staffAddress").val(staff.address || "");
+            $("#staffDOB").val(staff.dob || "");
             $("#staffPhone").val(staff.contactNo);
             $("#staffJoinedDate").val(staff.joinedDate);
             $("#staffDesignation").val(staff.designation);
@@ -210,8 +178,9 @@ $("#staff-tbl-tbody").on('click', 'tr', function () {
                                 addFieldWithOptions(allFields, assignedField);
                             });
 
-                            // Uncomment the line below if you still want a single extra empty combo box
-                            // addFieldWithOptions(allFields, null);
+                            // Store the fetched fields for reuse
+                            cachedFields = allFields; // Cache fields globally for future additions
+
                         },
                         error: function (xhr) {
                             console.error("Error fetching assigned fields:", xhr.responseText);
@@ -238,7 +207,7 @@ $("#staff-tbl-tbody").on('click', 'tr', function () {
 
 
 // -------------------------- The start - Function to add a field combo box with all options --------------------------
-function addFieldWithOptions(allFields, selectedField) {
+function addFieldWithOptions(allFields, selectedField = null) {
     const container = document.getElementById('assignedFieldsContainer');
     const fieldDiv = document.createElement('div');
     fieldDiv.className = 'd-flex align-items-center mb-2 col-md-8';
@@ -269,38 +238,34 @@ function addFieldWithOptions(allFields, selectedField) {
 
 
 
-// -------------------------- The start - when click a addFieldBtn in add staff modal --------------------------
+// -------------------------- The start - when click a "+ Click here to Add Field" button in add staff modal --------------------------
+let cachedFields = []; // Cache fields to avoid multiple API calls
+
 $("#addFieldBtn").on('click', () => {
-    addField();
+    // Check if fields are already cached
+    if (cachedFields.length > 0) {
+        addFieldWithOptions(cachedFields);
+    } else {
+        // Fetch fields from the server if not cached
+        $.ajax({
+            url: "http://localhost:5052/cropMonitoringSystem/api/v1/fields",
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            success: function (allFields) {
+                cachedFields = allFields; // Cache fields globally
+                addFieldWithOptions(allFields);
+            },
+            error: function (xhr) {
+                console.error("Error fetching fields:", xhr.responseText);
+                alert("Failed to load fields.");
+            }
+        });
+    }
 });
-// -------------------------- The end - when click a addFieldBtn in add staff modal --------------------------
+// -------------------------- The end - when click a "+ Click here to Add Field" button in add staff modal --------------------------
 
-
-
-
-// -------------------------- The start - Function to add an assigned field combo box --------------------------
-function addField() {
-
-    // Fetch existing options from the first dropdown
-    const existingOptions = $('.fieldForStaff:first').html();
-
-    // Create a new dropdown with the same options
-    const container = document.getElementById('assignedFieldsContainer');
-    const fieldDiv = document.createElement('div');
-
-    fieldDiv.className = 'd-flex align-items-center mb-2 col-md-8';
-    fieldDiv.innerHTML = `
-        <select class="form-select search-input fieldForStaff" aria-label="Default select example" id="fieldNamesComboBoxForStaffForm" name="assignedFields[]" required>
-            ${ existingOptions || '<option selected>Choose a field</option>' }
-        </select>
-        <button type="button" class="btn btn-m custom-btn" onclick="removeField(this)">
-            <i class="fa-regular fa-trash-can" style="color:rgb(17, 76, 54);"></i>
-        </button>
-    `;
-
-    container.appendChild(fieldDiv);
-}
-// -------------------------- The start - Function to add an assigned field combo box --------------------------
 
 
 
@@ -310,6 +275,7 @@ window.removeField = function (button) {
     button.parentElement.remove();
 };
 // -------------------------- The end - Function to remove an assigned field combo box --------------------------
+
 
 
 
@@ -406,6 +372,7 @@ $("#staff-save").on('click', () => {
 
                 // clean the inputs values
                 $("#newStaffModal form").trigger('reset');
+                $(".fieldForStaff").val('');
             },
 
             error: function (error) {
@@ -417,6 +384,7 @@ $("#staff-save").on('click', () => {
 
 });
 // -------------------------- The end - when click staff save button --------------------------
+
 
 
 
@@ -446,7 +414,9 @@ $("#staff-update").on('click', () => {
         }
     });
 
-    let staffValidated = checkStaffValidation(firstName, lastName, email, address, gender, contactNo, dob, joinedDate, designation, role);
+    console.log("Assigned Fields : " + assignedFields)
+
+    //let staffValidated = checkStaffValidation(firstName, lastName, email, address, gender, contactNo, dob, joinedDate, designation, role);
 
     //if(cropValidated) {
 
@@ -459,9 +429,10 @@ $("#staff-update").on('click', () => {
             },
             success: function (results) {
                 // Find the staff matching the input
-                const staff = results.find(staff => (staff.email === email));
-                if (staff) {
-                    const staffId = staff.staffId; // Set the staff id
+                const matchedStaff = results.find(staff => (staff.email === email));
+
+                if (matchedStaff) {
+                    const staffId = matchedStaff.staffId; // Set the staff id
                     console.log("Staff Id: ", staffId);
 
                     // create an object - Object Literal
@@ -507,10 +478,12 @@ $("#staff-update").on('click', () => {
                             });
 
                             // Reload the crops table
-                            //loadCropsTable();
+                            loadStaffTable()
 
                             // Reset the form
-                            $("#newStaffModal form").trigger('reset');
+                            $("#newStaffModal form")[0].reset();
+                            $(".fieldForStaff").val('');
+
                         },
                         error: function (error) {
                             console.error("Error updating staff:", error);
@@ -531,6 +504,7 @@ $("#staff-update").on('click', () => {
     //}
 });
 // -------------------------- The end - when click staff update button --------------------------
+
 
 
 
@@ -576,6 +550,7 @@ $("#staff-delete").on('click', () => {
 
                         // clean the inputs values
                         $("#newStaffModal form").trigger('reset');
+                        $(".fieldForStaff").val('');
                     },
                     error: function (error) {
                         console.error("Error deleting staff:", error);
@@ -599,11 +574,14 @@ $("#staff-delete").on('click', () => {
 
 
 
+
 // -------------------------- The start - when click staff clear button --------------------------
 $("#staff-clear").on('click', () => {
     $("#newStaffModal form").trigger('reset');
+    $(".fieldForStaff").val('');
 });
 // -------------------------- The end - when click staff clear button --------------------------
+
 
 
 
@@ -641,6 +619,8 @@ $("#viewAllStaffs").on('click', function () {
     })
 });
 // -------------------------- The end - when click view all staffs button --------------------------
+
+
 
 
 
@@ -715,11 +695,13 @@ $("#staff-search-btn").on('click', function () {
 
 
 
+
 // -------------------------- The start - clear the staff search bar's value --------------------------
 $("#staff-search-modal-close").on('click', function () {
     $("#searchStaff").val("");
 });
 // -------------------------- The end - clear the staff search bar's value --------------------------
+
 
 
 
@@ -811,6 +793,7 @@ function checkStaffValidation(firstName, lastName, email, address, gender, conta
 
 }
 //-------------------------- The end - check staff validations --------------------------
+
 
 
 
