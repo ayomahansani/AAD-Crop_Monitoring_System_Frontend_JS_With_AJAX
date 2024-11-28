@@ -99,7 +99,6 @@ function loadAssignedFieldsModal(staffId) {
         }
     });
 }
-
 // ------------------ The start - Load assigned fields for a specific staff and update the modal ------------------
 
 
@@ -159,54 +158,113 @@ function loadFieldNamesComboBoxAndSetFieldCodes() {
 
 
 // -------------------------- The start - when click a staff table row --------------------------
-$("#staff-tbl-tbody").on('click', 'tr', function (e) {
+$("#staff-tbl-tbody").on('click', 'tr', function () {
+    const staffEmail = $(this).find(".staff-email-value").text().trim();
 
-    // Extract values from the clicked row
-    let firstName = $(this).find(".staff-firstName-value").text().trim();
-    let lastName = $(this).find(".staff-lastName-value").text().trim();
-    let email = $(this).find(".staff-email-value").text().trim();
-    //let address = $(this).find(".staff-address-value").text().trim();
-    //let dob = $(this).find(".staff-dob-value").text().trim();
-    let gender = $(this).find(".staff-gender-value").text().trim();
-    let contactNo = $(this).find(".staff-contactNo-value").text().trim();
-    let joinedDate = $(this).find(".staff-joinedDate-value").text().trim();
-    let designation = $(this).find(".staff-designation-value").text().trim();
-    let role = $(this).find(".staff-role-value").text().trim();
-
-
+    // Fetch the staff data
     $.ajax({
-        url: "http://localhost:5052/cropMonitoringSystem/api/v1/staffs", // Endpoint to fetch all staff
+        url: "http://localhost:5052/cropMonitoringSystem/api/v1/staffs",
         method: 'GET',
         headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem('token') // Token if required
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
         },
         success: function (staffList) {
-            // Find the staff object with the matching email
-            let staff = staffList.find(staff => staff.email === email);
+            const staff = staffList.find(staff => staff.email === staffEmail);
 
-            $("#staffAddress").val(staff.address);
-            $("#staffDOB").val(staff.dob);
+            if (!staff) {
+                alert('Staff not found!');
+                return;
+            }
 
+            // Fill in staff details in the modal
+            $("#staffFirstName").val(staff.firstName);
+            $("#staffLastName").val(staff.lastName);
+            $("#staffEmail").val(staff.email);
+            $("#staffGender").val(staff.gender);
+            $("#staffPhone").val(staff.contactNo);
+            $("#staffJoinedDate").val(staff.joinedDate);
+            $("#staffDesignation").val(staff.designation);
+            $("#staffRole").val(staff.role);
+
+            // Clear existing field containers
+            $('#assignedFieldsContainer').empty();
+
+            // Fetch all available fields
+            $.ajax({
+                url: "http://localhost:5052/cropMonitoringSystem/api/v1/fields",
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                },
+                success: function (allFields) {
+                    // Fetch assigned fields for the staff
+                    $.ajax({
+                        url: `http://localhost:5052/cropMonitoringSystem/api/v1/staffs/${staff.staffId}/field`,
+                        method: 'GET',
+                        headers: {
+                            'Authorization': 'Bearer ' + localStorage.getItem('token')
+                        },
+                        success: function (assignedFields) {
+                            // Create combo boxes for each assigned field
+                            assignedFields.forEach(assignedField => {
+                                addFieldWithOptions(allFields, assignedField);
+                            });
+
+                            // Uncomment the line below if you still want a single extra empty combo box
+                            // addFieldWithOptions(allFields, null);
+                        },
+                        error: function (xhr) {
+                            console.error("Error fetching assigned fields:", xhr.responseText);
+                            alert("Failed to load assigned fields.");
+                        }
+                    });
+                },
+                error: function (xhr) {
+                    console.error("Error fetching all fields:", xhr.responseText);
+                    alert("Failed to load all fields.");
+                }
+            });
         },
-        error: function (error) {
-            console.error("Error fetching staff list:", error);
-            alert('An error occurred while fetching staff data.');
+        error: function (xhr) {
+            console.error("Error fetching staff data:", xhr.responseText);
+            alert("Failed to load staff data.");
         }
     });
-
-    // Assign values to the input fields
-    $("#staffFirstName").val(firstName);
-    $("#staffLastName").val(lastName);
-    $("#staffEmail").val(email);
-    //$("#staffAddress").val(address);
-    //$("#staffDOB").val(dob);
-    $("#staffGender").val(gender);
-    $("#staffPhone").val(contactNo);
-    $("#staffJoinedDate").val(joinedDate);
-    $("#staffDesignation").val(designation);
-    $("#staffRole").val(role);
 });
 // -------------------------- The end - when click a staff table row --------------------------
+
+
+
+
+
+// -------------------------- The start - Function to add a field combo box with all options --------------------------
+function addFieldWithOptions(allFields, selectedField) {
+    const container = document.getElementById('assignedFieldsContainer');
+    const fieldDiv = document.createElement('div');
+    fieldDiv.className = 'd-flex align-items-center mb-2 col-md-8';
+
+    // Generate options for all fields
+    let optionsHtml = '<option value="">Choose a field</option>';
+    allFields.forEach(field => {
+        optionsHtml += `<option value="${field.fieldCode}" ${selectedField && field.fieldCode === selectedField.fieldCode ? 'selected' : ''}>
+                            ${field.fieldName}
+                        </option>`;
+    });
+
+    // Set inner HTML with combo box and remove button
+    fieldDiv.innerHTML = `
+        <select class="form-select search-input fieldForStaff" aria-label="Default select example" name="assignedFields[]" required>
+            ${optionsHtml}
+        </select>
+        <button type="button" class="btn btn-m custom-btn" onclick="removeField(this)">
+            <i class="fa-regular fa-trash-can" style="color:rgb(17, 76, 54);"></i>
+        </button>
+    `;
+
+    container.appendChild(fieldDiv);
+}
+// -------------------------- The end - Function to add a field combo box with all options --------------------------
+
 
 
 
