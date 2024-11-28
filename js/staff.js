@@ -46,7 +46,7 @@ function loadStaffTable() {
                                 <td class="staff-joinedDate-value">${staff.joinedDate}</td>
                                 <td class="staff-designation-value">${staff.designation}</td>
                                 <td class="staff-role-value">${staff.role}</td>
-                                <td class="staff-assigned-fieldNames">${fieldNames || "No fields assigned"}</td>
+                                <td class="staff-assigned-fieldNames" style="color:rgb(14,81,27); font-weight: 600" >${fieldNames || "No fields assigned"}</td>
                             </tr>
                         `;
                         $('#staff-tbl-tbody').append(row); // Append the row to the table
@@ -226,7 +226,7 @@ function addFieldWithOptions(allFields, selectedField = null) {
             ${optionsHtml}
         </select>
         <button type="button" class="btn btn-m custom-btn" onclick="removeField(this)">
-            <i class="fa-regular fa-trash-can" style="color:rgb(17, 76, 54);"></i>
+            <i class="fa-solid fa-trash-alt" style="color:rgb(17, 76, 54);"></i>
         </button>
     `;
 
@@ -546,7 +546,7 @@ $("#staff-delete").on('click', () => {
                         });
 
                         // load the table
-                        //loadEquipmentsTable();
+                        loadStaffTable();
 
                         // clean the inputs values
                         $("#newStaffModal form").trigger('reset');
