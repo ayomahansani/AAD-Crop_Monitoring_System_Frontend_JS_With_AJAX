@@ -24,35 +24,37 @@ function loadStaffTable() {
             $('#staff-tbl-tbody').empty(); // Clear existing table body
 
             staffList.forEach(function (staff) {
-                let assignedFieldsLink = `
-                    <a href="#" class="assigned-fields-link" 
-                        data-staff-id="${staff.staffId}" 
-                        style="color: darkgreen; font-size: 14px; font-weight: 600;" 
-                        data-bs-toggle="modal" data-bs-target="#assignedFieldsModal">
-                            View Fields
-                    </a>
-                `;
+                // Nested AJAX to fetch fields for each staff
+                $.ajax({
+                    url: `http://localhost:5052/cropMonitoringSystem/api/v1/staffs/${staff.staffId}/field`,
+                    type: "GET",
+                    headers: {
+                        "Authorization": "Bearer " + localStorage.getItem("token")
+                    },
+                    success: function (fields) {
+                        // Collect field names into a comma-separated string
+                        const fieldNames = fields.map(field => field.fieldName).join(", ");
 
-                let row = `
-                    <tr>
-                        <td class="staff-firstName-value" >${staff.firstName}</td>
-                        <td class="staff-lastName-value" >${staff.lastName}</td>
-                        <td class="staff-email-value" >${staff.email}</td>
-                        <td class="staff-gender-value" >${staff.gender}</td>
-                        <td class="staff-contactNo-value" >${staff.contactNo}</td>
-                        <td class="staff-joinedDate-value" >${staff.joinedDate}</td>
-                        <td class="staff-designation-value" >${staff.designation}</td>
-                        <td class="staff-role-value" >${staff.role}</td>
-                        <td class="staff-assigned-fieldNames">${assignedFieldsLink}</td>
-                    </tr>
-                `;
-                $('#staff-tbl-tbody').append(row);
-            });
-
-            // Attach event listener for the "Assigned Fields" links
-            $('.assigned-fields-link').on('click', function () {
-                const staffId = $(this).data('staff-id');
-                loadAssignedFieldsModal(staffId);
+                        // Create the staff table row, including field names
+                        let row = `
+                            <tr>
+                                <td class="staff-firstName-value">${staff.firstName}</td>
+                                <td class="staff-lastName-value">${staff.lastName}</td>
+                                <td class="staff-email-value">${staff.email}</td>
+                                <td class="staff-gender-value">${staff.gender}</td>
+                                <td class="staff-contactNo-value">${staff.contactNo}</td>
+                                <td class="staff-joinedDate-value">${staff.joinedDate}</td>
+                                <td class="staff-designation-value">${staff.designation}</td>
+                                <td class="staff-role-value">${staff.role}</td>
+                                <td class="staff-assigned-fieldNames">${fieldNames || "No fields assigned"}</td>
+                            </tr>
+                        `;
+                        $('#staff-tbl-tbody').append(row); // Append the row to the table
+                    },
+                    error: function (xhr) {
+                        console.error("Error fetching assigned fields:", xhr.responseText);
+                    }
+                });
             });
         },
         error: function (error) {
@@ -69,7 +71,6 @@ function loadStaffTable() {
 
 // ------------------ The start - Load assigned fields for a specific staff and update the modal ------------------
 function loadAssignedFieldsModal(staffId) {
-    // Clear the modal content
     $('#fieldInputsContainer').empty();
 
     $.ajax({
@@ -82,7 +83,7 @@ function loadAssignedFieldsModal(staffId) {
             if (fields.length === 0) {
                 $('#fieldInputsContainer').append('<p>No fields assigned.</p>');
             } else {
-                fields.forEach((field, index) => {
+                fields.forEach(field => {
                     let inputHtml = `
                         <div class="mb-3">
                             <input type="text" class="form-control assigned-fields-modal-input" style="text-align: center;" value="${field.fieldName}" readonly>
@@ -98,7 +99,9 @@ function loadAssignedFieldsModal(staffId) {
         }
     });
 }
+
 // ------------------ The start - Load assigned fields for a specific staff and update the modal ------------------
+
 
 
 
@@ -244,6 +247,15 @@ function addField() {
 
 
 
+// -------------------------- The start - Function to remove an assigned field combo box --------------------------
+window.removeField = function (button) {
+    button.parentElement.remove();
+};
+// -------------------------- The end - Function to remove an assigned field combo box --------------------------
+
+
+
+
 // -------------------------- The start - when click staff save button --------------------------
 $("#staff-save").on('click', () => {
 
@@ -298,7 +310,7 @@ $("#staff-save").on('click', () => {
             joinedDate: joinedDate,
             designation: designation,
             role:role,
-            fieldIds: assignedFields // Field IDs as a list
+            fieldIds: assignedFields // Field IDs as a string list
         }
 
         // For testing
@@ -332,7 +344,7 @@ $("#staff-save").on('click', () => {
                 });
 
                 // load the table
-                //loadStaffTable();
+                loadStaffTable();
 
                 // clean the inputs values
                 $("#newStaffModal form").trigger('reset');
