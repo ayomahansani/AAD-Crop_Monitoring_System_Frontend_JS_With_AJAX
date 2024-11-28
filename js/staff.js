@@ -23,6 +23,9 @@ function loadStaffTable() {
         success: function (staffList) {
             $('#staff-tbl-tbody').empty(); // Clear existing table body
 
+            // Sort staffList by staffId in ascending order
+            staffList.sort((a, b) => a.staffId - b.staffId);
+
             staffList.forEach(function (staff) {
                 // Nested AJAX to fetch fields for each staff
                 $.ajax({
@@ -606,6 +609,8 @@ $("#viewAllStaffs").on('click', function () {
                 let row = `
                     <tr>
                         <td>${staff.firstName}</td>
+                        <td>-</td>
+                        <td>${staff.email}</td>
                     </tr>
                 `;
                 $('#all-staffs-tbl-tbody').append(row);
