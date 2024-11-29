@@ -463,3 +463,84 @@ $("#viewAllVehicle").on('click', function () {
     })
 });
 // -------------------------- The end - when click view all vehicles button --------------------------
+
+
+
+
+// -------------------------- The start - when click vehicle search button --------------------------
+$("#vehicle-search-btn").on('click', function () {
+
+    var vehicleDetail = $("#searchVehicle").val();
+
+    $.ajax({
+        url: "http://localhost:5052/cropMonitoringSystem/api/v1/vehicles",
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        success : function (results) {
+
+            if (results.length !== 0) {
+
+                for (let i=0; i<results.length; i++) {
+
+                    if (results[i].licensePlateNumber === vehicleDetail) {
+                        $("#searchedVehicleLicensePlateNumber").val(results[i].licensePlateNumber);
+                        $("#searchedVehicleCategory").val(results[i].vehicleCategory);
+                        $("#searchedFuelType").val(results[i].fuelType);
+                        $("#searchedVehicleStatus").val(results[i].vehicleStatus);
+                        $("#searchedVehicleRemarks").val(results[i].remarks);
+
+                        $.ajax({
+                            url: "http://localhost:5052/cropMonitoringSystem/api/v1/staffs/" + results[i].staffId,
+                            method: 'GET',
+                            headers: {
+                                'Authorization': 'Bearer ' + localStorage.getItem('token')
+                            },
+                            success : function (staffDTO) {
+                                $("#searchedSelectedStaffForVehicle").val(staffDTO.firstName + " " + staffDTO.lastName);
+                            },
+                            error : function (error) {
+                                console.log(error)
+                            }
+                        })
+
+                        $("#vehicleDetailsModalLabel").html("Vehicle Details");
+
+                        return;
+                    }
+                }
+
+                if(vehicleDetail !== "") {
+                    showErrorAlert("Can't find vehicle ! Try again...");
+                    searchedVehicleInputsClear();
+                } else {
+                    showErrorAlert("Please enter vehicle plate number to search !");
+                    searchedVehicleInputsClear();
+                }
+            } else {
+                showErrorAlert("First you need to add vehicles ! Then you can search...");
+                searchedVehicleInputsClear();
+            }
+        },
+        error : function (error) {
+            console.log(error)
+        }
+    })
+});
+// -------------------------- The end - when click vehicle search button --------------------------
+
+
+
+
+//-------------------------- The start - clear searched inputs --------------------------
+function searchedVehicleInputsClear(){
+    $("#searchedVehicleLicensePlateNumber").val("");
+    $("#searchedVehicleCategory").val("");
+    $("#searchedFuelType").val("");
+    $("#searchedVehicleStatus").val("");
+    $("#searchedVehicleRemarks").val("");
+    $("#searchedSelectedStaffForVehicle").val('');
+    $("#vehicleDetailsModalLabel").html("Vehicle Details");
+}
+//-------------------------- The end - clear searched inputs --------------------------
