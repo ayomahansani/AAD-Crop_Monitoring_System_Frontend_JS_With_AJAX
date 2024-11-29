@@ -628,24 +628,14 @@ function checkEquipmentValidation(equipmentName, equipmentType, equipmentStatus,
         }
     }
 
-    if(!equipmentType){ //check equipmentType field is empty or not
+    if(equipmentType === "Select type"){ //check equipmentType field is empty or not
         showErrorAlert("Equipment Type is required!");
         return false;
-    } else {
-        if(!/^[A-Za-z /-]{2,40}$/.test(equipmentType)){
-            showErrorAlert("Please enter a valid name!  Pattern - 'Mechanical'")
-            return false;
-        }
     }
 
-    if(!equipmentStatus){ //check category field is empty or not
+    if(equipmentStatus === "Select status") { //check status field is empty or not
         showErrorAlert("Equipment Status is required!");
         return false;
-    } else {
-        if(!/^[A-Za-z /-]{2,40}$/.test(equipmentStatus)){
-            showErrorAlert("Please enter a valid category! Pattern - 'Available'")
-            return false;
-        }
     }
 
     if(fieldCode === "Choose a field"){ //check fieldCode field is empty or not
