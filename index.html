@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="assets/styles/crops.css">
     <link rel="stylesheet" href="assets/styles/equipments.css">
     <link rel="stylesheet" href="assets/styles/staffs.css">
+<!--    <link rel="stylesheet" href="assets/styles/vehicles.css">-->
 
 </head>
 <body>
@@ -483,6 +484,91 @@
 
     </section>
     <!-- end staff section -->
+
+
+    <!-- vehicles section -->
+    <section id="vehicle-section">
+
+        <!-- Main Section -->
+        <div class="main-content main-section">
+
+            <!-- up section -->
+            <div class="search-vehicle">
+
+                <form class="row">
+
+                    <!-- vehicle search -->
+                    <div class="col-8 col-sm-6 col-md-4 col-lg-4 pb-4">
+                        <label for="searchVehicle" class="form-label fw-semibold">Search Vehicle</label>
+                        <input type="search" class="form-control search-input" id="searchVehicle" placeholder="Input Plate Number Here">
+                    </div>
+                    <div class="col-4 col-sm-6 col-md-3 col-lg-3 pb-4">
+                        <button type="button" class="btn search-btn" id="vehicle-search-btn" data-bs-toggle="modal" data-bs-target="#vehicleDetailsModal">
+                            Search
+                            <span class="search"><i class="bi bi-search"></i></span>
+                        </button>
+                    </div>
+                    <!-- end vehicle search -->
+
+                    <!-- buttons -->
+                    <div class="col-6 col-sm-4 col-md-2 col-lg-2 pb-1">
+                        <a href="" id="newVehicleBtn" role="button" class="btn" data-bs-toggle="modal" data-bs-target="#newVehicleModal">
+                            <span class="add-to-cart"><i class="bi bi-plus-circle-fill"></i></span>
+                            New Vehicle
+                        </a>
+                    </div>
+                    <div class="col-6 col-sm-4 col-md-2 col-lg-2 pb-1">
+                        <a href="" id="viewAllVehicle" role="button" class="btn" data-bs-toggle="modal" data-bs-target="#viewAllVehiclesModal">
+                            <span class="view"><i class="bi bi-eye-fill"></i></span>
+                            All Vehicles
+                        </a>
+                    </div>
+                    <!-- end buttons -->
+
+                    <!-- right image -->
+                    <div class="col-12 col-sm-4 col-md-1 col-lg-1 pb-1">
+                        <img src="assets/icon/equipments.png" class="vehicle-page-photo" alt="vehicles photo">
+                    </div>
+                    <!-- end right image -->
+
+                </form>
+
+            </div>
+            <!-- end up section -->
+
+            <!-- vehicles table -->
+            <div class="vehicle-table">
+
+                <div class="scrollable">
+
+                    <table class="table table-success table-striped table-bordered border-dark table-hover table-sm">
+                        <thead class="table-dark">
+                        <tr class="table-success">
+                            <th scope="col">License Plate Number</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Fuel Type</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Remarks</th>
+                            <th scope="col">Staff</th>
+                        </tr>
+                        </thead>
+
+                        <tbody id="vehicle-tbl-tbody" class="table-group-divider">
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+            <!-- end vehicles table -->
+
+        </div>
+        <!-- End Main Section -->
+
+    </section>
+    <!-- end vehicles section -->
 
 </section>
 <!-- End Home Section -->
@@ -1142,10 +1228,184 @@
 </div>
 <!-- End View Assigned Fields Modal-->
 
-
-
-
 <!-- -------- End Staff Modals -------- -->
+
+
+<!-- -------- Vehicle Modals -------- -->
+
+<!-- Search Vehicle Modal -->
+<div class="modal fade" id="vehicleDetailsModal" tabindex="-1" aria-labelledby="vehicleDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 text-center" id="vehicleDetailsModalLabel">
+
+                </h1>
+                <button id="vehicle-search-modal-close" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div id="equipment-search-modal-body" class="modal-body">
+
+                <form class="text-center">
+
+                    <div class="mb-3">
+                        <label for="searchedEquipmentName" class="form-label fw-semibold">Name</label>
+                        <input type="text" class="form-control disabled-input text-center" id="searchedEquipmentName" disabled>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="searchedEquipmentType" class="form-label fw-semibold">Type</label>
+                        <input type="text" class="form-control disabled-input text-center" id="searchedEquipmentType" disabled>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="searchedEquipmentStatus" class="form-label fw-semibold">Status</label>
+                        <input type="text" class="form-control disabled-input text-center" id="searchedEquipmentStatus" disabled>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="searchedSelectedFieldForEquipment" class="form-label fw-semibold">Selected Field</label>
+                        <input type="text" class="form-control disabled-input text-center" id="searchedSelectedFieldForEquipment" disabled>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="searchedSelectedStaffForEquipment" class="form-label fw-semibold">Selected Staff</label>
+                        <input type="text" class="form-control disabled-input text-center" id="searchedSelectedStaffForEquipment" disabled>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- End Search Vehicle Modal -->
+
+<!-- Add New Vehicle Modal -->
+<div class="modal fade" id="newVehicleModal" tabindex="-1" aria-labelledby="newVehicleModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered modal-m">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 text-center" id="newEquipmentModalLabel">
+                    New Equipment
+                    <span class="new-equipment"><i class="bi bi-tools"></i></span>
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <form>
+
+                    <div class="mb-3">
+                        <label for="equipmentName" class="form-label fw-semibold">Name</label>
+                        <input type="text" class="form-control search-input" id="equipmentName">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="equipmentType" class="form-label fw-semibold">Type</label>
+                        <select class="form-select search-input" aria-label="Default select example" id="equipmentType">
+                            <option selected>Select type</option>
+                            <option value="Electrical">Electrical</option>
+                            <option value="Mechanical">Mechanical</option>
+                            <option value="Hand Tool">Hand Tool</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="equipmentStatus" class="form-label fw-semibold">Status</label>
+                        <select class="form-select search-input" aria-label="Default select example" id="equipmentStatus">
+                            <option selected>Select status</option>
+                            <option value="Available">Available</option>
+                            <option value="In Use">In Use</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="fieldNamesComboBoxForEquipmentForm" class="form-label fw-semibold">Select Field :</label>
+                        <select class="form-select search-input" aria-label="Default select example" id="fieldNamesComboBoxForEquipmentForm">
+                            <option selected>Choose a field</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="staffFirstNamesComboBoxForEquipmentForm" class="form-label fw-semibold">Select Staff :</label>
+                        <select class="form-select search-input" aria-label="Default select example" id="staffFirstNamesComboBoxForEquipmentForm">
+                            <option selected>Choose a staff</option>
+                        </select>
+                    </div>
+
+                </form>
+
+            </div>
+
+
+            <div class="modal-footer">
+
+                <button type="button" id="equipment-save" class="btn">
+                    Save
+                    <span><i class="bi bi-save"></i></span>
+                </button>
+
+                <button type="button" id="equipment-update" class="btn">
+                    Update
+                    <span><i class="bi bi-pencil-square"></i></span>
+                </button>
+
+                <button type="button" id="equipment-delete" class="btn">
+                    Delete
+                    <span><i class="bi bi-trash3"></i></span>
+                </button>
+
+                <button type="reset" id="equipment-clear" class="btn">
+                    Clear
+                    <span><i class="bi bi-backspace-reverse"></i></span>
+                </button>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<!-- End Add New Vehicle Modal -->
+
+<!-- View All Vehicle Modal -->
+<div class="modal fade" id="viewAllVehiclesModal" tabindex="-1" aria-labelledby="viewAllEquipmentsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header text-center">
+                <h1 class="modal-title fs-5" id="viewAllEquipmentsModalLabel">
+                    All Equipments
+                    <span class="all-equipments"><i class="fas fa-tools"></i></span>
+                    <span class="all-equipments"><i class="fas fa-tools"></i></span>
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body text-center">
+
+                <table class="table table-success table-striped table-hover table-sm all-equipments-table">
+
+                    <tbody id="all-equipments-tbl-tbody">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- End View All Vehicle Modal -->
+
+<!-- -------- End Vehicle Modals -------- -->
 
 <!------------------------- Modals -------------------------->
 
@@ -1166,6 +1426,7 @@
 <script type="module" src="js/crops.js"></script>
 <script type="module" src="js/equipments.js"></script>
 <script type="module" src="js/staff.js"></script>
+<!--<script type="module" src="js/vehicles.js"></script>-->
 
 </body>
 </html>

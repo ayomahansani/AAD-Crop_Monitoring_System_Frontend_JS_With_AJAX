@@ -22,6 +22,7 @@ $(document).ready(function() {
     $("#crop-section").css(css1);
     $("#equipment-section").css(css1);
     $("#staff-section").css(css1);
+    $("#vehicle-section").css(css1);
 
     // Show signup section and hide login section when signup button is clicked
     $("#login-signUp").click(function () {
@@ -206,6 +207,7 @@ function showSection(sectionId){
     $("#crop-section").css(css1);
     $("#equipment-section").css(css1);
     $("#staff-section").css(css1);
+    $("#vehicle-section").css(css1);
     $(`#${sectionId}`).css(css2);
 }
 //-------------------------- The end - show section --------------------------
