@@ -1,0 +1,76 @@
+.search-vehicle {
+    color: black;
+    border-radius: 15px;
+    margin: 1vw;
+    padding: 1em 1em 1.5em 2em ;
+    background-color: rgba(17, 76, 54, 0.54);
+    box-shadow: 3px 3px 8px black;
+    opacity: 0.8;
+}
+
+#newVehicleBtn {
+    font-weight: 500;
+    background-color: rgb(45, 120, 92);
+    color: white;
+    border: none;
+    margin-top: 2em;
+    box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.64);
+}
+
+#newVehicleBtn:hover {
+    background-color: rgb(17, 76, 54);
+}
+
+#viewAllVehicle {
+    font-weight: 500;
+    background-color: rgb(45, 120, 92);
+    color: white;
+    border: none;
+    margin-top: 2em;
+    box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.64);
+}
+
+#viewAllVehicle:hover {
+    background-color: rgb(17, 76, 54);
+}
+
+#newVehicleModal .modal-body, #viewAllVehiclesModal .modal-body, #vehicleDetailsModal .modal-body {
+    background-color: #8dbca1;
+    color: rgb(17, 76, 54);
+}
+
+#vehicleDetailsModal .disabled-input {
+    margin-bottom: 1.2em;
+    border: none;
+    background-color: rgba(195, 239, 214, 0.85);
+}
+
+.all-vehicles-table {
+    opacity: 0.7;
+}
+
+.vehicle-table {
+    position: absolute;
+    height: 48%;
+    width: 78%;
+    border-radius: 15px;
+    margin: 1vw;
+    margin-top: 2vw;
+    padding: 2em 2em 2em 2em ;
+    box-shadow: 3px 3px 8px black;
+    background-color: rgba(17, 76, 54, 0.54);
+    opacity: 0.7;
+}
+
+#vehicle-section .add-to-cart, #vehicle-section .view {
+    margin: 0.2rem;
+}
+
+.new-vehicle, .all-vehicles {
+    margin-left: 0.5rem;
+}
+
+.vehicle-page-photo {
+    margin-top: 2rem;
+    margin-left: 0.5rem;
+}
