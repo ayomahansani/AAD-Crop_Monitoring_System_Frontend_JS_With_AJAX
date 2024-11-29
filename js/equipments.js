@@ -61,8 +61,8 @@ function loadEquipmentsTable() {
                                     <td class="equipment-name-value" >${equipment.equipmentName}</td>
                                     <td class="equipment-type-value" >${equipment.equipmentType}</td>
                                     <td class="equipment-status-value" >${equipment.equipmentStatus}</td>
-                                    <td class="equipment-fieldName-value" >${fieldName}</td>
-                                    <td class="equipment-staffName-value" >${staffName}</td>
+                                    <td class="equipment-fieldName-value" style="color:darkgreen; font-weight: 480" >${fieldName}</td>
+                                    <td class="equipment-staffName-value" style="color:darkgreen; font-weight: 480">${staffName}</td>
                                 </tr>
                                 `;
                                 $('#equipment-tbl-tbody').append(row);

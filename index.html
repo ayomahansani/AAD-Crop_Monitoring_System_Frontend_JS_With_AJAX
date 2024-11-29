@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="assets/styles/crops.css">
     <link rel="stylesheet" href="assets/styles/equipments.css">
     <link rel="stylesheet" href="assets/styles/staffs.css">
-<!--    <link rel="stylesheet" href="assets/styles/vehicles.css">-->
+    <link rel="stylesheet" href="assets/styles/vehicles.css">
 
 </head>
 <body>
@@ -500,7 +500,7 @@
                     <!-- vehicle search -->
                     <div class="col-8 col-sm-6 col-md-4 col-lg-4 pb-4">
                         <label for="searchVehicle" class="form-label fw-semibold">Search Vehicle</label>
-                        <input type="search" class="form-control search-input" id="searchVehicle" placeholder="Input Plate Number Here">
+                        <input type="search" class="form-control search-input" id="searchVehicle" placeholder="Input Licence Plate Number Here">
                     </div>
                     <div class="col-4 col-sm-6 col-md-3 col-lg-3 pb-4">
                         <button type="button" class="btn search-btn" id="vehicle-search-btn" data-bs-toggle="modal" data-bs-target="#vehicleDetailsModal">
@@ -1291,7 +1291,7 @@
 <!-- Add New Vehicle Modal -->
 <div class="modal fade" id="newVehicleModal" tabindex="-1" aria-labelledby="newVehicleModalLabel" aria-hidden="true">
 
-    <div class="modal-dialog modal-dialog-centered modal-m">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
 
             <div class="modal-header">
@@ -1306,38 +1306,48 @@
 
                 <form>
 
-                    <div class="mb-3">
-                        <label for="licensePlateNumber" class="form-label fw-semibold">License Plate Number</label>
-                        <input type="text" class="form-control search-input" id="licensePlateNumber">
+                    <div class="row">
+
+                        <!-- Left Column -->
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="licensePlateNumber" class="form-label fw-semibold">License Plate Number</label>
+                                <input type="text" class="form-control search-input" id="licensePlateNumber">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="fuelType" class="form-label fw-semibold">Fuel Type</label>
+                                <select class="form-select search-input" aria-label="Default select example" id="fuelType">
+                                    <option selected>Select fuel type</option>
+                                    <option value="Petrol">Petrol</option>
+                                    <option value="Diesel">Diesel</option>
+                                    <option value="Electric">Electric</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Right Column -->
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="vehicleCategory" class="form-label fw-semibold">Category</label>
+                                <input type="text" class="form-control search-input" id="vehicleCategory">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="vehicleStatus" class="form-label fw-semibold">Status</label>
+                                <select class="form-select search-input" aria-label="Default select example" id="vehicleStatus">
+                                    <option selected>Select status</option>
+                                    <option value="Available">Available</option>
+                                    <option value="In Use">Out Of Service</option>
+                                </select>
+                            </div>
+                        </div>
+
                     </div>
 
                     <div class="mb-3">
-                        <label for="vehicleCategory" class="form-label fw-semibold">Category</label>
-                        <input type="text" class="form-control search-input" id="vehicleCategory">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="fuelType" class="form-label fw-semibold">Fuel Type</label>
-                        <select class="form-select search-input" aria-label="Default select example" id="fuelType">
-                            <option selected>Select fuel type</option>
-                            <option value="Petrol">Petrol</option>
-                            <option value="Diesel">Diesel</option>
-                            <option value="Electric">Electric</option>
-                        </select>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="vehicleStatus" class="form-label fw-semibold">Status</label>
-                        <select class="form-select search-input" aria-label="Default select example" id="vehicleStatus">
-                            <option selected>Select status</option>
-                            <option value="Available">Available</option>
-                            <option value="In Use">Out Of Service</option>
-                        </select>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="vehicleRemarks" class="form-label fw-semibold">Category</label>
-                        <textarea class="form-control search-input" id="vehicleRemarks" rows="3" readonly> </textarea>
+                        <label for="vehicleRemarks" class="form-label fw-semibold">Remarks</label>
+                        <textarea class="form-control search-input" id="vehicleRemarks" rows="3"> </textarea>
                     </div>
 
                     <div class="mb-3">
@@ -1389,7 +1399,7 @@
 
             <div class="modal-header text-center">
                 <h1 class="modal-title fs-5" id="viewAllVehiclesModalLabel">
-                    All Equipments
+                    All Vehicles
                     <span class="all-vehicles"><i class="fas fa-tools"></i></span>
                     <span class="all-vehicles"><i class="fas fa-tools"></i></span>
                 </h1>

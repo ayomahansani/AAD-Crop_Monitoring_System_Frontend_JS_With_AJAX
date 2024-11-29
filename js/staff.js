@@ -46,7 +46,7 @@ function loadStaffTable() {
                                 <td class="staff-joinedDate-value">${staff.joinedDate}</td>
                                 <td class="staff-designation-value">${staff.designation}</td>
                                 <td class="staff-role-value">${staff.role}</td>
-                                <td class="staff-assigned-fieldNames" style="color:rgb(14,81,27); font-weight: 600" >${fieldNames || "No fields assigned"}</td>
+                                <td class="staff-assigned-fieldNames" style="color:darkgreen; font-weight: 600" >${fieldNames || "No fields assigned"}</td>
                             </tr>
                         `;
                         $('#staff-tbl-tbody').append(row); // Append the row to the table
