@@ -533,6 +533,15 @@ $("#vehicle-search-btn").on('click', function () {
 
 
 
+// -------------------------- The start - clear the vehicle search bar's value --------------------------
+$("#vehicle-search-modal-close").on('click', function () {
+    $("#searchVehicle").val("");
+});
+// -------------------------- The end - clear the vehicle search bar's value --------------------------
+
+
+
+
 //-------------------------- The start - clear searched inputs --------------------------
 function searchedVehicleInputsClear(){
     $("#searchedVehicleLicensePlateNumber").val("");
