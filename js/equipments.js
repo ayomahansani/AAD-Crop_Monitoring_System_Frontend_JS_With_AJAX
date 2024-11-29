@@ -38,7 +38,8 @@ function loadEquipmentsTable() {
                 success: function (staffs) {
                     const staffLookup = {};
                     staffs.forEach(staff => {
-                        staffLookup[staff.staffId] = staff.firstName; // Map staff id to staff name
+                        // Map staff ID to a full name (first + last name)
+                        staffLookup[staff.staffId] = `${staff.firstName} ${staff.lastName}`;
                     });
 
                     // Fetch equipments and populate the table

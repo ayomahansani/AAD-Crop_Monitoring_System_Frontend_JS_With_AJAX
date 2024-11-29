@@ -1,5 +1,6 @@
 import {loadCropsCount} from "./crops.js";
 import {loadStaffsCount} from "./staff.js";
+import {loadEquipmentCount} from "./equipments.js";
 
 
 
@@ -34,10 +35,14 @@ $(document).ready(function() {
         $("#register-form-section").css(css1);
     });
 
+
     // set all crop count to the home page's customer card
     loadCropsCount();
     // set all staff count to the home page's customer card
     loadStaffsCount();
+    // set all staff count to the home page's customer card
+    loadEquipmentCount();
+
 
 
     // <!------------------------ Sign-Up ------------------------>
