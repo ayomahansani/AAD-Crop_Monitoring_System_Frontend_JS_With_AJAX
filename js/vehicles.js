@@ -119,3 +119,85 @@ function loadStaffNamesComboBoxForVehicleForm() {
     });
 }
 // -------------------------- The end - Function to fetch staffs and populate the select element --------------------------
+
+
+
+
+// -------------------------- The start - when click vehicle save button --------------------------
+$("#vehicle-save").on('click', () => {
+
+    // get values from inputs
+    const licensePlateNumber = $("#licensePlateNumber").val();
+    const vehicleCategory = $("#vehicleCategory").val();
+    const fuelType = $("#fuelType").val();
+    const vehicleStatus = $("#vehicleStatus").val();
+    const remarks = $("#vehicleRemarks").val();
+    const staffId = $("#staffNamesComboBoxForVehicleForm").val();
+
+    // check whether print those values
+    console.log("licensePlateNumber: " , licensePlateNumber);
+    console.log("vehicleCategory: " , vehicleCategory);
+    console.log("fuelType: " , fuelType);
+    console.log("vehicleStatus: " , vehicleStatus);
+    console.log("remarks: " , remarks);
+    console.log("staffId: " , staffId);
+
+    //let equipmentValidated = checkEquipmentValidation(equipmentName, equipmentType, equipmentStatus, fieldCode, staffId);
+
+    //if(equipmentValidated) {
+
+        // create an object - Object Literal
+        let vehicle = {
+            licensePlateNumber: licensePlateNumber,
+            vehicleCategory: vehicleCategory,
+            fuelType: fuelType,
+            vehicleStatus: vehicleStatus,
+            remarks: remarks,
+            staffId: staffId
+        }
+
+        // For testing
+        console.log("JS Object : " + vehicle);
+
+        // Create JSON
+        // convert js object to JSON object
+        const jsonVehicle = JSON.stringify(vehicle);
+        console.log("JSON Object : " + jsonVehicle);
+
+        // ========= Ajax with JQuery =========
+
+        $.ajax({
+            url: "http://localhost:5052/cropMonitoringSystem/api/v1/vehicles", // Vehicles API
+            type: "POST",
+            data: jsonVehicle,
+            contentType: "application/json",
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("token")
+            },
+
+            success: function (results) {
+
+                // show crop saved pop up
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Vehicle saved successfully!',
+                    showConfirmButton: false,
+                    timer: 1500,
+                    iconColor: 'rgba(131,193,170,0.79)'
+                });
+
+                // load the table
+                loadVehiclesTable();
+
+                // clean the inputs values
+                $("#newVehicleModal form").trigger('reset');
+            },
+
+            error: function (error) {
+                console.log(error)
+                showErrorAlert('Vehicle not saved...')
+            }
+        });
+    //}
+});
+// -------------------------- The end - when click vehicle save button --------------------------
