@@ -123,6 +123,54 @@ function loadStaffNamesComboBoxForVehicleForm() {
 
 
 
+// -------------------------- The start - when click a vehicle table row --------------------------
+$("#vehicle-tbl-tbody").on('click', 'tr', function (e) {
+
+    // Extract values from the clicked row
+    let licensePlateNumber = $(this).find(".vehicle-licensePlateNumber-value").text().trim();
+    let vehicleCategory = $(this).find(".vehicle-category-value").text().trim();
+    let fuelType = $(this).find(".vehicle-fuelType-value").text().trim();
+    let vehicleStatus = $(this).find(".vehicle-status-value").text().trim();
+    let remarks = $(this).find(".vehicle-remarks-value").text().trim();
+    let vehicleStaffName = $(this).find(".vehicle-staffName-value").text().trim();
+
+    // Debug: Log extracted values
+    console.log("Vehicle Staff:", vehicleStaffName);
+
+    // Assign values to the input fields
+    $("#licensePlateNumber").val(licensePlateNumber);
+    $("#vehicleCategory").val(vehicleCategory);
+    $("#fuelType").val(fuelType);
+    $("#vehicleStatus").val(vehicleStatus);
+    $("#vehicleRemarks").val(remarks);
+
+    // Find the staffId for the vehicleStaffName
+    $.ajax({
+        url: "http://localhost:5052/cropMonitoringSystem/api/v1/staffs",
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        success: function (staffs) {
+            // Find the staffId that corresponds to the vehicleStaffName
+            const staff = staffs.find(s => `${s.firstName} ${s.lastName}` === vehicleStaffName);
+            if (staff) {
+                // Set the staff id as the selected value in the combobox
+                $("#staffNamesComboBoxForVehicleForm").val(staff.staffId);
+            } else {
+                console.warn("Staff not found for vehicle:", vehicleStaffName);
+            }
+        },
+        error: function (error) {
+            console.error("Error fetching staffs:", error);
+        }
+    });
+});
+// -------------------------- The end - when click a vehicle table row --------------------------
+
+
+
+
 // -------------------------- The start - when click vehicle save button --------------------------
 $("#vehicle-save").on('click', () => {
 
