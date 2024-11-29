@@ -230,6 +230,7 @@ $('#crop-tbl-tbody').on('click', '.view-crop-image', function (e) {
         $('#seeCropImage').attr('src', `data:image/jpeg;base64,${base64Image}`);
         // Show the modal
         $('#imagePreviewModal').modal('show');
+        $("#cropImageText").text("please again select an image...");
     } else {
         alert("No image available for this crop.");
     }

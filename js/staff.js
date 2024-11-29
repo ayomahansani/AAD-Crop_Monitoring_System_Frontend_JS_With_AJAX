@@ -318,9 +318,9 @@ $("#staff-save").on('click', () => {
     console.log("role: " , role);
     console.log("assignedFields: " , assignedFields);
 
-    //let staffValidated = checkStaffValidation(firstName, lastName, email, address, gender, contactNo, dob, joinedDate, designation, role, assignedFields);
+    let staffValidated = checkStaffValidation(firstName, lastName, email, address, gender, contactNo, dob, joinedDate, designation, role, assignedFields);
 
-    //if(cropValidated) {
+    if(staffValidated) {
 
         // create an object - Object Literal
         let staff = {
@@ -380,7 +380,7 @@ $("#staff-save").on('click', () => {
                 showErrorAlert('Staff not saved...')
             }
         });
-    //}
+    }
 
 });
 // -------------------------- The end - when click staff save button --------------------------
@@ -416,9 +416,9 @@ $("#staff-update").on('click', () => {
 
     console.log("Assigned Fields : " + assignedFields)
 
-    //let staffValidated = checkStaffValidation(firstName, lastName, email, address, gender, contactNo, dob, joinedDate, designation, role);
+    let staffValidated = checkStaffValidation(firstName, lastName, email, address, gender, contactNo, dob, joinedDate, designation, role, assignedFields);
 
-    //if(cropValidated) {
+    if(staffValidated) {
 
         // Find the staff id for the staff email
         $.ajax({
@@ -501,7 +501,7 @@ $("#staff-update").on('click', () => {
                 showErrorAlert('Error fetching staff data.');
             }
         });
-    //}
+    }
 });
 // -------------------------- The end - when click staff update button --------------------------
 
@@ -741,7 +741,7 @@ function checkStaffValidation(firstName, lastName, email, address, gender, conta
         showErrorAlert("Email is required!");
         return false;
     } else {
-        if(!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/.test(email)){
+        if(!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)){
             showErrorAlert("Please enter a valid email!  Pattern - 'shonelNohen0@gmail.com'")
             return false;
         }
