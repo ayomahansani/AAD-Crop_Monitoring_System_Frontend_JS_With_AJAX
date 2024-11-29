@@ -10,7 +10,6 @@ $(document).ready(function () {
 
 
 
-
 // -------------------------- The start - vehicle table loading --------------------------
 function loadVehiclesTable() {
 
@@ -67,3 +66,25 @@ function loadVehiclesTable() {
     });
 }
 // -------------------------- The end - vehicle table loading --------------------------
+
+
+
+
+// -------------------------- The start - vehicle's count loading --------------------------
+export function loadVehicleCount() {
+
+    $.ajax({
+        url: "http://localhost:5052/cropMonitoringSystem/api/v1/vehicles", // Vehicles API
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        success : function (results) {
+            $("#vehicle-count").html(results.length);
+        },
+        error : function (error) {
+            console.log(error)
+        }
+    })
+}
+// -------------------------- The end - vehicle's count loading --------------------------
