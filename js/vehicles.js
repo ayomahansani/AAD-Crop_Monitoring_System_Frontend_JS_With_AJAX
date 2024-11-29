@@ -415,3 +415,12 @@ $("#vehicle-delete").on('click', () => {
     });
 });
 // -------------------------- The end - when click vehicle delete button --------------------------
+
+
+
+
+// -------------------------- The start - when click vehicle clear button --------------------------
+$("#vehicle-clear").on('click', () => {
+    $("#newVehicleModal form").trigger('reset');
+});
+// -------------------------- The end - when click vehicle clear button --------------------------
