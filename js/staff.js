@@ -11,6 +11,12 @@ $(document).ready(function () {
 
 
 
+// Define a global variable for staff id
+let selectedStaffId = null;
+
+
+
+
 // -------------------------- The start - staff table loading --------------------------
 function loadStaffTable() {
     // Fetch staff data
@@ -138,6 +144,9 @@ $("#staff-tbl-tbody").on('click', 'tr', function () {
                 alert('Staff not found!');
                 return;
             }
+
+            selectedStaffId = staff.staffId;
+            console.log("Staff id: ", selectedStaffId);
 
             // Fill in staff details in the modal
             $("#staffFirstName").val(staff.firstName);
@@ -412,87 +421,62 @@ $("#staff-update").on('click', () => {
 
     if(staffValidated) {
 
-        // Find the staff id for the staff email
+        // create an object - Object Literal
+        let staff = {
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            address: address,
+            gender: gender,
+            contactNo:contactNo,
+            dob: dob,
+            joinedDate: joinedDate,
+            designation: designation,
+            role:role,
+            fieldIds: assignedFields // Field IDs as a list
+        }
+
+        // For testing
+        console.log("JS Object : " + staff);
+
+        // Create JSON
+        // convert js object to JSON object
+        const jsonStaff = JSON.stringify(staff);
+        console.log("JSON Object : " + jsonStaff);
+
+
+        // Send the PUT request
         $.ajax({
-            url: "http://localhost:5052/cropMonitoringSystem/api/v1/staffs",
-            method: 'GET',
+            url: `http://localhost:5052/cropMonitoringSystem/api/v1/staffs/${selectedStaffId}`,
+            type: "PUT",
+            data: jsonStaff,
+            contentType: "application/json",
             headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('token')
+                "Authorization": "Bearer " + localStorage.getItem("token")
             },
-            success: function (results) {
-                // Find the staff matching the input
-                const matchedStaff = results.find(staff => (staff.email === email));
+            success: function () {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Staff updated successfully!',
+                    showConfirmButton: false,
+                    timer: 1500,
+                    iconColor: 'rgba(131,193,170,0.79)'
+                });
 
-                if (matchedStaff) {
-                    const staffId = matchedStaff.staffId; // Set the staff id
-                    console.log("Staff Id: ", staffId);
+                // Reload the crops table
+                loadStaffTable()
 
-                    // create an object - Object Literal
-                    let staff = {
-                        firstName: firstName,
-                        lastName: lastName,
-                        email: email,
-                        address: address,
-                        gender: gender,
-                        contactNo:contactNo,
-                        dob: dob,
-                        joinedDate: joinedDate,
-                        designation: designation,
-                        role:role,
-                        fieldIds: assignedFields // Field IDs as a list
-                    }
+                // Reset the form
+                $("#newStaffModal form")[0].reset();
+                $(".fieldForStaff").val('');
 
-                    // For testing
-                    console.log("JS Object : " + staff);
-
-                    // Create JSON
-                    // convert js object to JSON object
-                    const jsonStaff = JSON.stringify(staff);
-                    console.log("JSON Object : " + jsonStaff);
-
-
-                    // Send the PUT request
-                    $.ajax({
-                        url: `http://localhost:5052/cropMonitoringSystem/api/v1/staffs/${staffId}`,
-                        type: "PUT",
-                        data: jsonStaff,
-                        contentType: "application/json",
-                        headers: {
-                            "Authorization": "Bearer " + localStorage.getItem("token")
-                        },
-                        success: function () {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Staff updated successfully!',
-                                showConfirmButton: false,
-                                timer: 1500,
-                                iconColor: 'rgba(131,193,170,0.79)'
-                            });
-
-                            // Reload the crops table
-                            loadStaffTable()
-
-                            // Reset the form
-                            $("#newStaffModal form")[0].reset();
-                            $(".fieldForStaff").val('');
-
-                        },
-                        error: function (error) {
-                            console.error("Error updating staff:", error);
-                            showErrorAlert('Staff not updated...');
-                        }
-                    });
-
-                } else {
-                    console.warn("Staff not found:", email);
-                    showErrorAlert('Staff not found for the given details.');
-                }
             },
             error: function (error) {
-                console.error("Error fetching staffs:", error);
-                showErrorAlert('Error fetching staff data.');
+                console.error("Error updating staff:", error);
+                showErrorAlert('Staff not updated...');
             }
         });
+
     }
 });
 // -------------------------- The end - when click staff update button --------------------------
@@ -503,60 +487,32 @@ $("#staff-update").on('click', () => {
 // -------------------------- The start - when click staff delete button --------------------------
 $("#staff-delete").on('click', () => {
 
-    // Get values from inputs
-    const email = $("#staffEmail").val();
-
-    // Find the staff id for the staff email
+    // Send the DELETE request
     $.ajax({
-        url: "http://localhost:5052/cropMonitoringSystem/api/v1/staffs",
-        method: 'GET',
+        url: `http://localhost:5052/cropMonitoringSystem/api/v1/staffs/${selectedStaffId}`,
+        type: "DELETE",
         headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem('token')
+            "Authorization": "Bearer " + localStorage.getItem("token")
         },
-        success: function (results) {
-            // Find the staff matching the input
-            const staff = results.find(staff => (staff.email === email));
-            if (staff) {
-                const staffId = staff.staffId; // Set the staff id
-                console.log("Staff Id: ", staffId);
+        success: function () {
+            Swal.fire({
+                icon: 'success',
+                title: 'Staff deleted successfully!',
+                showConfirmButton: false,
+                timer: 1500,
+                iconColor: 'rgba(131,193,170,0.79)'
+            });
 
-                // Send the DELETE request
-                $.ajax({
-                    url: `http://localhost:5052/cropMonitoringSystem/api/v1/staffs/${staffId}`,
-                    type: "DELETE",
-                    headers: {
-                        "Authorization": "Bearer " + localStorage.getItem("token")
-                    },
-                    success: function () {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Staff deleted successfully!',
-                            showConfirmButton: false,
-                            timer: 1500,
-                            iconColor: 'rgba(131,193,170,0.79)'
-                        });
+            // load the table
+            loadStaffTable();
 
-                        // load the table
-                        loadStaffTable();
-
-                        // clean the inputs values
-                        $("#newStaffModal form").trigger('reset');
-                        $(".fieldForStaff").val('');
-                    },
-                    error: function (error) {
-                        console.error("Error deleting staff:", error);
-                        showErrorAlert('Staff not deleted...');
-                    }
-                });
-
-            } else {
-                console.warn("Staff not found:", email);
-                showErrorAlert('Staff not found for the given details.');
-            }
+            // clean the inputs values
+            $("#newStaffModal form").trigger('reset');
+            $(".fieldForStaff").val('');
         },
         error: function (error) {
-            console.error("Error fetching staffs:", error);
-            showErrorAlert('Error fetching staff data.');
+            console.error("Error deleting staff:", error);
+            showErrorAlert('Staff not deleted...');
         }
     });
 });
