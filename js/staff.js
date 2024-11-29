@@ -68,7 +68,6 @@ function loadStaffTable() {
 
 
 
-
 // -------------------------- The start - staff's count loading --------------------------
 export function loadStaffsCount() {
 
@@ -87,7 +86,6 @@ export function loadStaffsCount() {
     })
 }
 // -------------------------- The end - staff's count loading --------------------------
-
 
 
 
@@ -118,7 +116,6 @@ function loadFieldNamesComboBoxAndSetFieldCodes() {
     });
 }
 // -------------------------- The end - Function to fetch fields and populate the select element --------------------------
-
 
 
 
@@ -205,7 +202,6 @@ $("#staff-tbl-tbody").on('click', 'tr', function () {
 
 
 
-
 // -------------------------- The start - Function to add a field combo box with all options --------------------------
 function addFieldWithOptions(allFields, selectedField = null) {
     const container = document.getElementById('assignedFieldsContainer');
@@ -233,7 +229,6 @@ function addFieldWithOptions(allFields, selectedField = null) {
     container.appendChild(fieldDiv);
 }
 // -------------------------- The end - Function to add a field combo box with all options --------------------------
-
 
 
 
@@ -269,13 +264,11 @@ $("#addFieldBtn").on('click', () => {
 
 
 
-
 // -------------------------- The start - Function to remove an assigned field combo box --------------------------
 window.removeField = function (button) {
     button.parentElement.remove();
 };
 // -------------------------- The end - Function to remove an assigned field combo box --------------------------
-
 
 
 
@@ -384,7 +377,6 @@ $("#staff-save").on('click', () => {
 
 });
 // -------------------------- The end - when click staff save button --------------------------
-
 
 
 
@@ -508,7 +500,6 @@ $("#staff-update").on('click', () => {
 
 
 
-
 // -------------------------- The start - when click staff delete button --------------------------
 $("#staff-delete").on('click', () => {
 
@@ -574,14 +565,12 @@ $("#staff-delete").on('click', () => {
 
 
 
-
 // -------------------------- The start - when click staff clear button --------------------------
 $("#staff-clear").on('click', () => {
     $("#newStaffModal form").trigger('reset');
     $(".fieldForStaff").val('');
 });
 // -------------------------- The end - when click staff clear button --------------------------
-
 
 
 
@@ -621,7 +610,6 @@ $("#viewAllStaffs").on('click', function () {
     })
 });
 // -------------------------- The end - when click view all staffs button --------------------------
-
 
 
 
@@ -703,13 +691,11 @@ $("#staff-search-btn").on('click', function () {
 
 
 
-
 // -------------------------- The start - clear the staff search bar's value --------------------------
 $("#staff-search-modal-close").on('click', function () {
     $("#searchStaff").val("");
 });
 // -------------------------- The end - clear the staff search bar's value --------------------------
-
 
 
 
@@ -809,7 +795,6 @@ function checkStaffValidation(firstName, lastName, email, address, gender, conta
 
 }
 //-------------------------- The end - check staff validations --------------------------
-
 
 
 

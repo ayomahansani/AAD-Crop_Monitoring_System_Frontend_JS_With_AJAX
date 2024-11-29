@@ -508,7 +508,7 @@
 
             <div id="crop-search-modal-body" class="modal-body">
 
-                <form>
+                <form class="text-center">
 
                     <div class="mb-3">
                         <label for="searchedCropCommonName" class="form-label fw-semibold">Common Name</label>
@@ -776,12 +776,21 @@
 
                     <div class="mb-3">
                         <label for="equipmentType" class="form-label fw-semibold">Type</label>
-                        <input type="text" class="form-control search-input" id="equipmentType">
+                        <select class="form-select search-input" aria-label="Default select example" id="equipmentType">
+                            <option selected>Select type</option>
+                            <option value="Electrical">Electrical</option>
+                            <option value="Mechanical">Mechanical</option>
+                            <option value="Hand Tool">Hand Tool</option>
+                        </select>
                     </div>
 
                     <div class="mb-3">
                         <label for="equipmentStatus" class="form-label fw-semibold">Status</label>
-                        <input type="text" class="form-control search-input" id="equipmentStatus">
+                        <select class="form-select search-input" aria-label="Default select example" id="equipmentStatus">
+                            <option selected>Select status</option>
+                            <option value="Available">Available</option>
+                            <option value="In Use">In Use</option>
+                        </select>
                     </div>
 
                     <div class="mb-3">

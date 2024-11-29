@@ -4,9 +4,9 @@ import {showErrorAlert} from "./crops.js";
 
 
 $(document).ready(function () {
+    loadEquipmentsTable();
     loadFieldNamesComboBoxForEquipmentForm();
     loadStaffNamesComboBoxForEquipmentForm();
-    loadEquipmentsTable();
 });
 
 
