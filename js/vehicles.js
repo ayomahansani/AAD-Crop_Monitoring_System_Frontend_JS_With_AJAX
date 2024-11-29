@@ -351,3 +351,67 @@ $("#vehicle-update").on('click', () => {
     //}
 });
 // -------------------------- The end - when click vehicle update button --------------------------
+
+
+
+
+// -------------------------- The start - when click vehicle delete button --------------------------
+$("#vehicle-delete").on('click', () => {
+
+    // Get values from inputs
+    const licensePlateNumber = $("#licensePlateNumber").val();
+
+    // Find the vehicle code for the vehicle licensePlateNumber
+    $.ajax({
+        url: "http://localhost:5052/cropMonitoringSystem/api/v1/vehicles",
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        success: function (results) {
+            // Find the vehicle matching the input
+            const searchedVehicle = results.find(vehicle => (vehicle.licensePlateNumber === licensePlateNumber));
+            if (searchedVehicle) {
+                const vehicleCode = searchedVehicle.vehicleCode; // Set the vehicle code
+                console.log("Vehicle Code: ", vehicleCode);
+
+                // Send the DELETE request
+                $.ajax({
+                    url: `http://localhost:5052/cropMonitoringSystem/api/v1/vehicles/${vehicleCode}`,
+                    type: "DELETE",
+                    headers: {
+                        "Authorization": "Bearer " + localStorage.getItem("token")
+                    },
+                    success: function () {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Vehicle deleted successfully!',
+                            showConfirmButton: false,
+                            timer: 1500,
+                            iconColor: 'rgba(131,193,170,0.79)'
+                        });
+
+                        // load the table
+                        loadVehiclesTable();
+
+                        // clean the inputs values
+                        $("#newVehicleModal form").trigger('reset');
+                    },
+                    error: function (error) {
+                        console.error("Error deleting vehicle:", error);
+                        showErrorAlert('Vehicle not deleted...');
+                    }
+                });
+
+            } else {
+                console.warn("Vehicle not found:", licensePlateNumber);
+                showErrorAlert('Vehicle not found for the given details.');
+            }
+        },
+        error: function (error) {
+            console.error("Error fetching vehicles:", error);
+            showErrorAlert('Error fetching vehicle data.');
+        }
+    });
+});
+// -------------------------- The end - when click vehicle delete button --------------------------
