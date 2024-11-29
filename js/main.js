@@ -1,6 +1,7 @@
 import {loadCropsCount} from "./crops.js";
 import {loadStaffsCount} from "./staff.js";
 import {loadEquipmentCount} from "./equipments.js";
+import {loadVehicleCount} from "./vehicles.js";
 
 
 
@@ -41,8 +42,10 @@ $(document).ready(function() {
     loadCropsCount();
     // set all staff count to the home page's customer card
     loadStaffsCount();
-    // set all staff count to the home page's customer card
+    // set all equipments count to the home page's customer card
     loadEquipmentCount();
+    // set all vehicle count to the home page's customer card
+    loadVehicleCount();
 
 
 

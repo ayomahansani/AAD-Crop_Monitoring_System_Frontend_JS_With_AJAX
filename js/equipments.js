@@ -12,6 +12,12 @@ $(document).ready(function () {
 
 
 
+// Define a global variable for equipment id
+let selectedEquipmentId = null;
+
+
+
+
 // -------------------------- The start - equipment table loading --------------------------
 function loadEquipmentsTable() {
 
@@ -233,6 +239,30 @@ $("#equipment-tbl-tbody").on('click', 'tr', function (e) {
             console.error("Error fetching staffs:", error);
         }
     });
+
+    // Find the equipment id for the equipment name
+    $.ajax({
+        url: "http://localhost:5052/cropMonitoringSystem/api/v1/equipments",
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        success: function (results) {
+            // Find the equipment matching the input
+            const searchedEquipment = results.find(equipment => (equipment.equipmentName === equipmentName));
+            if (searchedEquipment) {
+                selectedEquipmentId = searchedEquipment.equipmentId; // Set the equipment id
+
+                // Debug: Log the global variable
+                console.log("Selected Equipment Id:", selectedEquipmentId);
+            } else {
+                console.warn("Equipment id not found for equipment name:", equipmentName);
+            }
+        },
+        error: function (error) {
+            console.error("Error fetching equipments details:", error);
+        }
+    });
 });
 // -------------------------- The end - when click an equipment table row --------------------------
 
@@ -339,78 +369,54 @@ $("#equipment-update").on('click', () => {
 
     if(equipmentValidated) {
 
-        // Find the equipment id for the equipment name
+        // create an object - Object Literal
+        let equipment = {
+            equipmentName: equipmentName,
+            equipmentType: equipmentType,
+            equipmentStatus: equipmentStatus,
+            fieldCode: fieldCode,
+            staffId: staffId
+        }
+
+        // For testing
+        console.log("JS Object : " + equipment);
+
+        // Create JSON
+        // convert js object to JSON object
+        const jsonEquipment = JSON.stringify(equipment);
+        console.log("JSON Object : " + jsonEquipment);
+
+        // Send the PUT request
         $.ajax({
-            url: "http://localhost:5052/cropMonitoringSystem/api/v1/equipments",
-            method: 'GET',
+            url: `http://localhost:5052/cropMonitoringSystem/api/v1/equipments/${selectedEquipmentId}`,
+            type: "PUT",
+            data: jsonEquipment,
+            processData: false, // Prevent jQuery from transforming data
+            contentType: "application/json",
             headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('token')
+                "Authorization": "Bearer " + localStorage.getItem("token")
             },
-            success: function (results) {
-                // Find the equipment matching the input
-                const searchedEquipment = results.find(equipment => (equipment.equipmentName === equipmentName));
-                if (searchedEquipment) {
-                    const equipmentId = searchedEquipment.equipmentId; // Set the equipment id
-                    console.log("Equipment Id: ", equipmentId);
+            success: function () {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Equipment updated successfully!',
+                    showConfirmButton: false,
+                    timer: 1500,
+                    iconColor: 'rgba(131,193,170,0.79)'
+                });
 
-                    // create an object - Object Literal
-                    let equipment = {
-                        equipmentName: equipmentName,
-                        equipmentType: equipmentType,
-                        equipmentStatus: equipmentStatus,
-                        fieldCode: fieldCode,
-                        staffId: staffId
-                    }
+                // Reload the crops table
+                loadEquipmentsTable();
 
-                    // For testing
-                    console.log("JS Object : " + equipment);
-
-                    // Create JSON
-                    // convert js object to JSON object
-                    const jsonEquipment = JSON.stringify(equipment);
-                    console.log("JSON Object : " + jsonEquipment);
-
-                    // Send the PUT request
-                    $.ajax({
-                        url: `http://localhost:5052/cropMonitoringSystem/api/v1/equipments/${equipmentId}`,
-                        type: "PUT",
-                        data: jsonEquipment,
-                        processData: false, // Prevent jQuery from transforming data
-                        contentType: "application/json",
-                        headers: {
-                            "Authorization": "Bearer " + localStorage.getItem("token")
-                        },
-                        success: function () {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Equipment updated successfully!',
-                                showConfirmButton: false,
-                                timer: 1500,
-                                iconColor: 'rgba(131,193,170,0.79)'
-                            });
-
-                            // Reload the crops table
-                            loadEquipmentsTable();
-
-                            // clean the inputs values
-                            $("#newEquipmentModal form").trigger('reset');
-                        },
-                        error: function (error) {
-                            console.error("Error updating crop:", error);
-                            showErrorAlert('Equipment not updated...');
-                        }
-                    });
-
-                } else {
-                    console.warn("Equipment not found:", equipmentName);
-                    showErrorAlert('Equipment not found for the given details.');
-                }
+                // clean the inputs values
+                $("#newEquipmentModal form").trigger('reset');
             },
             error: function (error) {
-                console.error("Error fetching equipments:", error);
-                showErrorAlert('Error fetching equipments data.');
+                console.error("Error updating crop:", error);
+                showErrorAlert('Equipment not updated...');
             }
         });
+
     }
 });
 // -------------------------- The end - when click equipment update button --------------------------
@@ -421,61 +427,34 @@ $("#equipment-update").on('click', () => {
 // -------------------------- The start - when click equipment delete button --------------------------
 $("#equipment-delete").on('click', () => {
 
-    // Get values from inputs
-    const equipmentName = $("#equipmentName").val();
-
-    // Find the crop code for the cropCommonName
+    // Send the DELETE request
     $.ajax({
-        url: "http://localhost:5052/cropMonitoringSystem/api/v1/equipments",
-        method: 'GET',
+        url: `http://localhost:5052/cropMonitoringSystem/api/v1/equipments/${selectedEquipmentId}`,
+        type: "DELETE",
         headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem('token')
+            "Authorization": "Bearer " + localStorage.getItem("token")
         },
-        success: function (results) {
-            // Find the equipment matching the input
-            const equipment = results.find(equipment => (equipment.equipmentName === equipmentName));
-            if (equipment) {
-                const equipmentId = equipment.equipmentId; // Set the equipment id
-                console.log("Equipment Id: ", equipmentId);
+        success: function () {
+            Swal.fire({
+                icon: 'success',
+                title: 'Equipment deleted successfully!',
+                showConfirmButton: false,
+                timer: 1500,
+                iconColor: 'rgba(131,193,170,0.79)'
+            });
 
-                // Send the DELETE request
-                $.ajax({
-                    url: `http://localhost:5052/cropMonitoringSystem/api/v1/equipments/${equipmentId}`,
-                    type: "DELETE",
-                    headers: {
-                        "Authorization": "Bearer " + localStorage.getItem("token")
-                    },
-                    success: function () {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Equipment deleted successfully!',
-                            showConfirmButton: false,
-                            timer: 1500,
-                            iconColor: 'rgba(131,193,170,0.79)'
-                        });
+            // load the table
+            loadEquipmentsTable();
 
-                        // load the table
-                        loadEquipmentsTable();
-
-                        // clean the inputs values
-                        $("#newEquipmentModal form").trigger('reset');
-                    },
-                    error: function (error) {
-                        console.error("Error deleting equipment:", error);
-                        showErrorAlert('Equipment not deleted...');
-                    }
-                });
-
-            } else {
-                console.warn("Equipment not found:", equipmentName);
-                showErrorAlert('Equipment not found for the given details.');
-            }
+            // clean the inputs values
+            $("#newEquipmentModal form").trigger('reset');
         },
         error: function (error) {
-            console.error("Error fetching equipments:", error);
-            showErrorAlert('Error fetching equipment data.');
+            console.error("Error deleting equipment:", error);
+            showErrorAlert('Equipment not deleted...');
         }
     });
+
 });
 // -------------------------- The end - when click equipment delete button --------------------------
 
