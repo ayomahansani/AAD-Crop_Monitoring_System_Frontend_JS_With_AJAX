@@ -571,7 +571,7 @@ $("#equipment-search-btn").on('click', function () {
                                 'Authorization': 'Bearer ' + localStorage.getItem('token')
                             },
                             success : function (staffDTO) {
-                                $("#searchedSelectedStaffForEquipment").val(staffDTO.firstName);
+                                $("#searchedSelectedStaffForEquipment").val(staffDTO.firstName + " " + staffDTO.lastName);
                             },
                             error : function (error) {
                                 console.log(error)
