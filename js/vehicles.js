@@ -249,3 +249,105 @@ $("#vehicle-save").on('click', () => {
     //}
 });
 // -------------------------- The end - when click vehicle save button --------------------------
+
+
+
+
+// -------------------------- The start - when click vehicle update button --------------------------
+$("#vehicle-update").on('click', () => {
+
+    // get values from inputs
+    const licensePlateNumber = $("#licensePlateNumber").val();
+    const vehicleCategory = $("#vehicleCategory").val();
+    const fuelType = $("#fuelType").val();
+    const vehicleStatus = $("#vehicleStatus").val();
+    const remarks = $("#vehicleRemarks").val();
+    const staffId = $("#staffNamesComboBoxForVehicleForm").val();
+
+    // check whether print those values
+    console.log("licensePlateNumber: " , licensePlateNumber);
+    console.log("vehicleCategory: " , vehicleCategory);
+    console.log("fuelType: " , fuelType);
+    console.log("vehicleStatus: " , vehicleStatus);
+    console.log("remarks: " , remarks);
+    console.log("staffId: " , staffId);
+
+    //let equipmentValidated = checkEquipmentValidation(equipmentName, equipmentType, equipmentStatus, fieldCode, staffId);
+
+    //if(equipmentValidated) {
+
+        // Find the vehicleCode for the vehicle plate number
+        $.ajax({
+            url: "http://localhost:5052/cropMonitoringSystem/api/v1/vehicles",
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            success: function (results) {
+                // Find the vehicle matching the input
+                const searchedVehicle = results.find(vehicle => (vehicle.licensePlateNumber === licensePlateNumber));
+                if (searchedVehicle) {
+                    const vehicleCode = searchedVehicle.vehicleCode; // Set the vehicle code
+                    console.log("Vehicle Code: ", vehicleCode);
+
+                    // create an object - Object Literal
+                    let vehicle = {
+                        licensePlateNumber: licensePlateNumber,
+                        vehicleCategory: vehicleCategory,
+                        fuelType: fuelType,
+                        vehicleStatus: vehicleStatus,
+                        remarks: remarks,
+                        staffId: staffId
+                    }
+
+                    // For testing
+                    console.log("JS Object : " + vehicle);
+
+                    // Create JSON
+                    // convert js object to JSON object
+                    const jsonVehicle = JSON.stringify(vehicle);
+                    console.log("JSON Object : " + jsonVehicle);
+
+                    // Send the PUT request
+                    $.ajax({
+                        url: `http://localhost:5052/cropMonitoringSystem/api/v1/vehicles/${vehicleCode}`,
+                        type: "PUT",
+                        data: jsonVehicle,
+                        contentType: "application/json",
+                        headers: {
+                            "Authorization": "Bearer " + localStorage.getItem("token")
+                        },
+                        success: function () {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Vehicle updated successfully!',
+                                showConfirmButton: false,
+                                timer: 1500,
+                                iconColor: 'rgba(131,193,170,0.79)'
+                            });
+
+                            // Reload the crops table
+                            loadVehiclesTable();
+
+                            // clean the inputs values
+                            $("#newVehicleModal form").trigger('reset');
+                        },
+                        error: function (error) {
+                            console.error("Error updating crop:", error);
+                            showErrorAlert('Equipment not updated...');
+                        }
+                    });
+
+                } else {
+                    console.warn("Vehicle not found:", licensePlateNumber);
+                    showErrorAlert('Vehicle not found for the given details.');
+                }
+            },
+            error: function (error) {
+                console.error("Error fetching vehicles:", error);
+                showErrorAlert('Error fetching vehicles data.');
+            }
+        });
+    //}
+});
+// -------------------------- The end - when click vehicle update button --------------------------
