@@ -190,9 +190,9 @@ $("#vehicle-save").on('click', () => {
     console.log("remarks: " , remarks);
     console.log("staffId: " , staffId);
 
-    //let equipmentValidated = checkEquipmentValidation(equipmentName, equipmentType, equipmentStatus, fieldCode, staffId);
+    let vehicleValidated = checkVehicleValidation(licensePlateNumber, vehicleCategory, fuelType, vehicleStatus, remarks, staffId);
 
-    //if(equipmentValidated) {
+    if(vehicleValidated) {
 
         // create an object - Object Literal
         let vehicle = {
@@ -246,7 +246,7 @@ $("#vehicle-save").on('click', () => {
                 showErrorAlert('Vehicle not saved...')
             }
         });
-    //}
+    }
 });
 // -------------------------- The end - when click vehicle save button --------------------------
 
@@ -272,9 +272,9 @@ $("#vehicle-update").on('click', () => {
     console.log("remarks: " , remarks);
     console.log("staffId: " , staffId);
 
-    //let equipmentValidated = checkEquipmentValidation(equipmentName, equipmentType, equipmentStatus, fieldCode, staffId);
+    let vehicleValidated = checkVehicleValidation(licensePlateNumber, vehicleCategory, fuelType, vehicleStatus, remarks, staffId);
 
-    //if(equipmentValidated) {
+    if(vehicleValidated) {
 
         // Find the vehicleCode for the vehicle plate number
         $.ajax({
@@ -348,7 +348,7 @@ $("#vehicle-update").on('click', () => {
                 showErrorAlert('Error fetching vehicles data.');
             }
         });
-    //}
+    }
 });
 // -------------------------- The end - when click vehicle update button --------------------------
 
@@ -538,6 +538,57 @@ $("#vehicle-search-modal-close").on('click', function () {
     $("#searchVehicle").val("");
 });
 // -------------------------- The end - clear the vehicle search bar's value --------------------------
+
+
+
+
+//-------------------------- The start - check vehicle validations --------------------------
+function checkVehicleValidation(licensePlateNumber, vehicleCategory, fuelType, vehicleStatus, remarks, staffId) {
+
+    if(!licensePlateNumber){    //check licensePlateNumber field is empty or not
+        showErrorAlert("License Plate Number is required!")
+        return false;
+    } else {
+        if(!/^[A-Za-z0-9 /-]{2,40}$/.test(licensePlateNumber)){
+            showErrorAlert("Please enter a valid plate number!  Pattern - 'PQW-1234'")
+            return false;
+        }
+    }
+
+    if(!vehicleCategory){    //check vehicleCategory field is empty or not
+        showErrorAlert("Category is required!")
+        return false;
+    } else {
+        if(!/^[A-Za-z0-9 /-]{2,40}$/.test(vehicleCategory)){
+            showErrorAlert("Please enter a valid category!  Pattern - 'Truck'")
+            return false;
+        }
+    }
+
+    if(fuelType === "Select fuel type"){ //check fuelType field is empty or not
+        showErrorAlert("Fuel Type is required!");
+        return false;
+    }
+
+    if(vehicleStatus === "Select status") { //check status field is empty or not
+        showErrorAlert("Vehicle Status is required!");
+        return false;
+    }
+
+    if(!remarks){    //check remarks field is empty or not
+        showErrorAlert("If don't have any remarks, please type N/A")
+        return false;
+    }
+
+    if(staffId === "Choose a staff"){ //check staffId field is empty or not
+        showErrorAlert("Staff is required!");
+        return false;
+    }
+
+    return true;
+
+}
+//-------------------------- The end - check vehicle validations --------------------------
 
 
 
