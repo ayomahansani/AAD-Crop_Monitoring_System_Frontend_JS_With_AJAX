@@ -5,6 +5,7 @@ import {showErrorAlert} from "./crops.js";
 
 $(document).ready(function () {
     loadVehiclesTable();
+    loadStaffNamesComboBoxForVehicleForm();
 });
 
 
@@ -88,3 +89,33 @@ export function loadVehicleCount() {
     })
 }
 // -------------------------- The end - vehicle's count loading --------------------------
+
+
+
+
+// -------------------------- The start - Function to fetch staffs and populate the select element --------------------------
+function loadStaffNamesComboBoxForVehicleForm() {
+    $.ajax({
+        url: "http://localhost:5052/cropMonitoringSystem/api/v1/staffs",
+        type: "GET",
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("token")
+        },
+        success: function (response) {
+
+            // Assuming response is an array of staff dto objects
+            const selectedStaffName = $("#staffNamesComboBoxForVehicleForm");
+
+            // Populate the select element with field names and IDs
+            response.forEach(staff => {
+                const option = `<option value="${staff.staffId}">${staff.firstName} ${staff.lastName}</option>`;
+                selectedStaffName.append(option);
+            });
+        },
+        error: function (error) {
+            console.error("Error fetching staffs:", error);
+            showErrorAlert("Failed to load staffs. Please try again later.");
+        }
+    });
+}
+// -------------------------- The end - Function to fetch staffs and populate the select element --------------------------
