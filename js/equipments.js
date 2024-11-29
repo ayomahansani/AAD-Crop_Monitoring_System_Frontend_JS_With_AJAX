@@ -157,7 +157,7 @@ function loadStaffNamesComboBoxForEquipmentForm() {
 
             // Populate the select element with field names and IDs
             response.forEach(staff => {
-                const option = `<option value="${staff.staffId}">${staff.firstName}</option>`;
+                const option = `<option value="${staff.staffId}">${staff.firstName} ${staff.lastName}</option>`;
                 selectedStaffName.append(option);
             });
         },
@@ -221,7 +221,7 @@ $("#equipment-tbl-tbody").on('click', 'tr', function (e) {
         },
         success: function (staffs) {
             // Find the fieldCode that corresponds to the equipmentFieldName
-            const staff = staffs.find(s => s.firstName === equipmentStaffName);
+            const staff = staffs.find(s => `${s.firstName} ${s.lastName}` === equipmentStaffName);
             if (staff) {
                 // Set the staff id as the selected value in the combobox
                 $("#staffFirstNamesComboBoxForEquipmentForm").val(staff.staffId);
@@ -348,9 +348,9 @@ $("#equipment-update").on('click', () => {
             },
             success: function (results) {
                 // Find the equipment matching the input
-                const equipment = results.find(equipment => (equipment.equipmentName === equipmentName));
-                if (equipment) {
-                    const equipmentId = equipment.equipmentId; // Set the equipment id
+                const searchedEquipment = results.find(equipment => (equipment.equipmentName === equipmentName));
+                if (searchedEquipment) {
+                    const equipmentId = searchedEquipment.equipmentId; // Set the equipment id
                     console.log("Equipment Id: ", equipmentId);
 
                     // create an object - Object Literal
