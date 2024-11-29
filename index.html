@@ -1245,33 +1245,38 @@
                 <button id="vehicle-search-modal-close" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <div id="equipment-search-modal-body" class="modal-body">
+            <div id="vehicle-search-modal-body" class="modal-body">
 
                 <form class="text-center">
 
                     <div class="mb-3">
-                        <label for="searchedEquipmentName" class="form-label fw-semibold">Name</label>
-                        <input type="text" class="form-control disabled-input text-center" id="searchedEquipmentName" disabled>
+                        <label for="searchedVehicleLicensePlateNumber" class="form-label fw-semibold">License Plate Number</label>
+                        <input type="text" class="form-control disabled-input text-center" id="searchedVehicleLicensePlateNumber" disabled>
                     </div>
 
                     <div class="mb-3">
-                        <label for="searchedEquipmentType" class="form-label fw-semibold">Type</label>
-                        <input type="text" class="form-control disabled-input text-center" id="searchedEquipmentType" disabled>
+                        <label for="searchedVehicleCategory" class="form-label fw-semibold">Category</label>
+                        <input type="text" class="form-control disabled-input text-center" id="searchedVehicleCategory" disabled>
                     </div>
 
                     <div class="mb-3">
-                        <label for="searchedEquipmentStatus" class="form-label fw-semibold">Status</label>
-                        <input type="text" class="form-control disabled-input text-center" id="searchedEquipmentStatus" disabled>
+                        <label for="searchedFuelType" class="form-label fw-semibold">Fuel Type</label>
+                        <input type="text" class="form-control disabled-input text-center" id="searchedFuelType" disabled>
                     </div>
 
                     <div class="mb-3">
-                        <label for="searchedSelectedFieldForEquipment" class="form-label fw-semibold">Selected Field</label>
-                        <input type="text" class="form-control disabled-input text-center" id="searchedSelectedFieldForEquipment" disabled>
+                        <label for="searchedVehicleStatus" class="form-label fw-semibold">Status</label>
+                        <input type="text" class="form-control disabled-input text-center" id="searchedVehicleStatus" disabled>
                     </div>
 
                     <div class="mb-3">
-                        <label for="searchedSelectedStaffForEquipment" class="form-label fw-semibold">Selected Staff</label>
-                        <input type="text" class="form-control disabled-input text-center" id="searchedSelectedStaffForEquipment" disabled>
+                        <label for="searchedVehicleRemarks" class="form-label fw-semibold">Remarks</label>
+                        <input type="text" class="form-control disabled-input text-center" id="searchedVehicleRemarks" disabled>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="searchedSelectedStaffForVehicle" class="form-label fw-semibold">Selected Staff</label>
+                        <input type="text" class="form-control disabled-input text-center" id="searchedSelectedStaffForVehicle" disabled>
                     </div>
 
                 </form>
@@ -1290,9 +1295,9 @@
         <div class="modal-content">
 
             <div class="modal-header">
-                <h1 class="modal-title fs-5 text-center" id="newEquipmentModalLabel">
-                    New Equipment
-                    <span class="new-equipment"><i class="bi bi-tools"></i></span>
+                <h1 class="modal-title fs-5 text-center" id="newVehicleModalLabel">
+                    New Vehicle
+                    <span class="new-vehicle"><i class="bi bi-tools"></i></span>
                 </h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -1302,39 +1307,42 @@
                 <form>
 
                     <div class="mb-3">
-                        <label for="equipmentName" class="form-label fw-semibold">Name</label>
-                        <input type="text" class="form-control search-input" id="equipmentName">
+                        <label for="licensePlateNumber" class="form-label fw-semibold">License Plate Number</label>
+                        <input type="text" class="form-control search-input" id="licensePlateNumber">
                     </div>
 
                     <div class="mb-3">
-                        <label for="equipmentType" class="form-label fw-semibold">Type</label>
-                        <select class="form-select search-input" aria-label="Default select example" id="equipmentType">
-                            <option selected>Select type</option>
-                            <option value="Electrical">Electrical</option>
-                            <option value="Mechanical">Mechanical</option>
-                            <option value="Hand Tool">Hand Tool</option>
+                        <label for="vehicleCategory" class="form-label fw-semibold">Category</label>
+                        <input type="text" class="form-control search-input" id="vehicleCategory">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="fuelType" class="form-label fw-semibold">Fuel Type</label>
+                        <select class="form-select search-input" aria-label="Default select example" id="fuelType">
+                            <option selected>Select fuel type</option>
+                            <option value="Petrol">Petrol</option>
+                            <option value="Diesel">Diesel</option>
+                            <option value="Electric">Electric</option>
                         </select>
                     </div>
 
                     <div class="mb-3">
-                        <label for="equipmentStatus" class="form-label fw-semibold">Status</label>
-                        <select class="form-select search-input" aria-label="Default select example" id="equipmentStatus">
+                        <label for="vehicleStatus" class="form-label fw-semibold">Status</label>
+                        <select class="form-select search-input" aria-label="Default select example" id="vehicleStatus">
                             <option selected>Select status</option>
                             <option value="Available">Available</option>
-                            <option value="In Use">In Use</option>
+                            <option value="In Use">Out Of Service</option>
                         </select>
                     </div>
 
                     <div class="mb-3">
-                        <label for="fieldNamesComboBoxForEquipmentForm" class="form-label fw-semibold">Select Field :</label>
-                        <select class="form-select search-input" aria-label="Default select example" id="fieldNamesComboBoxForEquipmentForm">
-                            <option selected>Choose a field</option>
-                        </select>
+                        <label for="vehicleRemarks" class="form-label fw-semibold">Category</label>
+                        <textarea class="form-control search-input" id="vehicleRemarks" rows="3" readonly> </textarea>
                     </div>
 
                     <div class="mb-3">
-                        <label for="staffFirstNamesComboBoxForEquipmentForm" class="form-label fw-semibold">Select Staff :</label>
-                        <select class="form-select search-input" aria-label="Default select example" id="staffFirstNamesComboBoxForEquipmentForm">
+                        <label for="staffNamesComboBoxForVehicleForm" class="form-label fw-semibold">Select Staff :</label>
+                        <select class="form-select search-input" aria-label="Default select example" id="staffNamesComboBoxForVehicleForm">
                             <option selected>Choose a staff</option>
                         </select>
                     </div>
@@ -1346,22 +1354,22 @@
 
             <div class="modal-footer">
 
-                <button type="button" id="equipment-save" class="btn">
+                <button type="button" id="vehicle-save" class="btn">
                     Save
                     <span><i class="bi bi-save"></i></span>
                 </button>
 
-                <button type="button" id="equipment-update" class="btn">
+                <button type="button" id="vehicle-update" class="btn">
                     Update
                     <span><i class="bi bi-pencil-square"></i></span>
                 </button>
 
-                <button type="button" id="equipment-delete" class="btn">
+                <button type="button" id="vehicle-delete" class="btn">
                     Delete
                     <span><i class="bi bi-trash3"></i></span>
                 </button>
 
-                <button type="reset" id="equipment-clear" class="btn">
+                <button type="reset" id="vehicle-clear" class="btn">
                     Clear
                     <span><i class="bi bi-backspace-reverse"></i></span>
                 </button>
@@ -1375,24 +1383,24 @@
 <!-- End Add New Vehicle Modal -->
 
 <!-- View All Vehicle Modal -->
-<div class="modal fade" id="viewAllVehiclesModal" tabindex="-1" aria-labelledby="viewAllEquipmentsModalLabel" aria-hidden="true">
+<div class="modal fade" id="viewAllVehiclesModal" tabindex="-1" aria-labelledby="viewAllVehiclesModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
 
             <div class="modal-header text-center">
-                <h1 class="modal-title fs-5" id="viewAllEquipmentsModalLabel">
+                <h1 class="modal-title fs-5" id="viewAllVehiclesModalLabel">
                     All Equipments
-                    <span class="all-equipments"><i class="fas fa-tools"></i></span>
-                    <span class="all-equipments"><i class="fas fa-tools"></i></span>
+                    <span class="all-vehicles"><i class="fas fa-tools"></i></span>
+                    <span class="all-vehicles"><i class="fas fa-tools"></i></span>
                 </h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
             <div class="modal-body text-center">
 
-                <table class="table table-success table-striped table-hover table-sm all-equipments-table">
+                <table class="table table-success table-striped table-hover table-sm all-vehicles-table">
 
-                    <tbody id="all-equipments-tbl-tbody">
+                    <tbody id="all-vehicles-tbl-tbody">
 
                     </tbody>
 
