@@ -126,7 +126,7 @@ function initMap(){
         const lat = e.latlng.lat.toFixed(4);  // Latitude
         const lng = e.latlng.lng.toFixed(4);  // Longitude
 
-        var formattedLocation = formatCoordinates(lat, lng); // call another function
+        var formattedLocation = "Longitude: " + lng + ", Latitude: " + lat ;
 
         // Update input fields
         document.getElementById('fieldLocation').value = formattedLocation;
@@ -148,21 +148,6 @@ function initMap(){
 }
 // -------------------------- The end - initialize the map --------------------------
 
-
-
-
-// -------------------------- The start - function to format latitude and longitude --------------------------
-function formatCoordinates(lat, lng) {
-
-    var latDirection = lat >= 0 ? 'N' : 'S';
-    var lngDirection = lng >= 0 ? 'E' : 'W';
-
-    var formattedLat = Math.abs(lat).toFixed(4) + '° ' + latDirection;
-    var formattedLng = Math.abs(lng).toFixed(4) + '° ' + lngDirection;
-
-    return formattedLat + ', ' + formattedLng;
-}
-// -------------------------- The end - function to format latitude and longitude --------------------------
 
 
 
@@ -263,4 +248,28 @@ function loadFieldsTable() {
 
 }
 // -------------------------- The end - field table loading --------------------------
+
+
+
+
+// -------------------------- The start - Handle click event for viewing field image 1 --------------------------
+$('#field-tbl-tbody').on('click', '.view-fieldImage1', function (e) {
+    e.preventDefault(); // Prevent default link behavior
+
+    const base64Image = $(this).data('image'); // Get the base64 image from the data attribute
+
+    if (base64Image) {
+        // Set the base64 image in the modal
+        $('#seeCropImage').attr('src', `data:image/jpeg;base64,${base64Image}`);
+        // Show the modal
+        $('#imagePreviewModal').modal('show');
+        $("#cropImageText").text("please again select an image...");
+    } else {
+        alert("No image available for this crop.");
+    }
+
+    // Prevent event propagation to avoid triggering the row click
+    e.stopPropagation();
+});
+// -------------------------- The end - Handle click event for viewing field image 1 --------------------------
 
