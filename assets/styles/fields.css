@@ -34,22 +34,22 @@
     background-color: rgb(17, 76, 54);
 }
 
-#newVehicleModal .modal-body, #viewAllVehiclesModal .modal-body, #vehicleDetailsModal .modal-body {
+#newFieldModal .modal-body, #viewAllFieldsModal .modal-body, #fieldDetailsModal .modal-body {
     background-color: #8dbca1;
     color: rgb(17, 76, 54);
 }
 
-#vehicleDetailsModal .disabled-input {
+#fieldDetailsModal .disabled-input {
     margin-bottom: 1.2em;
     border: none;
     background-color: rgba(195, 239, 214, 0.85);
 }
 
-.all-vehicles-table {
+.all-fields-table {
     opacity: 0.7;
 }
 
-.vehicle-table {
+.field-table {
     position: absolute;
     height: 48%;
     width: 78%;
@@ -62,15 +62,20 @@
     opacity: 0.7;
 }
 
-#vehicle-section .add-to-cart, #vehicle-section .view {
+#field-section .add-to-cart, #field-section .view {
     margin: 0.2rem;
 }
 
-.new-vehicle, .all-vehicles {
+.new-field, .all-fields {
     margin-left: 0.5rem;
 }
 
-.vehicle-page-photo {
+.field-page-photo {
     margin-top: 1rem;
 
+}
+
+#fieldImage1, #fieldImage2 {
+    border: none;
+    background-color: rgba(195, 239, 214, 0.85);
 }
