@@ -260,16 +260,40 @@ $('#field-tbl-tbody').on('click', '.view-fieldImage1', function (e) {
 
     if (base64Image) {
         // Set the base64 image in the modal
-        $('#seeCropImage').attr('src', `data:image/jpeg;base64,${base64Image}`);
+        $('#seeFieldImage1').attr('src', `data:image/jpeg;base64,${base64Image}`);
         // Show the modal
-        $('#imagePreviewModal').modal('show');
-        $("#cropImageText").text("please again select an image...");
+        $('#fieldImage1PreviewModal').modal('show');
+        $("#noFieldImage1Text").text("please again select an image...");
     } else {
-        alert("No image available for this crop.");
+        alert("No image available for this field.");
     }
 
     // Prevent event propagation to avoid triggering the row click
     e.stopPropagation();
 });
 // -------------------------- The end - Handle click event for viewing field image 1 --------------------------
+
+
+
+
+// -------------------------- The start - Handle click event for viewing field image 2 --------------------------
+$('#field-tbl-tbody').on('click', '.view-fieldImage1', function (e) {
+    e.preventDefault(); // Prevent default link behavior
+
+    const base64Image = $(this).data('image'); // Get the base64 image from the data attribute
+
+    if (base64Image) {
+        // Set the base64 image in the modal
+        $('#seeFieldImage2').attr('src', `data:image/jpeg;base64,${base64Image}`);
+        // Show the modal
+        $('#fieldImage2PreviewModal').modal('show');
+        $("#noFieldImage2Text").text("please again select an image...");
+    } else {
+        alert("No image available for this field.");
+    }
+
+    // Prevent event propagation to avoid triggering the row click
+    e.stopPropagation();
+});
+// -------------------------- The end - Handle click event for viewing field image 2 --------------------------
 
