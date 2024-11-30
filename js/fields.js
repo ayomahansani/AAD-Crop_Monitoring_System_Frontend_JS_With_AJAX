@@ -412,68 +412,73 @@ $("#field-save").on('click', () => {
         return;
     }
 
-    // Create a FormData object to send data as multipart/form-data
-    let formData = new FormData();
-    formData.append("fieldName", fieldName);
-    formData.append("fieldLocation", JSON.stringify(locationJsonObject)); // Serialize JSON object
-    formData.append("fieldExtentsize", fieldExtentsize);
+    let fieldValidated = checkFieldValidation(fieldName, fieldLocation, fieldExtentsize, fieldImage1, fieldImage2);
 
-    // Check if file is selected
-    if (fieldImage1) {
-        formData.append("fieldImage1", fieldImage1);  // Append the image file
-    }
+    if(fieldValidated) {
 
-    // Check if file is selected
-    if (fieldImage2) {
-        formData.append("fieldImage2", fieldImage2);  // Append the image file
-    }
+        // Create a FormData object to send data as multipart/form-data
+        let formData = new FormData();
+        formData.append("fieldName", fieldName);
+        formData.append("fieldLocation", JSON.stringify(locationJsonObject)); // Serialize JSON object
+        formData.append("fieldExtentsize", fieldExtentsize);
 
-    // For testing
-    console.log("FormData Object : " + formData);
-
-    // ========= Ajax with JQuery =========
-
-    $.ajax({
-        url: "http://localhost:5052/cropMonitoringSystem/api/v1/fields",
-        type: "POST",
-        data: formData,
-        processData: false, // Prevent jQuery from automatically transforming the data
-        contentType: false,
-        headers: {
-            "Authorization": "Bearer " + localStorage.getItem("token")
-        },
-
-        success: function (results) {
-
-            // show crop saved pop up
-            Swal.fire({
-                icon: 'success',
-                title: 'Field saved successfully!',
-                showConfirmButton: false,
-                timer: 1500,
-                iconColor: 'rgba(131,193,170,0.79)'
-            });
-
-            // load the table
-            loadFieldsTable();
-
-            // clean the inputs values
-            $("#newFieldModal form").trigger('reset');
-
-            // Remove the image preview
-            $("#previewFieldImage1").attr("src", "#").hide(); // Reset the image source and hide it
-            $("#previewFieldImage2").attr("src", "#").hide(); // Reset the image source and hide it
-            $("#noFieldImage1Text").show();// Show the "No image selected" text
-            $("#noFieldImage2Text").show();// Show the "No image selected" text
-            $("#fieldImage1Text").hide();
-            $("#fieldImage2Text").hide();
-        },
-
-        error: function (error) {
-            console.log(error)
-            showErrorAlert('Field not saved...')
+        // Check if file is selected
+        if (fieldImage1) {
+            formData.append("fieldImage1", fieldImage1);  // Append the image file
         }
-    });
+
+        // Check if file is selected
+        if (fieldImage2) {
+            formData.append("fieldImage2", fieldImage2);  // Append the image file
+        }
+
+        // For testing
+        console.log("FormData Object : " + formData);
+
+        // ========= Ajax with JQuery =========
+
+        $.ajax({
+            url: "http://localhost:5052/cropMonitoringSystem/api/v1/fields",
+            type: "POST",
+            data: formData,
+            processData: false, // Prevent jQuery from automatically transforming the data
+            contentType: false,
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("token")
+            },
+
+            success: function (results) {
+
+                // show crop saved pop up
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Field saved successfully!',
+                    showConfirmButton: false,
+                    timer: 1500,
+                    iconColor: 'rgba(131,193,170,0.79)'
+                });
+
+                // load the table
+                loadFieldsTable();
+
+                // clean the inputs values
+                $("#newFieldModal form").trigger('reset');
+
+                // Remove the image preview
+                $("#previewFieldImage1").attr("src", "#").hide(); // Reset the image source and hide it
+                $("#previewFieldImage2").attr("src", "#").hide(); // Reset the image source and hide it
+                $("#noFieldImage1Text").show();// Show the "No image selected" text
+                $("#noFieldImage2Text").show();// Show the "No image selected" text
+                $("#fieldImage1Text").hide();
+                $("#fieldImage2Text").hide();
+            },
+
+            error: function (error) {
+                console.log(error)
+                showErrorAlert('Field not saved...')
+            }
+        });
+    }
 });
 // -------------------------- The end - when click field save button --------------------------
 
@@ -521,64 +526,69 @@ $("#field-update").on('click', () => {
         return;
     }
 
-    // Create a FormData object to send data as multipart/form-data
-    let formData = new FormData();
-    formData.append("fieldName", fieldName);
-    formData.append("fieldLocation", JSON.stringify(locationJsonObject)); // Serialize JSON object
-    formData.append("fieldExtentsize", fieldExtentsize);
+    let fieldValidated = checkFieldValidation(fieldName, fieldLocation, fieldExtentsize, fieldImage1, fieldImage2);
 
-    // Check if file is selected
-    if (fieldImage1) {
-        formData.append("fieldImage1", fieldImage1);  // Append the image file
-    }
+    if(fieldValidated) {
 
-    // Check if file is selected
-    if (fieldImage2) {
-        formData.append("fieldImage2", fieldImage2);  // Append the image file
-    }
+        // Create a FormData object to send data as multipart/form-data
+        let formData = new FormData();
+        formData.append("fieldName", fieldName);
+        formData.append("fieldLocation", JSON.stringify(locationJsonObject)); // Serialize JSON object
+        formData.append("fieldExtentsize", fieldExtentsize);
 
-    // For testing
-    console.log("FormData Object : " + formData);
-
-
-    // Send the PUT request
-    $.ajax({
-        url: `http://localhost:5052/cropMonitoringSystem/api/v1/fields/${selectedFieldCode}`,
-        type: "PUT",
-        data: formData,
-        processData: false, // Prevent jQuery from transforming data
-        contentType: false,
-        headers: {
-            "Authorization": "Bearer " + localStorage.getItem("token")
-        },
-        success: function () {
-            Swal.fire({
-                icon: 'success',
-                title: 'Field updated successfully!',
-                showConfirmButton: false,
-                timer: 1500,
-                iconColor: 'rgba(131,193,170,0.79)'
-            });
-
-            // load the table
-            loadFieldsTable();
-
-            // clean the inputs values
-            $("#newFieldModal form").trigger('reset');
-
-            // Remove the image preview
-            $("#previewFieldImage1").attr("src", "#").hide(); // Reset the image source and hide it
-            $("#previewFieldImage2").attr("src", "#").hide(); // Reset the image source and hide it
-            $("#noFieldImage1Text").show();// Show the "No image selected" text
-            $("#noFieldImage2Text").show();// Show the "No image selected" text
-            $("#fieldImage1Text").hide();
-            $("#fieldImage2Text").hide();
-        },
-        error: function (error) {
-            console.error("Error updating field:", error);
-            showErrorAlert('Field not updated...');
+        // Check if file is selected
+        if (fieldImage1) {
+            formData.append("fieldImage1", fieldImage1);  // Append the image file
         }
-    });
+
+        // Check if file is selected
+        if (fieldImage2) {
+            formData.append("fieldImage2", fieldImage2);  // Append the image file
+        }
+
+        // For testing
+        console.log("FormData Object : " + formData);
+
+
+        // Send the PUT request
+        $.ajax({
+            url: `http://localhost:5052/cropMonitoringSystem/api/v1/fields/${selectedFieldCode}`,
+            type: "PUT",
+            data: formData,
+            processData: false, // Prevent jQuery from transforming data
+            contentType: false,
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("token")
+            },
+            success: function () {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Field updated successfully!',
+                    showConfirmButton: false,
+                    timer: 1500,
+                    iconColor: 'rgba(131,193,170,0.79)'
+                });
+
+                // load the table
+                loadFieldsTable();
+
+                // clean the inputs values
+                $("#newFieldModal form").trigger('reset');
+
+                // Remove the image preview
+                $("#previewFieldImage1").attr("src", "#").hide(); // Reset the image source and hide it
+                $("#previewFieldImage2").attr("src", "#").hide(); // Reset the image source and hide it
+                $("#noFieldImage1Text").show();// Show the "No image selected" text
+                $("#noFieldImage2Text").show();// Show the "No image selected" text
+                $("#fieldImage1Text").hide();
+                $("#fieldImage2Text").hide();
+            },
+            error: function (error) {
+                console.error("Error updating field:", error);
+                showErrorAlert('Field not updated...');
+            }
+        });
+    }
 
 });
 // -------------------------- The end - when click field update button --------------------------
@@ -750,6 +760,56 @@ $("#field-search-btn").on('click', function () {
 
 
 
+// -------------------------- The start - clear the field search bar's value --------------------------
+$("#field-search-modal-close").on('click', function () {
+    $("#searchField").val("");
+});
+// -------------------------- The end - clear the field search bar's value --------------------------
+
+
+
+
+//-------------------------- The start - check crop validations --------------------------
+function checkFieldValidation(fieldName, fieldLocation, fieldExtentsize, fieldImage1, fieldImage2) {
+
+    if(!fieldName){    //check fieldName field is empty or not
+        showErrorAlert("Field Name is required!")
+        return false;
+    } else {
+        if(!/^[A-Za-z /-]{2,40}$/.test(fieldName)){
+            showErrorAlert("Please enter a valid name!  Pattern - 'Rice Palate - A'")
+            return false;
+        }
+    }
+
+    if(!fieldLocation){ //check fieldLocation field is empty or not
+        showErrorAlert("Field Location is required!");
+        return false;
+    }
+
+    if(!fieldExtentsize){ //check fieldExtentsize field is empty or not
+        showErrorAlert("Extent size is required!");
+        return false;
+    }
+
+    if(!fieldImage1){ //check fieldImage1 field is empty or not
+        showErrorAlert("Field Image 1 is required!");
+        return false;
+    }
+
+    if(!fieldImage2){ //check fieldImage2 field is empty or not
+        showErrorAlert("Field Image 2 is required!");
+        return false;
+    }
+
+    return true;
+
+}
+//-------------------------- The end - check crop validations --------------------------
+
+
+
+
 //-------------------------- The start - clear searched inputs --------------------------
 function searchedFieldInputsClear(){
     $("#searchedFieldName").val("");
@@ -759,4 +819,9 @@ function searchedFieldInputsClear(){
     $("#fieldDetailsModalLabel").html("Field Details");
 }
 //-------------------------- The end - clear searched inputs --------------------------
+
+
+
+
+
 
