@@ -184,6 +184,7 @@ $("#vehicle-tbl-tbody").on('click', 'tr', function (e) {
             // Find the vehicle matching the input
             const searchedVehicle = results.find(vehicle => (vehicle.licensePlateNumber === licensePlateNumber));
             if (searchedVehicle) {
+
                 selectedVehicleCode = searchedVehicle.vehicleCode; // Set the vehicle code
 
                 // Debug: Log the global variable

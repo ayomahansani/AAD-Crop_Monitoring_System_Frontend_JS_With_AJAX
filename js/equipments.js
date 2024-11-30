@@ -251,6 +251,7 @@ $("#equipment-tbl-tbody").on('click', 'tr', function (e) {
             // Find the equipment matching the input
             const searchedEquipment = results.find(equipment => (equipment.equipmentName === equipmentName));
             if (searchedEquipment) {
+
                 selectedEquipmentId = searchedEquipment.equipmentId; // Set the equipment id
 
                 // Debug: Log the global variable

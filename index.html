@@ -570,6 +570,95 @@
     </section>
     <!-- end vehicles section -->
 
+
+    <!-- fields section -->
+    <section id="field-section">
+
+        <!-- Main Section -->
+        <div class="main-content main-section">
+
+            <!-- up section -->
+            <div class="search-field">
+
+                <form class="row">
+
+                    <!-- field search -->
+                    <div class="col-8 col-sm-6 col-md-4 col-lg-4 pb-4">
+                        <label for="searchField" class="form-label fw-semibold">Search Field</label>
+                        <input type="search" class="form-control search-input" id="searchField" placeholder="Input Name Here">
+                    </div>
+                    <div class="col-4 col-sm-6 col-md-3 col-lg-3 pb-4">
+                        <button type="button" class="btn search-btn" id="field-search-btn" data-bs-toggle="modal" data-bs-target="#fieldDetailsModal">
+                            Search
+                            <span class="search"><i class="bi bi-search"></i></span>
+                        </button>
+                    </div>
+                    <!-- end field search -->
+
+                    <!-- buttons -->
+                    <div class="col-6 col-sm-4 col-md-2 col-lg-2 pb-1">
+                        <a href="" id="newFieldBtn" role="button" class="btn" data-bs-toggle="modal" data-bs-target="#newFieldModal">
+                            <span class="add-to-cart"><i class="bi bi-plus-circle-fill"></i></span>
+                            New Field
+                        </a>
+                    </div>
+                    <div class="col-6 col-sm-4 col-md-2 col-lg-2 pb-1">
+                        <a href="" id="viewAllFields" role="button" class="btn" data-bs-toggle="modal" data-bs-target="#viewAllFieldsModal">
+                            <span class="view"><i class="bi bi-eye-fill"></i></span>
+                            All Fields
+                        </a>
+                    </div>
+                    <!-- end buttons -->
+
+                    <!-- right image -->
+                    <div class="col-12 col-sm-4 col-md-1 col-lg-1 pb-1">
+                        <img src="assets/icon/crops.png" class="field-page-photo" alt="fields photo">
+                    </div>
+                    <!-- end right image -->
+
+                </form>
+
+            </div>
+            <!-- end up section -->
+
+            <!-- field table -->
+            <div class="field-table">
+
+                <div class="scrollable">
+
+                    <table class="table table-success table-striped table-bordered border-dark table-hover table-sm">
+                        <thead class="table-dark">
+                        <tr class="table-success">
+                            <th scope="col">Field Name</th>
+                            <th scope="col">Location</th>
+                            <th scope="col">Extent Size</th>
+                            <th scope="col">Image - 1</th>
+                            <th scope="col">Image - 2</th>
+                            <th scope="col">Assigned Staffs</th>
+                        </tr>
+                        </thead>
+
+                        <tbody id="field-tbl-tbody" class="table-group-divider">
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+            <!-- end field table -->
+
+        </div>
+        <!-- End Main Section -->
+
+    </section>
+    <!-- end fields section -->
+
+
+
+
+
 </section>
 <!-- End Home Section -->
 
