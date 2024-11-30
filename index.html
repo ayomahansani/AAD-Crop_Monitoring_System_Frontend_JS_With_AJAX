@@ -638,7 +638,6 @@
                             <th scope="col">Extent Size (Sq. m)</th>
                             <th scope="col">Image - 1</th>
                             <th scope="col">Image - 2</th>
-                            <th scope="col">Assigned Staffs</th>
                         </tr>
                         </thead>
 
@@ -729,11 +728,6 @@
                             </div>
                         </div>
 
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="searchedAssignedStaffForField" class="form-label fw-semibold">Assigned Staffs</label>
-                        <input type="text" class="form-control disabled-input text-center" id="searchedAssignedStaffForField" disabled>
                     </div>
 
                 </form>
@@ -833,22 +827,6 @@
 
                     </div>
 
-                    <!-- Assigned Staffs with Dynamic Combo Boxes -->
-                    <div class="mb-3">
-                        <label for="staffNamesComboBoxForFieldForm" class="form-label fw-semibold">Assign Staff/s :</label>
-                        <button type="button" id="addStaffBtn" class="btn btn-sm custom-btn m-1" style="color: #274D40">+ Click here to Add Staff</button>
-                        <div id="assignedStaffsContainer">
-                            <div class="d-flex align-items-center mb-2 col-md-8">
-                                <select class="form-select search-input staffForField" aria-label="Default select example" id="staffNamesComboBoxForFieldForm" name="assignedStaffs[]" required>
-                                    <option selected>Choose a staff</option>
-                                </select>
-                                <button type="button" class="btn btn-m custom-btn" onclick="removeStaff(this)">
-                                    <i class="fa-solid fa-trash-alt" style="color:rgb(17, 76, 54);"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
                 </form>
 
             </div>
@@ -891,7 +869,7 @@
 
             <div class="modal-header text-center">
                 <h1 class="modal-title fs-5" id="viewAllFieldsModalLabel">
-                    All Crops
+                    All Fields
                     <span class="all-fields"><i class="fas fa-seedling"></i></span>
                     <span class="all-fields"><i class="fas fa-seedling"></i></span>
                 </h1>

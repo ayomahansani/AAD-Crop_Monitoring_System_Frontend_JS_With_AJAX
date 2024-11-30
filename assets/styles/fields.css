@@ -34,7 +34,7 @@
     background-color: rgb(17, 76, 54);
 }
 
-#newFieldModal .modal-body, #viewAllFieldsModal .modal-body, #fieldDetailsModal .modal-body {
+#newFieldModal .modal-body, #viewAllFieldsModal .modal-body, #fieldDetailsModal .modal-body, #fieldImagePreviewModal .modal-body {
     background-color: #8dbca1;
     color: rgb(17, 76, 54);
 }

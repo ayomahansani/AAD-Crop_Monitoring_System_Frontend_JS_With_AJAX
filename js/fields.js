@@ -115,7 +115,6 @@ function initMap(){
     });
 
     // Add OpenStreetMap tiles
-    // Add OpenStreetMap tiles
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
@@ -149,7 +148,6 @@ function initMap(){
     });
 }
 // -------------------------- The end - initialize the map --------------------------
-
 
 
 
@@ -203,42 +201,25 @@ function loadFieldsTable() {
 
             results.forEach(function (field) {
 
-                // Nested AJAX to fetch staffs for each field
-                $.ajax({
-                    url: `http://localhost:5052/cropMonitoringSystem/api/v1/fields/${field.fieldCode}/staff`,
-                    type: "GET",
-                    headers: {
-                        "Authorization": "Bearer " + localStorage.getItem("token")
-                    },
-                    success: function (staffs) {
-                        // Collect staff names into a comma-separated string
-                        const staffNames = staffs.map(staff => staff.firstName).join(", ");
+                const image1Link = field.fieldImage1
+                    ? `<a href="#" class="view-fieldImage1" data-image="${field.fieldImage1}" style="color: darkgreen; font-size: 14px; font-weight: 600;" >Field Image 1</a>`
+                    : `<span style="color: darkgreen; font-size: 14px;">No Image</span>`;
 
-                        const image1Link = field.fieldImage1
-                            ? `<a href="#" class="view-fieldImage1" data-image="${field.fieldImage1}" style="color: darkgreen; font-size: 14px; font-weight: 600;" >Field Image 1</a>`
-                            : `<span style="color: darkgreen; font-size: 14px;">No Image</span>`;
+                const image2Link = field.fieldImage2
+                    ? `<a href="#" class="view-fieldImage2" data-image="${field.fieldImage2}" style="color: darkgreen; font-size: 14px; font-weight: 600;" >Field Image 2</a>`
+                    : `<span style="color: darkgreen; font-size: 14px;">No Image</span>`;
 
-                        const image2Link = field.fieldImage2
-                            ? `<a href="#" class="view-fieldImage2" data-image="${field.fieldImage2}" style="color: darkgreen; font-size: 14px; font-weight: 600;" >Field Image 2</a>`
-                            : `<span style="color: darkgreen; font-size: 14px;">No Image</span>`;
-
-                        // Create the field table row, including staff names
-                        let row = `
+                // Create the field table row, including staff names
+                let row = `
                             <tr>
                                 <td class="field-name-value">${field.fieldName}</td>
                                 <td class="field-location-value">${field.fieldLocation.x} , ${field.fieldLocation.y}</td>
                                 <td class="field-extentsize-value">${field.fieldExtentsize}</td>
                                 <td>${image1Link}</td>
                                 <td>${image2Link}</td>
-                                <td class="field-assigned-staffNames" style="color:darkgreen; font-weight: 600" >${staffNames || "No staffs assigned"}</td>
                             </tr>
                         `;
-                        $('#field-tbl-tbody').append(row); // Append the row to the table
-                    },
-                    error: function (xhr) {
-                        console.error("Error fetching assigned staffs:", xhr.responseText);
-                    }
-                });
+                $('#field-tbl-tbody').append(row); // Append the row to the table
 
             });
         },
@@ -250,36 +231,6 @@ function loadFieldsTable() {
 
 }
 // -------------------------- The end - field table loading --------------------------
-
-
-
-
-// -------------------------- The start - Function to fetch staffs and populate the select element --------------------------
-function loadStaffNamesComboBoxAndSetStaffIds() {
-    $.ajax({
-        url: "http://localhost:5052/cropMonitoringSystem/api/v1/staffs",
-        type: "GET",
-        headers: {
-            "Authorization": "Bearer " + localStorage.getItem("token")
-        },
-        success: function (response) {
-
-            // Assuming response is an array of staffDto objects
-            const selectedStaffName = $("#staffNamesComboBoxForFieldForm");
-
-            // Populate the select element with staff names and IDs
-            response.forEach(staff => {
-                const option = `<option value="${staff.staffId}">${staff.firstName} ${staff.lastName}</option>`;
-                selectedStaffName.append(option);
-            });
-        },
-        error: function (error) {
-            console.error("Error fetching staffs:", error);
-            showErrorAlert("Failed to load staffs. Please try again later.");
-        }
-    });
-}
-// -------------------------- The end - Function to fetch staffs and populate the select element --------------------------
 
 
 
@@ -297,7 +248,7 @@ $('#field-tbl-tbody').on('click', '.view-fieldImage1', function (e) {
         $('#fieldImagePreviewModalLabel').text("Field Image 1");
         // Show the modal
         $('#fieldImagePreviewModal').modal('show');
-        $("#noFieldImage1Text").text("please again select an image...");
+        $("#fieldImage1Text").text("please again select an image...");
     } else {
         alert("No image available for this field.");
     }
@@ -323,7 +274,7 @@ $('#field-tbl-tbody').on('click', '.view-fieldImage2', function (e) {
         $('#fieldImagePreviewModalLabel').text("Field Image 2");
         // Show the modal
         $('#fieldImagePreviewModal').modal('show');
-        $("#noFieldImage2Text").text("please again select an image...");
+        $("#fieldImage2Text").text("please again select an image...");
     } else {
         alert("No image available for this field.");
     }
@@ -336,71 +287,215 @@ $('#field-tbl-tbody').on('click', '.view-fieldImage2', function (e) {
 
 
 
-// -------------------------- The start - Function to add a staff combo box with all options --------------------------
-function addStaffWithOptions(allStaffs, selectedStaff = null) {
-    const container = document.getElementById('assignedStaffsContainer');
-    const staffDiv = document.createElement('div');
-    staffDiv.className = 'd-flex align-items-center mb-2 col-md-8';
+// -------------------------- The start - when click field save button --------------------------
+/*$("#field-save").on('click', () => {
 
-    // Generate options for all staffs
-    let optionsHtml = '<option value="">Choose a staff</option>';
-    allStaffs.forEach(staff => {
-        optionsHtml += `<option value="${staff.staffId}" ${selectedStaff && staff.staffId === selectedStaff.staffId ? 'selected' : ''}>
-                            ${staff.firstName} ${staff.lastName}
-                        </option>`;
+    // get values from inputs
+    const fieldName = $("#fieldName").val();
+    const fieldLocation = $("#fieldLocation").val();
+    const fieldExtentsize = $("#fieldExtentsize").val();
+    const fieldImage1 = $("#fieldImage1")[0].files[0];
+    const fieldImage2 = $("#fieldImage2")[0].files[0];
+
+    // Get all selected staff IDs
+    const assignedStaffs= [];
+
+    $(".staffForField").each(function () {
+        const staffId = $(this).val();
+        if (staffId) {
+            assignedStaffs.push(staffId);
+        }
     });
 
-    // Set inner HTML with combo box and remove button
-    staffDiv.innerHTML = `
-        <select class="form-select search-input staffForField" aria-label="Default select example" name="assignedStaffs[]" required>
-            ${optionsHtml}
-        </select>
-        <button type="button" class="btn btn-m custom-btn" onclick="removeStaff(this)">
-            <i class="fa-solid fa-trash-alt" style="color:rgb(17, 76, 54);"></i>
-        </button>
-    `;
+    // convert the fieldLocation value into a JSON object
 
-    container.appendChild(staffDiv);
-}
-// -------------------------- The end - Function to add a staff combo box with all options --------------------------
+    // Use regex to extract latitude and longitude from the formatted string
+    const regex = /Longitude: ([\d.-]+), Latitude: ([\d.-]+)/;
+    const match = fieldLocation.match(regex);
 
+    if (match) {
+        const longitude = parseFloat(match[1]);  // Extract longitude
+        const latitude = parseFloat(match[2]);   // Extract latitude
 
+        // Create the JSON object
+        const locationJsonObject = {
+            longitude: longitude,
+            latitude: latitude
+        };
 
-
-// -------------------------- The start - when click a "+ Click here to Add Staff" button in add field modal --------------------------
-let cachedStaffs = []; // Cache staffs to avoid multiple API calls
-
-$("#addStaffBtn").on('click', () => {
-    // Check if staffs are already cached
-    if (cachedStaffs.length > 0) {
-        addStaffWithOptions(cachedStaffs);
     } else {
-        // Fetch staffs from the server if not cached
+        console.log("Invalid field location format");
+    }
+
+    // check whether print those values
+    console.log("fieldName: " , fieldName);
+    console.log("locationJsonObject: " , locationJsonObject);
+    console.log("fieldExtentsize: " , fieldExtentsize);
+    console.log("assignedStaffs: " , assignedStaffs);
+
+
+    //let staffValidated = checkStaffValidation(firstName, lastName, email, address, gender, contactNo, dob, joinedDate, designation, role, assignedFields);
+
+    //if(staffValidated) {
+
+        // Create a FormData object to send data as multipart/form-data
+        let formData = new FormData();
+        formData.append("fieldName", fieldName);
+        formData.append("fieldLocation", locationJsonObject);
+        formData.append("fieldExtentsize", fieldExtentsize);
+        formData.append("staffIds", assignedStaffs); // Staff IDs as a string list
+
+        // Check if file is selected
+        if (fieldImage1) {
+            formData.append("fieldImage1", fieldImage1);  // Append the image file
+        }
+
+        // Check if file is selected
+        if (fieldImage2) {
+            formData.append("fieldImage2", fieldImage2);  // Append the image file
+        }
+
+        // For testing
+        console.log("FormData Object : " + formData);
+
+        // ========= Ajax with JQuery =========
+
         $.ajax({
-            url: "http://localhost:5052/cropMonitoringSystem/api/v1/staffs",
-            method: 'GET',
+            url: "http://localhost:5052/cropMonitoringSystem/api/v1/fields",
+            type: "POST",
+            data: formData,
+            processData: false, // Prevent jQuery from automatically transforming the data
+            contentType: false,
             headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('token')
+                "Authorization": "Bearer " + localStorage.getItem("token")
             },
-            success: function (allStaffs) {
-                cachedStaffs = allStaffs; // Cache fields globally
-                addStaffWithOptions(allStaffs);
+
+            success: function (results) {
+
+                // show crop saved pop up
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Field saved successfully!',
+                    showConfirmButton: false,
+                    timer: 1500,
+                    iconColor: 'rgba(131,193,170,0.79)'
+                });
+
+                // load the table
+                loadFieldsTable();
+
+                // clean the inputs values
+                $("#newFieldModal form").trigger('reset');
+                $(".staffForField").val('');
             },
-            error: function (xhr) {
-                console.error("Error fetching staffs:", xhr.responseText);
-                alert("Failed to load staffs.");
+
+            error: function (error) {
+                console.log(error)
+                showErrorAlert('Field not saved...')
             }
         });
+    //}
+
+});*/
+
+// -------------------------- The start - when click field save button --------------------------
+$("#field-save").on('click', () => {
+
+    // get values from inputs
+    const fieldName = $("#fieldName").val();
+    const fieldLocation = $("#fieldLocation").val();
+    const fieldExtentsize = $("#fieldExtentsize").val();
+    const fieldImage1 = $("#fieldImage1")[0].files[0];
+    const fieldImage2 = $("#fieldImage2")[0].files[0];
+
+    // Declare locationJsonObject outside the if block
+    let locationJsonObject = null;
+
+    // Use regex to extract latitude and longitude from the formatted string
+    const regex = /Longitude: ([\d.-]+), Latitude: ([\d.-]+)/;
+    const match = fieldLocation.match(regex);
+
+    if (match) {
+        const longitude = parseFloat(match[1]);  // Extract longitude
+        const latitude = parseFloat(match[2]);   // Extract latitude
+
+        // Create the JSON object
+        locationJsonObject = {
+            longitude: longitude,
+            latitude: latitude
+        };
+
+    } else {
+        console.log("Invalid field location format");
     }
+
+    // check whether print those values
+    console.log("fieldName: " , fieldName);
+    console.log("locationJsonObject: " , locationJsonObject);
+    console.log("fieldExtentsize: " , fieldExtentsize);
+
+    if (!locationJsonObject) {
+        showErrorAlert("Please select a valid location from the map!");
+        return;
+    }
+
+    // Create a FormData object to send data as multipart/form-data
+    let formData = new FormData();
+    formData.append("fieldName", fieldName);
+    formData.append("fieldLocation", JSON.stringify(locationJsonObject)); // Serialize JSON object
+    formData.append("fieldExtentsize", fieldExtentsize);
+
+    // Check if file is selected
+    if (fieldImage1) {
+        formData.append("fieldImage1", fieldImage1);  // Append the image file
+    }
+
+    // Check if file is selected
+    if (fieldImage2) {
+        formData.append("fieldImage2", fieldImage2);  // Append the image file
+    }
+
+    // For testing
+    console.log("FormData Object : " + formData);
+
+    // ========= Ajax with JQuery =========
+
+    $.ajax({
+        url: "http://localhost:5052/cropMonitoringSystem/api/v1/fields",
+        type: "POST",
+        data: formData,
+        processData: false, // Prevent jQuery from automatically transforming the data
+        contentType: false,
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("token")
+        },
+
+        success: function (results) {
+
+            // show crop saved pop up
+            Swal.fire({
+                icon: 'success',
+                title: 'Field saved successfully!',
+                showConfirmButton: false,
+                timer: 1500,
+                iconColor: 'rgba(131,193,170,0.79)'
+            });
+
+            // load the table
+            loadFieldsTable();
+
+            // clean the inputs values
+            $("#newFieldModal form").trigger('reset');
+            $(".staffForField").val('');
+        },
+
+        error: function (error) {
+            console.log(error)
+            showErrorAlert('Field not saved...')
+        }
+    });
 });
-// -------------------------- The end - when click a "+ Click here to Add Staff" button in add field modal --------------------------
+// -------------------------- The end - when click field save button --------------------------
 
-
-
-
-// -------------------------- The start - Function to remove an assigned staff combo box --------------------------
-window.removeStaff = function (button) {
-    button.parentElement.remove();
-};
-// -------------------------- The end - Function to remove an assigned staff combo box --------------------------
+// -------------------------- The end - when click field save button --------------------------
 
