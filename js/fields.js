@@ -152,33 +152,30 @@ function initMap(){
 
 
 // -------------------------- The start - update the map --------------------------
-function updateMap(lat, lng) {
-    if (!map) {  // If the map is not yet initialized, create it
-        map = L.map('map').setView([lat, lng], 12);
+function updateMap(latitude, longitude) {
+    // Check if the map is initialized
+    if (!map) {
+        // If the map is not yet initialized, create it
+        map = L.map('map').setView([latitude, longitude], 13);
 
         // Add OpenStreetMap tile layer
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
     } else {
-        // If the map is already initialized, just update the center and zoom
-        map.setView([lat, lng], 12);
+        // If the map is already initialized, just update the center
+        map.setView([latitude, longitude], 13);
     }
 
-    // Remove any existing markers to avoid stacking them
-    if (map._layers) {
-        Object.keys(map._layers).forEach(function(layerId) {
-            const layer = map._layers[layerId];
-            if (layer instanceof L.Marker) {
-                map.removeLayer(layer); // Remove the existing marker
-            }
-        });
-    }
+    // Clear existing markers (if any)
+    map.eachLayer(function (layer) {
+        if (layer instanceof L.Marker) {
+            map.removeLayer(layer);
+        }
+    });
 
-    // Add a new marker to the map for the given coordinates
-    L.marker([lat, lng]).addTo(map)
-        .bindPopup('Field Location') // Optional: Add a popup for the marker
-        .openPopup(); // Optional: Automatically open the popup
+    // Add a marker at the new coordinates using the default Leaflet marker
+    L.marker([latitude, longitude]).addTo(map);
 }
 // -------------------------- The end - update the map --------------------------
 
@@ -254,14 +251,26 @@ $("#field-tbl-tbody").on('click', 'tr', function (e) {
     let fieldImage1 = $(this).find(".view-fieldImage1").data("image") || null; // Get the base64 image data if available
     let fieldImage2 = $(this).find(".view-fieldImage2").data("image") || null; // Get the base64 image data if available
 
+    // Split the string into longitude and latitude
+    let [longitude, latitude] = fieldLocation.split(",").map(value => value.trim());
+
+    // Format the result
+    let formattedLocation = "Longitude: " + longitude + ", Latitude: " + latitude;
+
+    // Initialize the map with parsed latitude and longitude
+    updateMap(parseFloat(latitude), parseFloat(longitude));
+
+    // Output
+    console.log(formattedLocation);
+
     // Assign values to the input fields
     $("#fieldName").val(fieldName);
-    $("#fieldLocation").val(fieldLocation);
+    $("#fieldLocation").val(formattedLocation);
     $("#fieldExtentsize").val(fieldExtentsize);
 
     // Set the image preview if image data exists
     if (fieldImage1) {
-        $("#previewFieldImage1").attr("src", `data:image/jpeg;base64,${cropImage}`).show(); // Display the image
+        $("#previewFieldImage1").attr("src", `data:image/jpeg;base64,${fieldImage1}`).show(); // Display the image
         $("#noFieldImage1Text").hide(); // Hide the 'No image selected' text
         $("#fieldImage1Text").text("please again select an image...");
     } else {
@@ -272,7 +281,7 @@ $("#field-tbl-tbody").on('click', 'tr', function (e) {
 
     // Set the image preview if image data exists
     if (fieldImage2) {
-        $("#previewFieldImage2").attr("src", `data:image/jpeg;base64,${cropImage}`).show(); // Display the image
+        $("#previewFieldImage2").attr("src", `data:image/jpeg;base64,${fieldImage2}`).show(); // Display the image
         $("#noFieldImage2Text").hide(); // Hide the 'No image selected' text
         $("#fieldImage2Text").text("please again select an image...");
     } else {
@@ -455,8 +464,8 @@ $("#field-save").on('click', () => {
             $("#previewFieldImage2").attr("src", "#").hide(); // Reset the image source and hide it
             $("#noFieldImage1Text").show();// Show the "No image selected" text
             $("#noFieldImage2Text").show();// Show the "No image selected" text
-            // $("#fieldImage1Text").hide();
-            // $("#fieldImage2Text").hide();
+            $("#fieldImage1Text").hide();
+            $("#fieldImage2Text").hide();
         },
 
         error: function (error) {
@@ -561,8 +570,8 @@ $("#field-update").on('click', () => {
             $("#previewFieldImage2").attr("src", "#").hide(); // Reset the image source and hide it
             $("#noFieldImage1Text").show();// Show the "No image selected" text
             $("#noFieldImage2Text").show();// Show the "No image selected" text
-            // $("#fieldImage1Text").hide();
-            // $("#fieldImage2Text").hide();
+            $("#fieldImage1Text").hide();
+            $("#fieldImage2Text").hide();
         },
         error: function (error) {
             console.error("Error updating field:", error);
@@ -572,4 +581,50 @@ $("#field-update").on('click', () => {
 
 });
 // -------------------------- The end - when click field update button --------------------------
+
+
+
+
+// -------------------------- The start - when click field delete button --------------------------
+$("#field-delete").on('click', () => {
+
+    // Send the DELETE request
+    $.ajax({
+        url: `http://localhost:5052/cropMonitoringSystem/api/v1/fields/${selectedFieldCode}`,
+        type: "DELETE",
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("token")
+        },
+        success: function () {
+            Swal.fire({
+                icon: 'success',
+                title: 'Field deleted successfully!',
+                showConfirmButton: false,
+                timer: 1500,
+                iconColor: 'rgba(131,193,170,0.79)'
+            });
+
+            // load the table
+            loadFieldsTable();
+
+            // clean the inputs values
+            $("#newFieldModal form").trigger('reset');
+
+            // Remove the image preview
+            $("#previewFieldImage1").attr("src", "#").hide(); // Reset the image source and hide it
+            $("#previewFieldImage2").attr("src", "#").hide(); // Reset the image source and hide it
+            $("#noFieldImage1Text").show();// Show the "No image selected" text
+            $("#noFieldImage2Text").show();// Show the "No image selected" text
+            $("#fieldImage1Text").hide();
+            $("#fieldImage2Text").hide();
+
+        },
+        error: function (error) {
+            console.error("Error deleting field:", error);
+            showErrorAlert('Field not deleted...');
+        }
+    });
+
+});
+// -------------------------- The end - when click field delete button --------------------------
 
