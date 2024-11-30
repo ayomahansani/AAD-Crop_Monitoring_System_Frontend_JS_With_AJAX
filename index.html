@@ -741,6 +741,145 @@
 </div>
 <!-- End Search Field Modal -->
 
+<!-- Add New Field Modal -->
+<div class="modal fade" id="newFieldModal" tabindex="-1" aria-labelledby="newFieldModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 text-center" id="newFieldModalLabel">
+                    New Field
+                    <span class="new-field"><i class="fas fa-carrot"></i></span>
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <form enctype="multipart/form-data">
+
+                    <div class="row">
+
+                        <!-- Left Column -->
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="fieldName" class="form-label fw-semibold">Field Name</label>
+                                <input type="text" class="form-control search-input" id="fieldName">
+                            </div>
+                        </div>
+
+                        <!-- Right Column -->
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="fieldExtentsize" class="form-label fw-semibold">Extent Size (Sq. m)</label>
+                                <input type="number" class="form-control search-input" id="fieldExtentsize">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Map Section -->
+                    <div class="form-group">
+                        <label for="fieldLocation">Select Location</label>
+                        <div id="map" style="height: 300px; border-radius: 8px; margin-bottom: 15px;"></div>
+                        <input type="text" class="form-control" id="fieldLocation" placeholder="Location" readonly>
+                    </div>
+
+
+                    <div class="row">
+
+                        <!-- Left Column -->
+                        <div class="col-md-6">
+
+                            <div class="mb-3">
+                                <label for="fieldImage1" class="form-label fw-semibold">Upload Field Image 1</label>
+                                <input type="file" class="form-control mb-1" id="fieldImage1" accept="image/*"> <!-- File Input -->
+                                <label id="fieldImage1Text" class="form-label"></label>
+                            </div>
+
+                            <!-- Image 1 Preview -->
+                            <div class="mb-3">
+                                <div id="fieldImage1Preview" class="border rounded p-2 text-center">
+                                    <img id="previewFieldImage1" src="#" alt="Preview" class="img-fluid" style="max-height: 150px; display: none;">
+                                    <p class="text-muted" id="noFieldImage1Text">No image selected</p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Right Column -->
+                        <div class="col-md-6">
+
+                            <div class="mb-3">
+                                <label for="fieldImage2" class="form-label fw-semibold">Upload Field Image 2</label>
+                                <input type="file" class="form-control mb-1" id="fieldImage2" accept="image/*"> <!-- File Input -->
+                                <label id="fieldImage2Text" class="form-label"></label>
+                            </div>
+
+                            <!-- Image 2 Preview -->
+                            <div class="mb-3">
+                                <div id="fieldImage2Preview" class="border rounded p-2 text-center">
+                                    <img id="previewFieldImage2" src="#" alt="Preview" class="img-fluid" style="max-height: 150px; display: none;">
+                                    <p class="text-muted" id="noFieldImage2Text">No image selected</p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Assigned Staffs with Dynamic Combo Boxes -->
+                    <div class="mb-3">
+                        <label for="staffNamesComboBoxForFieldForm" class="form-label fw-semibold">Assign Staff/s :</label>
+                        <button type="button" id="addStaffBtn" class="btn btn-sm custom-btn m-1" style="color: #274D40">+ Click here to Add Staff</button>
+                        <div id="assignedStaffsContainer">
+                            <div class="d-flex align-items-center mb-2 col-md-8">
+                                <select class="form-select search-input staffForField" aria-label="Default select example" id="staffNamesComboBoxForFieldForm" name="assignedStaffs[]" required>
+                                    <option selected>Choose a staff</option>
+                                </select>
+                                <button type="button" class="btn btn-m custom-btn" onclick="removeStaff(this)">
+                                    <i class="fa-solid fa-trash-alt" style="color:rgb(17, 76, 54);"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+
+
+            <div class="modal-footer">
+
+                <button type="button" id="crop-save" class="btn">
+                    Save
+                    <span><i class="bi bi-save"></i></span>
+                </button>
+
+                <button type="button" id="crop-update" class="btn">
+                    Update
+                    <span><i class="bi bi-pencil-square"></i></span>
+                </button>
+
+                <button type="button" id="crop-delete" class="btn">
+                    Delete
+                    <span><i class="bi bi-trash3"></i></span>
+                </button>
+
+                <button type="reset" id="crop-clear" class="btn">
+                    Clear
+                    <span><i class="bi bi-backspace-reverse"></i></span>
+                </button>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<!-- End Add New Field Modal -->
+
 
 <!-- -------- End Field Modals -------- -->
 
