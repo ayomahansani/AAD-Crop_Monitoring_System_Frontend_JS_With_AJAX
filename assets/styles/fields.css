@@ -62,6 +62,10 @@
     opacity: 0.7;
 }
 
+/*.field-table td{*/
+/*    font-size: 14px;*/
+/*}*/
+
 #field-section .add-to-cart, #field-section .view {
     margin: 0.2rem;
 }

@@ -1,6 +1,7 @@
 
 $(document).ready(function () {
     initMap();
+    loadFieldsTable();
 });
 
 
@@ -196,4 +197,70 @@ function updateMap(lat, lng) {
         .openPopup(); // Optional: Automatically open the popup
 }
 // -------------------------- The end - update the map --------------------------
+
+
+
+
+// -------------------------- The start - field table loading --------------------------
+function loadFieldsTable() {
+
+    // Fetch fields and populate the table
+    $.ajax({
+        url: "http://localhost:5052/cropMonitoringSystem/api/v1/fields", // fields API
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        success: function (results) {
+            $('#field-tbl-tbody').empty(); // Clear existing table body
+
+            results.forEach(function (field) {
+
+                // Nested AJAX to fetch staffs for each field
+                $.ajax({
+                    url: `http://localhost:5052/cropMonitoringSystem/api/v1/fields/${field.fieldCode}/staff`,
+                    type: "GET",
+                    headers: {
+                        "Authorization": "Bearer " + localStorage.getItem("token")
+                    },
+                    success: function (staffs) {
+                        // Collect staff names into a comma-separated string
+                        const staffNames = staffs.map(staff => staff.firstName).join(", ");
+
+                        const image1Link = field.fieldImage1
+                            ? `<a href="#" class="view-fieldImage1" data-image="${field.fieldImage1}" style="color: darkgreen; font-size: 14px; font-weight: 600;" >Field Image 1</a>`
+                            : `<span style="color: darkgreen; font-size: 14px;">No Image</span>`;
+
+                        const image2Link = field.fieldImage2
+                            ? `<a href="#" class="view-fieldImage2" data-image="${field.fieldImage2}" style="color: darkgreen; font-size: 14px; font-weight: 600;" >Field Image 2</a>`
+                            : `<span style="color: darkgreen; font-size: 14px;">No Image</span>`;
+
+                        // Create the field table row, including staff names
+                        let row = `
+                            <tr>
+                                <td class="field-name-value">${field.fieldName}</td>
+                                <td class="field-location-value">${field.fieldLocation.x} , ${field.fieldLocation.y}</td>
+                                <td class="field-extentsize-value">${field.fieldExtentsize}</td>
+                                <td>${image1Link}</td>
+                                <td>${image2Link}</td>
+                                <td class="field-assigned-staffNames" style="color:darkgreen; font-weight: 600" >${staffNames || "No staffs assigned"}</td>
+                            </tr>
+                        `;
+                        $('#field-tbl-tbody').append(row); // Append the row to the table
+                    },
+                    error: function (xhr) {
+                        console.error("Error fetching assigned staffs:", xhr.responseText);
+                    }
+                });
+
+            });
+        },
+        error: function (error) {
+            console.error("Failed to load fields:", error);
+            alert('Failed to load field data.');
+        }
+    });
+
+}
+// -------------------------- The end - field table loading --------------------------
 
