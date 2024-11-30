@@ -11,6 +11,86 @@ let map = null;
 
 
 
+// Define a global variable for field code
+let selectedFieldCode = null;
+
+
+
+
+// upload field Image 1
+$('#fieldImage1').on('change', function () {
+
+    const file1 = this.files[0]; // Get the selected file
+    const previewImage1 = $('#previewFieldImage1'); // Image preview element
+    const noImage1Text = $('#noFieldImage1Text'); // No image text element
+
+    if (file1) {
+        const reader = new FileReader();
+
+        // Load the file and update the preview
+        reader.onload = function (e) {
+            previewImage1.attr('src', e.target.result); // Set image source
+            previewImage1.show(); // Show the image
+            noImage1Text.hide(); // Hide the "No image selected" text
+        };
+
+        reader.readAsDataURL(file1); // Read the file as a Data URL
+    } else {
+        // If no file is selected, reset the preview
+        previewImage1.hide();
+        noImage1Text.show();
+    }
+});
+
+
+
+
+// upload field Image 2
+$('#fieldImage2').on('change', function () {
+
+    const file2 = this.files[0]; // Get the selected file
+    const previewImage2 = $('#previewFieldImage2'); // Image preview element
+    const noImage2Text = $('#noFieldImage2Text'); // No image text element
+
+    if (file2) {
+        const reader = new FileReader();
+
+        // Load the file and update the preview
+        reader.onload = function (e) {
+            previewImage2.attr('src', e.target.result); // Set image source
+            previewImage2.show(); // Show the image
+            noImage2Text.hide(); // Hide the "No image selected" text
+        };
+
+        reader.readAsDataURL(file2); // Read the file as a Data URL
+    } else {
+        // If no file is selected, reset the preview
+        previewImage2.hide();
+        noImage2Text.show();
+    }
+});
+
+
+
+
+// When a field Image 1 file is selected, update the file name display
+$("#fieldImage1").on("change", function () {
+    var fileName = $(this).val().split("\\").pop() || "No file chosen";
+    $("#fileName").text(fileName);
+});
+
+
+
+
+// When a field Image 1 file is selected, update the file name display
+$("#fieldImage2").on("change", function () {
+    var fileName = $(this).val().split("\\").pop() || "No file chosen";
+    $("#fileName").text(fileName);
+});
+
+
+
+
 // -------------------------- The start - initialize the map --------------------------
 function initMap(){
 
@@ -65,10 +145,12 @@ function initMap(){
         map.invalidateSize(); // Refresh map to fit the container
     });
 }
-// -------------------------- The start - initialize the map --------------------------
+// -------------------------- The end - initialize the map --------------------------
 
 
-// Function to format latitude and longitude
+
+
+// -------------------------- The start - function to format latitude and longitude --------------------------
 function formatCoordinates(lat, lng) {
 
     var latDirection = lat >= 0 ? 'N' : 'S';
@@ -79,9 +161,12 @@ function formatCoordinates(lat, lng) {
 
     return formattedLat + ', ' + formattedLng;
 }
+// -------------------------- The end - function to format latitude and longitude --------------------------
 
 
-// update the map
+
+
+// -------------------------- The start - update the map --------------------------
 function updateMap(lat, lng) {
     if (!map) {  // If the map is not yet initialized, create it
         map = L.map('map').setView([lat, lng], 12);
@@ -110,4 +195,5 @@ function updateMap(lat, lng) {
         .bindPopup('Field Location') // Optional: Add a popup for the marker
         .openPopup(); // Optional: Automatically open the popup
 }
+// -------------------------- The end - update the map --------------------------
 
