@@ -67,7 +67,7 @@
 /*}*/
 
 #field-section .add-to-cart, #field-section .view {
-    margin: 0.2rem;
+    margin: 0.5rem;
 }
 
 .new-field, .all-fields {
@@ -75,8 +75,7 @@
 }
 
 .field-page-photo {
-    margin-top: 1rem;
-
+    margin: 0.5rem;
 }
 
 #fieldImage1, #fieldImage2 {

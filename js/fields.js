@@ -649,3 +649,43 @@ $("#field-clear").on('click', () => {
 });
 // -------------------------- The end - when click field clear button --------------------------
 
+
+
+
+// -------------------------- The start - when click view all fields button --------------------------
+$("#viewAllFields").on('click', function () {
+
+    $.ajax({
+        url: "http://localhost:5052/cropMonitoringSystem/api/v1/fields",
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        success : function (results) {
+            console.log(results)
+
+            // Clear the existing table body
+            $('#all-fields-tbl-tbody').empty();
+
+            // Iterate over the results and append rows to the table
+            results.forEach(function(field) {
+                let row = `
+                    <tr>
+                        <td>${field.fieldName}</td>
+                    </tr>
+                   
+                    
+                `;
+                $('#all-fields-tbl-tbody').append(row);
+                $("#all-fields-tbl-tbody").css("font-weight", 600);
+            });
+        },
+        error : function (error) {
+            console.log(error)
+            alert('Can not get all fields...')
+        }
+    })
+
+});
+// -------------------------- The end - when click view all fields button --------------------------
+
