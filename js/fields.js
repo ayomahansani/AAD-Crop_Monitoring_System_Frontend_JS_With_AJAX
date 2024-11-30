@@ -689,3 +689,76 @@ $("#viewAllFields").on('click', function () {
 });
 // -------------------------- The end - when click view all fields button --------------------------
 
+
+
+
+// -------------------------- The start - when click field search button --------------------------
+$("#field-search-btn").on('click', function () {
+
+    var fieldDetail = $("#searchField").val();
+
+    $.ajax({
+        url: "http://localhost:5052/cropMonitoringSystem/api/v1/fields",
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        success : function (results) {
+
+            if (results.length !== 0) {
+
+                for (let i=0; i<results.length; i++) {
+
+                    if (results[i].fieldName === fieldDetail) {
+                        $("#searchedFieldName").val(results[i].fieldName);
+                        $("#searchedFieldLocation").val(results[i].fieldLocation);
+                        $("#searchedFieldExtentsize").val(results[i].fieldExtentsize);
+
+                        $("#fieldDetailsModalLabel").html("Field Details");
+
+                        return;
+                    }
+
+                }
+
+                if(fieldDetail !== "") {
+
+                    showErrorAlert("Can't find field ! Try again...");
+                    searchedCropInputsClear();
+
+                } else {
+
+                    showErrorAlert("Please enter field name to search !");
+                    searchedCropInputsClear();
+
+                }
+
+            } else {
+
+                showErrorAlert("First you need to add fields ! Then you can search...");
+                searchedCropInputsClear();
+
+            }
+
+        },
+        error : function (error) {
+            console.log(error)
+        }
+    })
+
+});
+// -------------------------- The end - when click field search button --------------------------
+
+
+
+
+//-------------------------- The start - clear searched inputs --------------------------
+function searchedFieldInputsClear(){
+    $("#searchedFieldName").val("");
+    $("#searchedFieldLocation").val("");
+    $("#searchedFieldExtentsize").val("");
+
+    $("#fieldDetailsModalLabel").html("Field Details");
+}
+//-------------------------- The end - clear searched inputs --------------------------
+
