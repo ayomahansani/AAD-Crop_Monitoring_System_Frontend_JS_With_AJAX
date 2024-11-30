@@ -1,16 +1,18 @@
+import {showErrorAlert} from "./crops.js";
+
+
+
 
 $(document).ready(function () {
     initMap();
     loadFieldsTable();
+    loadStaffNamesComboBoxAndSetStaffIds();
 });
 
 
 
-
+// Define a global variable for map
 let map = null;
-
-
-
 
 // Define a global variable for field code
 let selectedFieldCode = null;
@@ -252,6 +254,36 @@ function loadFieldsTable() {
 
 
 
+// -------------------------- The start - Function to fetch staffs and populate the select element --------------------------
+function loadStaffNamesComboBoxAndSetStaffIds() {
+    $.ajax({
+        url: "http://localhost:5052/cropMonitoringSystem/api/v1/staffs",
+        type: "GET",
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("token")
+        },
+        success: function (response) {
+
+            // Assuming response is an array of staffDto objects
+            const selectedStaffName = $("#staffNamesComboBoxForFieldForm");
+
+            // Populate the select element with staff names and IDs
+            response.forEach(staff => {
+                const option = `<option value="${staff.staffId}">${staff.firstName} ${staff.lastName}</option>`;
+                selectedStaffName.append(option);
+            });
+        },
+        error: function (error) {
+            console.error("Error fetching staffs:", error);
+            showErrorAlert("Failed to load staffs. Please try again later.");
+        }
+    });
+}
+// -------------------------- The end - Function to fetch staffs and populate the select element --------------------------
+
+
+
+
 // -------------------------- The start - Handle click event for viewing field image 1 --------------------------
 $('#field-tbl-tbody').on('click', '.view-fieldImage1', function (e) {
     e.preventDefault(); // Prevent default link behavior
@@ -260,9 +292,11 @@ $('#field-tbl-tbody').on('click', '.view-fieldImage1', function (e) {
 
     if (base64Image) {
         // Set the base64 image in the modal
-        $('#seeFieldImage1').attr('src', `data:image/jpeg;base64,${base64Image}`);
+        $('#seeFieldImage').attr('src', `data:image/jpeg;base64,${base64Image}`);
+        // Set the title
+        $('#fieldImagePreviewModalLabel').text("Field Image 1");
         // Show the modal
-        $('#fieldImage1PreviewModal').modal('show');
+        $('#fieldImagePreviewModal').modal('show');
         $("#noFieldImage1Text").text("please again select an image...");
     } else {
         alert("No image available for this field.");
@@ -277,16 +311,18 @@ $('#field-tbl-tbody').on('click', '.view-fieldImage1', function (e) {
 
 
 // -------------------------- The start - Handle click event for viewing field image 2 --------------------------
-$('#field-tbl-tbody').on('click', '.view-fieldImage1', function (e) {
+$('#field-tbl-tbody').on('click', '.view-fieldImage2', function (e) {
     e.preventDefault(); // Prevent default link behavior
 
     const base64Image = $(this).data('image'); // Get the base64 image from the data attribute
 
     if (base64Image) {
         // Set the base64 image in the modal
-        $('#seeFieldImage2').attr('src', `data:image/jpeg;base64,${base64Image}`);
+        $('#seeFieldImage').attr('src', `data:image/jpeg;base64,${base64Image}`);
+        // Set the title
+        $('#fieldImagePreviewModalLabel').text("Field Image 2");
         // Show the modal
-        $('#fieldImage2PreviewModal').modal('show');
+        $('#fieldImagePreviewModal').modal('show');
         $("#noFieldImage2Text").text("please again select an image...");
     } else {
         alert("No image available for this field.");
@@ -296,4 +332,75 @@ $('#field-tbl-tbody').on('click', '.view-fieldImage1', function (e) {
     e.stopPropagation();
 });
 // -------------------------- The end - Handle click event for viewing field image 2 --------------------------
+
+
+
+
+// -------------------------- The start - Function to add a staff combo box with all options --------------------------
+function addStaffWithOptions(allStaffs, selectedStaff = null) {
+    const container = document.getElementById('assignedStaffsContainer');
+    const staffDiv = document.createElement('div');
+    staffDiv.className = 'd-flex align-items-center mb-2 col-md-8';
+
+    // Generate options for all staffs
+    let optionsHtml = '<option value="">Choose a staff</option>';
+    allStaffs.forEach(staff => {
+        optionsHtml += `<option value="${staff.staffId}" ${selectedStaff && staff.staffId === selectedStaff.staffId ? 'selected' : ''}>
+                            ${staff.firstName} ${staff.lastName}
+                        </option>`;
+    });
+
+    // Set inner HTML with combo box and remove button
+    staffDiv.innerHTML = `
+        <select class="form-select search-input staffForField" aria-label="Default select example" name="assignedStaffs[]" required>
+            ${optionsHtml}
+        </select>
+        <button type="button" class="btn btn-m custom-btn" onclick="removeStaff(this)">
+            <i class="fa-solid fa-trash-alt" style="color:rgb(17, 76, 54);"></i>
+        </button>
+    `;
+
+    container.appendChild(staffDiv);
+}
+// -------------------------- The end - Function to add a staff combo box with all options --------------------------
+
+
+
+
+// -------------------------- The start - when click a "+ Click here to Add Staff" button in add field modal --------------------------
+let cachedStaffs = []; // Cache staffs to avoid multiple API calls
+
+$("#addStaffBtn").on('click', () => {
+    // Check if staffs are already cached
+    if (cachedStaffs.length > 0) {
+        addStaffWithOptions(cachedStaffs);
+    } else {
+        // Fetch staffs from the server if not cached
+        $.ajax({
+            url: "http://localhost:5052/cropMonitoringSystem/api/v1/staffs",
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            success: function (allStaffs) {
+                cachedStaffs = allStaffs; // Cache fields globally
+                addStaffWithOptions(allStaffs);
+            },
+            error: function (xhr) {
+                console.error("Error fetching staffs:", xhr.responseText);
+                alert("Failed to load staffs.");
+            }
+        });
+    }
+});
+// -------------------------- The end - when click a "+ Click here to Add Staff" button in add field modal --------------------------
+
+
+
+
+// -------------------------- The start - Function to remove an assigned staff combo box --------------------------
+window.removeStaff = function (button) {
+    button.parentElement.remove();
+};
+// -------------------------- The end - Function to remove an assigned staff combo box --------------------------
 
