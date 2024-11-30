@@ -711,7 +711,7 @@ $("#field-search-btn").on('click', function () {
 
                     if (results[i].fieldName === fieldDetail) {
                         $("#searchedFieldName").val(results[i].fieldName);
-                        $("#searchedFieldLocation").val(results[i].fieldLocation);
+                        $("#searchedFieldLocation").val(results[i].fieldLocation.x + ", " + results[i].fieldLocation.y);
                         $("#searchedFieldExtentsize").val(results[i].fieldExtentsize);
 
                         $("#fieldDetailsModalLabel").html("Field Details");
@@ -724,22 +724,20 @@ $("#field-search-btn").on('click', function () {
                 if(fieldDetail !== "") {
 
                     showErrorAlert("Can't find field ! Try again...");
-                    searchedCropInputsClear();
+                    searchedFieldInputsClear();
 
                 } else {
 
                     showErrorAlert("Please enter field name to search !");
-                    searchedCropInputsClear();
+                    searchedFieldInputsClear();
 
                 }
 
             } else {
 
                 showErrorAlert("First you need to add fields ! Then you can search...");
-                searchedCropInputsClear();
-
+                searchedFieldInputsClear();
             }
-
         },
         error : function (error) {
             console.log(error)
