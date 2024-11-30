@@ -18,7 +18,7 @@ let selectedStaffId = null;
 
 
 // -------------------------- The start - staff table loading --------------------------
-function loadStaffTable() {
+export function loadStaffTable() {
     // Fetch staff data
     $.ajax({
         url: "http://localhost:5052/cropMonitoringSystem/api/v1/staffs",

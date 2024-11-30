@@ -1,4 +1,5 @@
 import {showErrorAlert} from "./crops.js";
+import {loadStaffTable} from "./staff.js";
 
 
 
@@ -606,6 +607,7 @@ $("#field-delete").on('click', () => {
 
             // load the table
             loadFieldsTable();
+            loadStaffTable();
 
             // clean the inputs values
             $("#newFieldModal form").trigger('reset');
@@ -627,4 +629,23 @@ $("#field-delete").on('click', () => {
 
 });
 // -------------------------- The end - when click field delete button --------------------------
+
+
+
+
+// -------------------------- The start - when click field clear button --------------------------
+$("#field-clear").on('click', () => {
+
+    $("#newFieldModal form").trigger('reset');
+
+    // Reset image preview
+    $("#previewFieldImage1").attr("src", "#").hide(); // Reset the image source and hide it
+    $("#previewFieldImage2").attr("src", "#").hide(); // Reset the image source and hide it
+    $("#noFieldImage1Text").show();// Show the "No image selected" text
+    $("#noFieldImage2Text").show();// Show the "No image selected" text
+    $("#fieldImage1Text").hide();
+    $("#fieldImage2Text").hide();
+
+});
+// -------------------------- The end - when click field clear button --------------------------
 
