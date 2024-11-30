@@ -852,22 +852,22 @@
 
             <div class="modal-footer">
 
-                <button type="button" id="crop-save" class="btn">
+                <button type="button" id="field-save" class="btn">
                     Save
                     <span><i class="bi bi-save"></i></span>
                 </button>
 
-                <button type="button" id="crop-update" class="btn">
+                <button type="button" id="field-update" class="btn">
                     Update
                     <span><i class="bi bi-pencil-square"></i></span>
                 </button>
 
-                <button type="button" id="crop-delete" class="btn">
+                <button type="button" id="field-delete" class="btn">
                     Delete
                     <span><i class="bi bi-trash3"></i></span>
                 </button>
 
-                <button type="reset" id="crop-clear" class="btn">
+                <button type="reset" id="field-clear" class="btn">
                     Clear
                     <span><i class="bi bi-backspace-reverse"></i></span>
                 </button>
@@ -879,6 +879,37 @@
 
 </div>
 <!-- End Add New Field Modal -->
+
+<!-- View All Fields Modal -->
+<div class="modal fade" id="viewAllFieldsModal" tabindex="-1" aria-labelledby="viewAllFieldsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header text-center">
+                <h1 class="modal-title fs-5" id="viewAllFieldsModalLabel">
+                    All Crops
+                    <span class="all-fields"><i class="fas fa-seedling"></i></span>
+                    <span class="all-fields"><i class="fas fa-seedling"></i></span>
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body text-center">
+
+                <table class="table table-success table-striped table-hover table-sm all-fields-table">
+
+                    <tbody id="all-fields-tbl-tbody">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- End View All Fields Modal -->
 
 
 <!-- -------- End Field Modals -------- -->
