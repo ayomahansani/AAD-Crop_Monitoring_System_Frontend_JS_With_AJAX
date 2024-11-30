@@ -392,3 +392,109 @@ $("#field-save").on('click', () => {
 });
 // -------------------------- The end - when click field save button --------------------------
 
+
+
+
+// -------------------------- The start - when click field update button --------------------------
+$("#field-update").on('click', () => {
+
+    // get values from inputs
+    const fieldName = $("#fieldName").val();
+    const fieldLocation = $("#fieldLocation").val();
+    const fieldExtentsize = $("#fieldExtentsize").val();
+    const fieldImage1 = $("#fieldImage1")[0].files[0];
+    const fieldImage2 = $("#fieldImage2")[0].files[0];
+
+    // Declare locationJsonObject outside the if block
+    let locationJsonObject = null;
+
+    // Use regex to extract latitude and longitude from the formatted string
+    const regex = /Longitude: ([\d.-]+), Latitude: ([\d.-]+)/;
+    const match = fieldLocation.match(regex);
+
+    if (match) {
+        const longitude = parseFloat(match[1]);  // Extract longitude
+        const latitude = parseFloat(match[2]);   // Extract latitude
+
+        // Create the JSON object
+        locationJsonObject = {
+            longitude: longitude,
+            latitude: latitude
+        };
+
+    } else {
+        console.log("Invalid field location format");
+    }
+
+    // check whether print those values
+    console.log("fieldName: " , fieldName);
+    console.log("locationJsonObject: " , locationJsonObject);
+    console.log("fieldExtentsize: " , fieldExtentsize);
+
+    if (!locationJsonObject) {
+        showErrorAlert("Please select a valid location from the map!");
+        return;
+    }
+
+    // Create a FormData object to send data as multipart/form-data
+    let formData = new FormData();
+    formData.append("fieldName", fieldName);
+    formData.append("fieldLocation", JSON.stringify(locationJsonObject)); // Serialize JSON object
+    formData.append("fieldExtentsize", fieldExtentsize);
+
+    // Check if file is selected
+    if (fieldImage1) {
+        formData.append("fieldImage1", fieldImage1);  // Append the image file
+    }
+
+    // Check if file is selected
+    if (fieldImage2) {
+        formData.append("fieldImage2", fieldImage2);  // Append the image file
+    }
+
+    // For testing
+    console.log("FormData Object : " + formData);
+
+
+    // Send the PUT request
+    $.ajax({
+        url: `http://localhost:5052/cropMonitoringSystem/api/v1/fields/${selectedFieldCode}`,
+        type: "PUT",
+        data: formData,
+        processData: false, // Prevent jQuery from transforming data
+        contentType: false,
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("token")
+        },
+        success: function () {
+            Swal.fire({
+                icon: 'success',
+                title: 'Field updated successfully!',
+                showConfirmButton: false,
+                timer: 1500,
+                iconColor: 'rgba(131,193,170,0.79)'
+            });
+
+            // load the table
+            loadFieldsTable();
+
+            // clean the inputs values
+            $("#newFieldModal form").trigger('reset');
+
+            // Remove the image preview
+            $("#previewFieldImage1").attr("src", "#").hide(); // Reset the image source and hide it
+            $("#previewFieldImage2").attr("src", "#").hide(); // Reset the image source and hide it
+            $("#noFieldImage1Text").show();// Show the "No image selected" text
+            $("#noFieldImage2Text").show();// Show the "No image selected" text
+            // $("#fieldImage1Text").hide();
+            // $("#fieldImage2Text").hide();
+        },
+        error: function (error) {
+            console.error("Error updating field:", error);
+            showErrorAlert('Field not updated...');
+        }
+    });
+
+});
+// -------------------------- The end - when click field update button --------------------------
+
