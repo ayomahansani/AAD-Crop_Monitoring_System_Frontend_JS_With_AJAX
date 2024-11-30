@@ -234,6 +234,81 @@ function loadFieldsTable() {
 
 
 
+// -------------------------- The start - when click a field table row --------------------------
+$("#field-tbl-tbody").on('click', 'tr', function (e) {
+
+    // Check if the click was inside the field image 1 link column
+    if ($(e.target).hasClass("view-fieldImage1")) {
+        return; // Do nothing if the click was on the image link
+    }
+
+    // Check if the click was inside the field image 2 link column
+    if ($(e.target).hasClass("view-fieldImage2")) {
+        return; // Do nothing if the click was on the image link
+    }
+
+    // Extract values from the clicked row
+    let fieldName = $(this).find(".field-name-value").text().trim();
+    let fieldLocation = $(this).find(".field-location-value").text().trim();
+    let fieldExtentsize = $(this).find(".field-extentsize-value").text().trim();
+    let fieldImage1 = $(this).find(".view-fieldImage1").data("image") || null; // Get the base64 image data if available
+    let fieldImage2 = $(this).find(".view-fieldImage2").data("image") || null; // Get the base64 image data if available
+
+    // Assign values to the input fields
+    $("#fieldName").val(fieldName);
+    $("#fieldLocation").val(fieldLocation);
+    $("#fieldExtentsize").val(fieldExtentsize);
+
+    // Set the image preview if image data exists
+    if (fieldImage1) {
+        $("#previewFieldImage1").attr("src", `data:image/jpeg;base64,${cropImage}`).show(); // Display the image
+        $("#noFieldImage1Text").hide(); // Hide the 'No image selected' text
+        $("#fieldImage1Text").text("please again select an image...");
+    } else {
+        $("#previewFieldImage1").hide(); // Hide the image element if no image
+        $("#noFieldImage1Text").show(); // Show the 'No image selected' text
+        $("#fieldImage1Text").text("please again select an image...");
+    }
+
+    // Set the image preview if image data exists
+    if (fieldImage2) {
+        $("#previewFieldImage2").attr("src", `data:image/jpeg;base64,${cropImage}`).show(); // Display the image
+        $("#noFieldImage2Text").hide(); // Hide the 'No image selected' text
+        $("#fieldImage2Text").text("please again select an image...");
+    } else {
+        $("#previewFieldImage2").hide(); // Hide the image element if no image
+        $("#noFieldImage2Text").show(); // Show the 'No image selected' text
+        $("#fieldImage2Text").text("please again select an image...");
+    }
+
+    // Find the staffId for the staff name
+    $.ajax({
+        url: "http://localhost:5052/cropMonitoringSystem/api/v1/fields",
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        success: function (fields) {
+            // Find the fieldCode that corresponds to the FieldName
+            const field = fields.find(f => f.fieldName === fieldName);
+            if (field) {
+                selectedFieldCode = field.fieldCode; // Set the field code
+                console.log("Field code: ", selectedFieldCode);
+            } else {
+                console.warn("Field not found :", fieldName);
+            }
+        },
+        error: function (error) {
+            console.error("Error fetching fields:", error);
+        }
+    });
+
+});
+// -------------------------- The end - when click a field table row --------------------------
+
+
+
+
 // -------------------------- The start - Handle click event for viewing field image 1 --------------------------
 $('#field-tbl-tbody').on('click', '.view-fieldImage1', function (e) {
     e.preventDefault(); // Prevent default link behavior
