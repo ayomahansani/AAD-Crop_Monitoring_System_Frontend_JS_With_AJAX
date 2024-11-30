@@ -6,7 +6,6 @@ import {showErrorAlert} from "./crops.js";
 $(document).ready(function () {
     initMap();
     loadFieldsTable();
-    loadStaffNamesComboBoxAndSetStaffIds();
 });
 
 
@@ -288,117 +287,6 @@ $('#field-tbl-tbody').on('click', '.view-fieldImage2', function (e) {
 
 
 // -------------------------- The start - when click field save button --------------------------
-/*$("#field-save").on('click', () => {
-
-    // get values from inputs
-    const fieldName = $("#fieldName").val();
-    const fieldLocation = $("#fieldLocation").val();
-    const fieldExtentsize = $("#fieldExtentsize").val();
-    const fieldImage1 = $("#fieldImage1")[0].files[0];
-    const fieldImage2 = $("#fieldImage2")[0].files[0];
-
-    // Get all selected staff IDs
-    const assignedStaffs= [];
-
-    $(".staffForField").each(function () {
-        const staffId = $(this).val();
-        if (staffId) {
-            assignedStaffs.push(staffId);
-        }
-    });
-
-    // convert the fieldLocation value into a JSON object
-
-    // Use regex to extract latitude and longitude from the formatted string
-    const regex = /Longitude: ([\d.-]+), Latitude: ([\d.-]+)/;
-    const match = fieldLocation.match(regex);
-
-    if (match) {
-        const longitude = parseFloat(match[1]);  // Extract longitude
-        const latitude = parseFloat(match[2]);   // Extract latitude
-
-        // Create the JSON object
-        const locationJsonObject = {
-            longitude: longitude,
-            latitude: latitude
-        };
-
-    } else {
-        console.log("Invalid field location format");
-    }
-
-    // check whether print those values
-    console.log("fieldName: " , fieldName);
-    console.log("locationJsonObject: " , locationJsonObject);
-    console.log("fieldExtentsize: " , fieldExtentsize);
-    console.log("assignedStaffs: " , assignedStaffs);
-
-
-    //let staffValidated = checkStaffValidation(firstName, lastName, email, address, gender, contactNo, dob, joinedDate, designation, role, assignedFields);
-
-    //if(staffValidated) {
-
-        // Create a FormData object to send data as multipart/form-data
-        let formData = new FormData();
-        formData.append("fieldName", fieldName);
-        formData.append("fieldLocation", locationJsonObject);
-        formData.append("fieldExtentsize", fieldExtentsize);
-        formData.append("staffIds", assignedStaffs); // Staff IDs as a string list
-
-        // Check if file is selected
-        if (fieldImage1) {
-            formData.append("fieldImage1", fieldImage1);  // Append the image file
-        }
-
-        // Check if file is selected
-        if (fieldImage2) {
-            formData.append("fieldImage2", fieldImage2);  // Append the image file
-        }
-
-        // For testing
-        console.log("FormData Object : " + formData);
-
-        // ========= Ajax with JQuery =========
-
-        $.ajax({
-            url: "http://localhost:5052/cropMonitoringSystem/api/v1/fields",
-            type: "POST",
-            data: formData,
-            processData: false, // Prevent jQuery from automatically transforming the data
-            contentType: false,
-            headers: {
-                "Authorization": "Bearer " + localStorage.getItem("token")
-            },
-
-            success: function (results) {
-
-                // show crop saved pop up
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Field saved successfully!',
-                    showConfirmButton: false,
-                    timer: 1500,
-                    iconColor: 'rgba(131,193,170,0.79)'
-                });
-
-                // load the table
-                loadFieldsTable();
-
-                // clean the inputs values
-                $("#newFieldModal form").trigger('reset');
-                $(".staffForField").val('');
-            },
-
-            error: function (error) {
-                console.log(error)
-                showErrorAlert('Field not saved...')
-            }
-        });
-    //}
-
-});*/
-
-// -------------------------- The start - when click field save button --------------------------
 $("#field-save").on('click', () => {
 
     // get values from inputs
@@ -486,7 +374,14 @@ $("#field-save").on('click', () => {
 
             // clean the inputs values
             $("#newFieldModal form").trigger('reset');
-            $(".staffForField").val('');
+
+            // Remove the image preview
+            $("#previewFieldImage1").attr("src", "#").hide(); // Reset the image source and hide it
+            $("#previewFieldImage2").attr("src", "#").hide(); // Reset the image source and hide it
+            $("#noFieldImage1Text").show();// Show the "No image selected" text
+            $("#noFieldImage2Text").show();// Show the "No image selected" text
+            // $("#fieldImage1Text").hide();
+            // $("#fieldImage2Text").hide();
         },
 
         error: function (error) {
@@ -495,7 +390,5 @@ $("#field-save").on('click', () => {
         }
     });
 });
-// -------------------------- The end - when click field save button --------------------------
-
 // -------------------------- The end - when click field save button --------------------------
 
