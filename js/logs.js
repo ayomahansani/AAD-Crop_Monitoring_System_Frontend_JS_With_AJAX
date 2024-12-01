@@ -531,7 +531,7 @@ function addStaffWithOptions(allStaffs, selectedStaff = null) {
 
 
 
-// -------------------------- The start - when click a "+ Click here to Add Field" button in add staff modal --------------------------
+// -------------------------- The start - when click a "+ Click here to Add Field" button in add log modal --------------------------
 let cachedFields = []; // Cache fields to avoid multiple API calls
 
 $("#addFieldBtnInLogForm").on('click', () => {
@@ -557,12 +557,12 @@ $("#addFieldBtnInLogForm").on('click', () => {
         });
     }
 });
-// -------------------------- The end - when click a "+ Click here to Add Field" button in add staff modal --------------------------
+// -------------------------- The end - when click a "+ Click here to Add Field" button in add log modal --------------------------
 
 
 
 
-// -------------------------- The start - when click a "+ Click here to Add Crop" button in add staff modal --------------------------
+// -------------------------- The start - when click a "+ Click here to Add Crop" button in add log modal --------------------------
 let cachedCrops = []; // Cache crops to avoid multiple API calls
 
 $("#addCropBtnInLogForm").on('click', () => {
@@ -588,4 +588,35 @@ $("#addCropBtnInLogForm").on('click', () => {
         });
     }
 });
-// -------------------------- The end - when click a "+ Click here to Add Crop" button in add staff modal --------------------------
+// -------------------------- The end - when click a "+ Click here to Add Crop" button in add log modal --------------------------
+
+
+
+
+// -------------------------- The start - when click a "+ Click here to Add Staff" button in add log modal --------------------------
+let cachedStaffs = []; // Cache crops to avoid multiple API calls
+
+$("#addStaffBtnInLogForm").on('click', () => {
+    // Check if staffs are already cached
+    if (cachedStaffs.length > 0) {
+        addStaffWithOptions(cachedStaffs);
+    } else {
+        // Fetch staffs from the server if not cached
+        $.ajax({
+            url: "http://localhost:5052/cropMonitoringSystem/api/v1/staffs",
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            success: function (allStaffs) {
+                cachedStaffs = allStaffs; // Cache staffs globally
+                addStaffWithOptions(allStaffs);
+            },
+            error: function (xhr) {
+                console.error("Error fetching staffs:", xhr.responseText);
+                alert("Failed to load staffs.");
+            }
+        });
+    }
+});
+// -------------------------- The end - when click a "+ Click here to Add Staff" button in add log modal --------------------------
