@@ -235,7 +235,7 @@ function loadStaffNamesComboBoxAndSetStaffIdsToLogForm() {
 
 
 // -------------------------- The start - when click a log table row --------------------------
-$("#log-tbl-tbody").on('click', 'tr', function () {
+$("#log-tbl-tbody").on('click', 'tr', function (e) {
 
     // Check if the click was inside the log image link column
     if ($(e.target).hasClass("view-log-image")) {
@@ -620,3 +620,21 @@ $("#addStaffBtnInLogForm").on('click', () => {
     }
 });
 // -------------------------- The end - when click a "+ Click here to Add Staff" button in add log modal --------------------------
+
+
+
+
+// -------------------------- The start - Function to remove an assigned crop combo box --------------------------
+window.removeCrop = function (button) {
+    button.parentElement.remove();
+};
+// -------------------------- The end - Function to remove an assigned crop combo box --------------------------
+
+
+
+
+// -------------------------- The start - Function to remove an assigned staff combo box --------------------------
+window.removeStaff = function (button) {
+    button.parentElement.remove();
+};
+// -------------------------- The end - Function to remove an assigned staff combo box --------------------------
