@@ -666,41 +666,41 @@
         <div class="main-content main-section">
 
             <!-- up section -->
-            <div class="search-field">
+            <div class="search-log">
 
                 <form class="row">
 
-                    <!-- field search -->
+                    <!-- log search -->
                     <div class="col-8 col-sm-6 col-md-4 col-lg-4 pb-4">
-                        <label for="searchField" class="form-label fw-semibold">Search Field</label>
-                        <input type="search" class="form-control search-input" id="searchField" placeholder="Input Name Here">
+                        <label for="searchLog" class="form-label fw-semibold">Search Log</label>
+                        <input type="search" class="form-control search-input" id="searchLog" placeholder="Input Date Here">
                     </div>
                     <div class="col-4 col-sm-6 col-md-3 col-lg-3 pb-4">
-                        <button type="button" class="btn search-btn" id="field-search-btn" data-bs-toggle="modal" data-bs-target="#fieldDetailsModal">
+                        <button type="button" class="btn search-btn" id="log-search-btn" data-bs-toggle="modal" data-bs-target="#logDetailsModal">
                             Search
                             <span class="search"><i class="bi bi-search"></i></span>
                         </button>
                     </div>
-                    <!-- end field search -->
+                    <!-- end log search -->
 
                     <!-- buttons -->
                     <div class="col-6 col-sm-4 col-md-2 col-lg-2 pb-1">
-                        <a href="" id="newFieldBtn" role="button" class="btn" data-bs-toggle="modal" data-bs-target="#newFieldModal">
+                        <a href="" id="newLogBtn" role="button" class="btn" data-bs-toggle="modal" data-bs-target="#newLogModal">
                             <span class="add-to-cart"><i class="bi bi-plus-circle-fill"></i></span>
-                            New Field
+                            New Log
                         </a>
                     </div>
                     <div class="col-6 col-sm-4 col-md-2 col-lg-2 pb-1">
-                        <a href="" id="viewAllFields" role="button" class="btn" data-bs-toggle="modal" data-bs-target="#viewAllFieldsModal">
+                        <a href="" id="viewAllLogs" role="button" class="btn" data-bs-toggle="modal" data-bs-target="#viewAllLogsModal">
                             <span class="view"><i class="bi bi-eye-fill"></i></span>
-                            All Fields
+                            All Logs
                         </a>
                     </div>
                     <!-- end buttons -->
 
                     <!-- right image -->
                     <div class="col-12 col-sm-4 col-md-1 col-lg-1 pb-1">
-                        <img src="assets/icon/crops.png" class="field-page-photo" alt="fields photo">
+                        <img src="assets/icon/crops.png" class="log-page-photo" alt="logs photo">
                     </div>
                     <!-- end right image -->
 
@@ -709,23 +709,24 @@
             </div>
             <!-- end up section -->
 
-            <!-- field table -->
-            <div class="field-table">
+            <!-- logs table -->
+            <div class="log-table">
 
                 <div class="scrollable">
 
                     <table class="table table-success table-striped table-bordered border-dark table-hover table-sm">
                         <thead class="table-dark">
                         <tr class="table-success">
-                            <th scope="col">Field Name</th>
-                            <th scope="col">Location (longitude, latitude)</th>
-                            <th scope="col">Extent Size (Sq. m)</th>
-                            <th scope="col">Image - 1</th>
-                            <th scope="col">Image - 2</th>
+                            <th scope="col">Log Date</th>
+                            <th scope="col">Details</th>
+                            <th scope="col">Observed Image</th>
+                            <th scope="col">Monitored Fields</th>
+                            <th scope="col">Monitored Crops</th>
+                            <th scope="col">Monitored Staffs</th>
                         </tr>
                         </thead>
 
-                        <tbody id="field-tbl-tbody" class="table-group-divider">
+                        <tbody id="log-tbl-tbody" class="table-group-divider">
 
                         </tbody>
 
@@ -734,15 +735,13 @@
                 </div>
 
             </div>
-            <!-- end field table -->
+            <!-- end logs table -->
 
         </div>
         <!-- End Main Section -->
 
     </section>
     <!-- end logs section -->
-
-
 
 
 
@@ -753,6 +752,171 @@
 
 
 <!------------------------- Modals -------------------------->
+
+
+<!-- -------- Log Modals -------- -->
+
+<!-- Search Log Modal -->
+<div class="modal fade" id="logDetailsModal" tabindex="-1" aria-labelledby="logDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 text-center" id="logDetailsModalLabel">
+
+                </h1>
+                <button id="log-search-modal-close" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div id="log-search-modal-body" class="modal-body">
+
+                <form class="text-center">
+
+                    <div class="mb-3">
+                        <label for="searchedLogDate" class="form-label fw-semibold">Log Date</label>
+                        <input type="text" class="form-control disabled-input text-center" id="searchedLogDate" disabled>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="searchedLogDetails" class="form-label fw-semibold">Details</label>
+                        <input type="text" class="form-control disabled-input text-center" id="searchedLogDetails" disabled>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="searchedMonitoredFields" class="form-label fw-semibold">Monitored Fields</label>
+                        <input type="text" class="form-control disabled-input text-center" id="searchedMonitoredFields" disabled>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="searchedMonitoredStaffs" class="form-label fw-semibold">Monitored Staffs</label>
+                        <input type="text" class="form-control disabled-input text-center" id="searchedMonitoredStaffs" disabled>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="searchedMonitoredCrops" class="form-label fw-semibold">Monitored Crops</label>
+                        <input type="text" class="form-control disabled-input text-center" id="searchedMonitoredCrops" disabled>
+                    </div>
+
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- End Search Log Modal -->
+
+<!-- Add New Log Modal -->
+<div class="modal fade" id="newLogModal" tabindex="-1" aria-labelledby="newLogModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered modal-lg ">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 text-center" id="newLogModalLabel">
+                    New Log
+                    <span class="new-log"><i class="fas fa-carrot"></i></span>
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <form enctype="multipart/form-data">
+
+                    <div class="mb-4">
+                        <label for="fieldName" class="form-label fw-semibold">Log Date</label>
+                        <input type="text" class="form-control search-input" id="fieldName">
+                    </div>
+
+
+
+
+
+                </form>
+
+            </div>
+
+
+            <div class="modal-footer">
+
+                <button type="button" id="field-save" class="btn">
+                    Save
+                    <span><i class="bi bi-save"></i></span>
+                </button>
+
+                <button type="button" id="field-update" class="btn">
+                    Update
+                    <span><i class="bi bi-pencil-square"></i></span>
+                </button>
+
+                <button type="button" id="field-delete" class="btn">
+                    Delete
+                    <span><i class="bi bi-trash3"></i></span>
+                </button>
+
+                <button type="reset" id="field-clear" class="btn">
+                    Clear
+                    <span><i class="bi bi-backspace-reverse"></i></span>
+                </button>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<!-- End Add New Log Modal -->
+
+<!-- View All Logs Modal -->
+<div class="modal fade" id="viewAllFieldsModal" tabindex="-1" aria-labelledby="viewAllFieldsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header text-center">
+                <h1 class="modal-title fs-5" id="viewAllFieldsModalLabel">
+                    All Fields
+                    <span class="all-fields"><i class="fas fa-seedling"></i></span>
+                    <span class="all-fields"><i class="fas fa-seedling"></i></span>
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body text-center">
+
+                <table class="table table-success table-striped table-hover table-sm all-fields-table">
+
+                    <tbody id="all-fields-tbl-tbody">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- End View All Logs Modal -->
+
+<!-- Image Preview Modal -->
+<div class="modal fade" id="fieldImagePreviewModal" tabindex="-1" aria-labelledby="fieldImagePreviewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="fieldImagePreviewModalLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <img id="seeFieldImage" src="#" alt="Field Image" class="img-fluid" style="max-height: 200px;">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Image Preview Modal -->
+
+<!-- -------- Log Field Modals -------- -->
 
 
 <!-- -------- Field Modals -------- -->
@@ -839,7 +1003,7 @@
                         <div class="col-md-6">
                             <div class="mb-4">
                                 <label for="fieldExtentsize" class="form-label fw-semibold">Extent Size (Sq. m)</label>
-                                <input type="number" class="form-control search-input" id="fieldExtentsize">
+                                <textarea class="form-control search-input" id="vehicleRemarks" rows="3"></textarea>
                             </div>
                         </div>
 
@@ -976,8 +1140,6 @@
     </div>
 </div>
 <!-- End Image Preview Modal -->
-
-
 
 <!-- -------- End Field Modals -------- -->
 
