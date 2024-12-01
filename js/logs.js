@@ -917,3 +917,20 @@ $("#log-delete").on('click', () => {
     });
 });
 // -------------------------- The end - when click log delete button --------------------------
+
+
+
+// -------------------------- The start - when click log clear button --------------------------
+$("#log-clear").on('click', () => {
+    // clean the inputs values
+    $("#newLogModal form").trigger('reset');
+    $(".fieldForLog").val('');
+    $(".cropForLog").val('');
+    $(".staffForLog").val('');
+
+    // Remove the image preview
+    $("#previewLogImage").attr("src", "#").hide(); // Reset the image source and hide it
+    $("#noLogImageText").show();// Show the "No image selected" text
+    $("#logImageText").hide();
+});
+// -------------------------- The end - when click log clear button --------------------------
