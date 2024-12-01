@@ -825,14 +825,78 @@
 
                 <form enctype="multipart/form-data">
 
-                    <div class="mb-4">
-                        <label for="fieldName" class="form-label fw-semibold">Log Date</label>
-                        <input type="text" class="form-control search-input" id="fieldName">
+                    <div class="mb-3">
+                        <label for="logDate" class="form-label fw-semibold">Log Date</label>
+                        <input type="text" class="form-control search-input" id="logDate">
                     </div>
 
+                    <div class="mb-3">
+                        <label for="logDetails" class="form-label fw-semibold">Log Details</label>
+                        <textarea class="form-control search-input" id="logDetails" rows="3"></textarea>
+                    </div>
 
+                    <!-- Assigned Fields with Dynamic Combo Boxes -->
+                    <div class="mb-4">
+                        <label for="fieldNamesComboBoxForLogForm" class="form-label fw-semibold">Assign Field/s :</label>
+                        <button type="button" id="addFieldBtnInLogForm" class="btn btn-sm custom-btn m-1" style="color: #274D40">+ Click here to Add Field</button>
+                        <div id="monitoredFieldsContainer">
+                            <div class="d-flex align-items-center mb-2 col-md-8">
+                                <select class="form-select search-input fieldForLog" aria-label="Default select example" id="fieldNamesComboBoxForLogForm" name="monitoredFields[]" required>
+                                    <option selected>Choose a field</option>
+                                </select>
+                                <button type="button" class="btn btn-m custom-btn" onclick="removeField(this)">
+                                    <i class="fa-solid fa-trash-alt" style="color:rgb(17, 76, 54);"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
 
+                    <!-- Assigned Crops with Dynamic Combo Boxes -->
+                    <div class="mb-4">
+                        <label for="cropNamesComboBoxForLogForm" class="form-label fw-semibold">Assign Crop/s :</label>
+                        <button type="button" id="addCropBtnInLogForm" class="btn btn-sm custom-btn m-1" style="color: #274D40">+ Click here to Add Crop</button>
+                        <div id="monitoredCropsContainer">
+                            <div class="d-flex align-items-center mb-2 col-md-8">
+                                <select class="form-select search-input cropForLog" aria-label="Default select example" id="cropNamesComboBoxForLogForm" name="monitoredCrops[]" required>
+                                    <option selected>Choose a crop</option>
+                                </select>
+                                <button type="button" class="btn btn-m custom-btn" onclick="removeCrop(this)">
+                                    <i class="fa-solid fa-trash-alt" style="color:rgb(17, 76, 54);"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
 
+                    <!-- Assigned Staffs with Dynamic Combo Boxes -->
+                    <div class="mb-4">
+                        <label for="staffNamesComboBoxForLogForm" class="form-label fw-semibold">Assign Staff/s :</label>
+                        <button type="button" id="addStaffBtnInLogForm" class="btn btn-sm custom-btn m-1" style="color: #274D40">+ Click here to Add Staff</button>
+                        <div id="monitoredStaffsContainer">
+                            <div class="d-flex align-items-center mb-2 col-md-8">
+                                <select class="form-select search-input staffForLog" aria-label="Default select example" id="staffNamesComboBoxForLogForm" name="monitoredStaffs[]" required>
+                                    <option selected>Choose a staff</option>
+                                </select>
+                                <button type="button" class="btn btn-m custom-btn" onclick="removeStaff(this)">
+                                    <i class="fa-solid fa-trash-alt" style="color:rgb(17, 76, 54);"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="logImage" class="form-label fw-semibold">Upload Log Image</label>
+                        <input type="file" class="form-control mb-1" id="logImage" accept="image/*"> <!-- File Input -->
+                        <label id="logImageText" class="form-label"></label>
+                    </div>
+
+                    <!-- Image Preview -->
+                    <div class="mb-2">
+                        <label class="form-label fw-semibold">Image Preview</label>
+                        <div id="logImagePreview" class="border rounded p-2 text-center">
+                            <img id="previewLogImage" src="#" alt="Preview" class="img-fluid" style="max-height: 150px; display: none;">
+                            <p class="text-muted" id="noLogImageText">No image selected</p>
+                        </div>
+                    </div>
 
                 </form>
 
@@ -841,22 +905,22 @@
 
             <div class="modal-footer">
 
-                <button type="button" id="field-save" class="btn">
+                <button type="button" id="log-save" class="btn">
                     Save
                     <span><i class="bi bi-save"></i></span>
                 </button>
 
-                <button type="button" id="field-update" class="btn">
+                <button type="button" id="log-update" class="btn">
                     Update
                     <span><i class="bi bi-pencil-square"></i></span>
                 </button>
 
-                <button type="button" id="field-delete" class="btn">
+                <button type="button" id="log-delete" class="btn">
                     Delete
                     <span><i class="bi bi-trash3"></i></span>
                 </button>
 
-                <button type="reset" id="field-clear" class="btn">
+                <button type="reset" id="log-clear" class="btn">
                     Clear
                     <span><i class="bi bi-backspace-reverse"></i></span>
                 </button>
@@ -1003,7 +1067,7 @@
                         <div class="col-md-6">
                             <div class="mb-4">
                                 <label for="fieldExtentsize" class="form-label fw-semibold">Extent Size (Sq. m)</label>
-                                <textarea class="form-control search-input" id="vehicleRemarks" rows="3"></textarea>
+                                <input type="number" class="form-control search-input" id="fieldExtentsize">
                             </div>
                         </div>
 
