@@ -8,6 +8,7 @@ $(document).ready(function () {
     loadFieldNamesComboBoxAndSetFieldCodesToLogForm();
     loadCropNamesComboBoxAndSetCropCodesToLogForm();
     loadStaffNamesComboBoxAndSetStaffIdsToLogForm();
+    setCurrentDate();
 });
 
 
@@ -141,6 +142,17 @@ export function loadLogsCount() {
 }
 // -------------------------- The end - log's count loading --------------------------
 
+
+
+// -------------------------- The start - set current date --------------------------
+function setCurrentDate(){
+    // Set the current date in the #logDate input field
+    const today = new Date(); // Get the current date
+    const formattedDate = today.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+    $("#logDate").val(formattedDate); // Set the value of #logDate
+
+}
+// -------------------------- The start - set current date --------------------------
 
 
 
