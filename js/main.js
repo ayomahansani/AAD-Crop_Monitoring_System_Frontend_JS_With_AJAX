@@ -3,6 +3,7 @@ import {loadStaffsCount} from "./staff.js";
 import {loadEquipmentCount} from "./equipments.js";
 import {loadVehicleCount} from "./vehicles.js";
 import {loadFieldsCount} from "./fields.js";
+import {loadLogsCount} from "./logs.js";
 
 
 
@@ -51,6 +52,8 @@ $(document).ready(function() {
     loadVehicleCount();
     // set all field count to the home page's customer card
     loadFieldsCount();
+    // set all log count to the home page's customer card
+    loadLogsCount();
 
 
     // <!------------------------ Sign-Up ------------------------>

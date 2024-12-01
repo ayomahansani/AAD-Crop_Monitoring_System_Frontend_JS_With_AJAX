@@ -78,3 +78,25 @@ function loadLogTable() {
     });
 }
 // -------------------------- The end - log table loading --------------------------
+
+
+
+
+// -------------------------- The start - log's count loading --------------------------
+export function loadLogsCount() {
+
+    $.ajax({
+        url: "http://localhost:5052/cropMonitoringSystem/api/v1/logs", // Logs API
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        success : function (results) {
+            $("#logs-count").html(results.length);
+        },
+        error : function (error) {
+            console.log(error)
+        }
+    })
+}
+// -------------------------- The end - log's count loading --------------------------
