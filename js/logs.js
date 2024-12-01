@@ -465,3 +465,65 @@ function addFieldWithOptions(allFields, selectedField = null) {
     container.appendChild(fieldDiv);
 }
 // -------------------------- The end - Function to add a field combo box with all options --------------------------
+
+
+
+
+// -------------------------- The start - Function to add a crop combo box with all options --------------------------
+function addCropWithOptions(allCrops, selectedCrop = null) {
+    const container = document.getElementById('monitoredCropsContainer');
+    const cropDiv = document.createElement('div');
+    cropDiv.className = 'd-flex align-items-center mb-2 col-md-8';
+
+    // Generate options for all crops
+    let optionsHtml = '<option value="">Choose a crop</option>';
+    allCrops.forEach(crop => {
+        optionsHtml += `<option value="${crop.cropCode}" ${selectedCrop && crop.cropCode === selectedCrop.cropCode ? 'selected' : ''}>
+                            ${crop.cropCommonName} ${crop.cropCategory}
+                        </option>`;
+    });
+
+    // Set inner HTML with combo box and remove button
+    cropDiv.innerHTML = `
+        <select class="form-select search-input cropForLog" aria-label="Default select example" name="monitoredCrops[]" required>
+            ${optionsHtml}
+        </select>
+        <button type="button" class="btn btn-m custom-btn" onclick="removeCrop(this)">
+            <i class="fa-solid fa-trash-alt" style="color:rgb(17, 76, 54);"></i>
+        </button>
+    `;
+
+    container.appendChild(cropDiv);
+}
+// -------------------------- The end - Function to add a crop combo box with all options --------------------------
+
+
+
+
+// -------------------------- The start - Function to add a staff combo box with all options --------------------------
+function addStaffWithOptions(allStaffs, selectedStaff = null) {
+    const container = document.getElementById('monitoredStaffsContainer');
+    const staffDiv = document.createElement('div');
+    staffDiv.className = 'd-flex align-items-center mb-2 col-md-8';
+
+    // Generate options for all staffs
+    let optionsHtml = '<option value="">Choose a staff</option>';
+    allStaffs.forEach(staff => {
+        optionsHtml += `<option value="${staff.staffId}" ${selectedStaff && staff.staffId === selectedStaff.staffId ? 'selected' : ''}>
+                            ${staff.firstName} ${staff.lastName}
+                        </option>`;
+    });
+
+    // Set inner HTML with combo box and remove button
+    staffDiv.innerHTML = `
+        <select class="form-select search-input staffForLog" aria-label="Default select example" name="monitoredStaffs[]" required>
+            ${optionsHtml}
+        </select>
+        <button type="button" class="btn btn-m custom-btn" onclick="removeStaff(this)">
+            <i class="fa-solid fa-trash-alt" style="color:rgb(17, 76, 54);"></i>
+        </button>
+    `;
+
+    container.appendChild(staffDiv);
+}
+// -------------------------- The end - Function to add a staff combo box with all options --------------------------
