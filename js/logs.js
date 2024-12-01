@@ -558,3 +558,34 @@ $("#addFieldBtnInLogForm").on('click', () => {
     }
 });
 // -------------------------- The end - when click a "+ Click here to Add Field" button in add staff modal --------------------------
+
+
+
+
+// -------------------------- The start - when click a "+ Click here to Add Crop" button in add staff modal --------------------------
+let cachedCrops = []; // Cache crops to avoid multiple API calls
+
+$("#addCropBtnInLogForm").on('click', () => {
+    // Check if crops are already cached
+    if (cachedCrops.length > 0) {
+        addCropWithOptions(cachedCrops);
+    } else {
+        // Fetch crops from the server if not cached
+        $.ajax({
+            url: "http://localhost:5052/cropMonitoringSystem/api/v1/crops",
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            success: function (allCrops) {
+                cachedCrops = allCrops; // Cache crops globally
+                addCropWithOptions(allCrops);
+            },
+            error: function (xhr) {
+                console.error("Error fetching crops:", xhr.responseText);
+                alert("Failed to load crops.");
+            }
+        });
+    }
+});
+// -------------------------- The end - when click a "+ Click here to Add Crop" button in add staff modal --------------------------
