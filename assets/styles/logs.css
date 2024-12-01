@@ -1,0 +1,84 @@
+.search-log {
+    color: black;
+    border-radius: 15px;
+    margin: 1vw;
+    padding: 1em 1em 1.5em 2em ;
+    background-color: rgba(17, 76, 54, 0.54);
+    box-shadow: 3px 3px 8px black;
+    opacity: 0.8;
+}
+
+#newLogBtn {
+    font-weight: 500;
+    background-color: rgb(45, 120, 92);
+    color: white;
+    border: none;
+    margin-top: 2em;
+    box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.64);
+}
+
+#newLogBtn:hover {
+    background-color: rgb(17, 76, 54);
+}
+
+#viewAllLogs {
+    font-weight: 500;
+    background-color: rgb(45, 120, 92);
+    color: white;
+    border: none;
+    margin-top: 2em;
+    box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.64);
+}
+
+#viewAllLogs:hover {
+    background-color: rgb(17, 76, 54);
+}
+
+#newLogModal .modal-body, #viewAllLogsModal .modal-body, #logDetailsModal .modal-body, #logImagePreviewModal .modal-body {
+    background-color: #8dbca1;
+    color: rgb(17, 76, 54);
+}
+
+#logDetailsModal .disabled-input {
+    margin-bottom: 1.2em;
+    border: none;
+    background-color: rgba(195, 239, 214, 0.85);
+}
+
+.all-logs-table {
+    opacity: 0.7;
+}
+
+.log-table {
+    position: absolute;
+    height: 48%;
+    width: 78%;
+    border-radius: 15px;
+    margin: 1vw;
+    margin-top: 2vw;
+    padding: 2em 2em 2em 2em ;
+    box-shadow: 3px 3px 8px black;
+    background-color: rgba(17, 76, 54, 0.54);
+    opacity: 0.7;
+}
+
+.log-table td{
+    font-size: 14px;
+}
+
+#logs-section .add-to-cart, #logs-section .view {
+    margin: 0.5rem;
+}
+
+.new-log, .all-logs {
+    margin-left: 0.5rem;
+}
+
+.log-page-photo {
+    margin: 0.5rem;
+}
+
+#logImage{
+    border: none;
+    background-color: rgba(195, 239, 214, 0.85);
+}
