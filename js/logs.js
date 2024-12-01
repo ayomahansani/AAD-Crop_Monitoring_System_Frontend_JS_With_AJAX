@@ -638,3 +638,114 @@ window.removeStaff = function (button) {
     button.parentElement.remove();
 };
 // -------------------------- The end - Function to remove an assigned staff combo box --------------------------
+
+
+
+
+// -------------------------- The start - when click log save button --------------------------
+$("#log-save").on('click', () => {
+
+    // get values from inputs
+    const logDate = $("#logDate").val();
+    const logDetails = $("#logDetails").val();
+    const observedImage = $("#logImage")[0].files[0];
+
+    // Get all selected field IDs, crop IDs, staff IDs
+    const monitoredFields= [];
+    const monitoredCrops= [];
+    const monitoredStaffs= [];
+
+    $(".fieldForLog").each(function () {
+        const fieldId = $(this).val();
+        if (fieldId) {
+            monitoredFields.push(fieldId);
+        }
+    });
+
+    $(".cropForLog").each(function () {
+        const cropCode = $(this).val();
+        if (cropCode) {
+            monitoredCrops.push(cropCode);
+        }
+    });
+
+    $(".staffForLog").each(function () {
+        const staffId = $(this).val();
+        if (staffId) {
+            monitoredStaffs.push(staffId);
+        }
+    });
+
+    // check whether print those values
+    console.log("logDate: " , logDate);
+    console.log("logDetails: " , logDetails);
+    console.log("monitoredFields: " , monitoredFields);
+    console.log("monitoredCrops: " , monitoredCrops);
+    console.log("monitoredStaffs: " , monitoredStaffs);
+
+
+    //let staffValidated = checkStaffValidation(firstName, lastName, email, address, gender, contactNo, dob, joinedDate, designation, role, assignedFields);
+
+    //if(staffValidated) {
+
+        // Create a FormData object to send data as multipart/form-data
+        let formData = new FormData();
+        formData.append("logDate", logDate);
+        formData.append("logDetails", logDetails);
+        formData.append("fieldCodes", JSON.stringify(monitoredFields));
+        formData.append("cropCodes", JSON.stringify(monitoredCrops));
+        formData.append("staffIds", JSON.stringify(monitoredStaffs));
+
+
+    // Check if file is selected
+        if (observedImage) {
+            formData.append("observedImage", observedImage);  // Append the image file
+        }
+
+        // ========= Ajax with JQuery =========
+
+        $.ajax({
+            url: "http://localhost:5052/cropMonitoringSystem/api/v1/logs",
+            type: "POST",
+            data: formData,
+            processData: false, // Prevent jQuery from automatically transforming the data
+            contentType: false,
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("token")
+            },
+
+            success: function (results) {
+
+                // show crop saved pop up
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Log saved successfully!',
+                    showConfirmButton: false,
+                    timer: 1500,
+                    iconColor: 'rgba(131,193,170,0.79)'
+                });
+
+                // load the table
+                loadLogTable();
+
+                // clean the inputs values
+                $("#newLogModal form").trigger('reset');
+                $(".fieldForLog").val('');
+                $(".cropForLog").val('');
+                $(".staffForLog").val('');
+
+                // Remove the image preview
+                $("#previewLogImage").attr("src", "#").hide(); // Reset the image source and hide it
+                $("#noLogImageText").show();// Show the "No image selected" text
+                $("#logImageText").hide();
+            },
+
+            error: function (error) {
+                console.log(error)
+                showErrorAlert('Log not saved...')
+            }
+        });
+    //}
+
+});
+// -------------------------- The end - when click log save button --------------------------
