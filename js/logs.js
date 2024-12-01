@@ -527,3 +527,34 @@ function addStaffWithOptions(allStaffs, selectedStaff = null) {
     container.appendChild(staffDiv);
 }
 // -------------------------- The end - Function to add a staff combo box with all options --------------------------
+
+
+
+
+// -------------------------- The start - when click a "+ Click here to Add Field" button in add staff modal --------------------------
+let cachedFields = []; // Cache fields to avoid multiple API calls
+
+$("#addFieldBtnInLogForm").on('click', () => {
+    // Check if fields are already cached
+    if (cachedFields.length > 0) {
+        addFieldWithOptions(cachedFields);
+    } else {
+        // Fetch fields from the server if not cached
+        $.ajax({
+            url: "http://localhost:5052/cropMonitoringSystem/api/v1/fields",
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            success: function (allFields) {
+                cachedFields = allFields; // Cache fields globally
+                addFieldWithOptions(allFields);
+            },
+            error: function (xhr) {
+                console.error("Error fetching fields:", xhr.responseText);
+                alert("Failed to load fields.");
+            }
+        });
+    }
+});
+// -------------------------- The end - when click a "+ Click here to Add Field" button in add staff modal --------------------------
