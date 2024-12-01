@@ -230,3 +230,238 @@ function loadStaffNamesComboBoxAndSetStaffIdsToLogForm() {
     });
 }
 // -------------------------- The end - Function to fetch staffs and populate the select element --------------------------
+
+
+
+
+// -------------------------- The start - when click a log table row --------------------------
+$("#log-tbl-tbody").on('click', 'tr', function () {
+
+    // Check if the click was inside the log image link column
+    if ($(e.target).hasClass("view-log-image")) {
+        return; // Do nothing if the click was on the image link
+    }
+
+    const logDetails = $(this).find(".log-details-value").text().trim();
+    let logImage = $(this).find(".view-log-image").data("image") || null; // Get the base64 image data if available
+
+    // Fetch the log data
+    $.ajax({
+        url: "http://localhost:5052/cropMonitoringSystem/api/v1/logs",
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        success: function (logList) {
+            const searchedLog = logList.find(log => log.logDetails === logDetails);
+
+            if (!searchedLog) {
+                alert('Log not found!');
+                return;
+            }
+
+            selectedLogCode = searchedLog.logCode;
+            console.log("Log code: ", selectedLogCode);
+
+            // Fill in staff details in the modal
+            $("#logDate").val(searchedLog.logDate);
+            $("#logDetails").val(searchedLog.logDetails);
+
+            // Set the image preview if image data exists
+            if (logImage) {
+                $("#previewLogImage").attr("src", `data:image/jpeg;base64,${logImage}`).show(); // Display the image
+                $("#noLogImageText").hide(); // Hide the 'No image selected' text
+                $("#logImageText").text("please again select an image...");
+            } else {
+                $("#previewLogImage").hide(); // Hide the image element if no image
+                $("#noLogImageText").show(); // Show the 'No image selected' text
+                $("#logImageText").text("please again select an image...");
+            }
+
+            // Clear existing containers
+            $('#monitoredFieldsContainer').empty();
+            $('#monitoredCropsContainer').empty();
+            $('#monitoredStaffsContainer').empty();
+
+            // Fetch all available fields
+            $.ajax({
+                url: "http://localhost:5052/cropMonitoringSystem/api/v1/fields",
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                },
+                success: function (allFields) {
+
+                    // Fetch monitored fields, crops, staffs for the log
+                    $.ajax({
+                        url: `http://localhost:5052/cropMonitoringSystem/api/v1/logs/${searchedLog.logCode}/related-entities`,
+                        method: 'GET',
+                        headers: {
+                            'Authorization': 'Bearer ' + localStorage.getItem('token')
+                        },
+                        success: function (data) {
+                            // Create combo boxes for each assigned field
+                            data.fields.forEach(field => {
+                                addFieldWithOptions(allFields, field);
+                            });
+
+                            // Store the fetched fields for reuse
+                            cachedFields = allFields; // Cache fields globally for future additions
+
+                        },
+                        error: function (xhr) {
+                            console.error("Error fetching monitored data:", xhr.responseText);
+                            alert("Failed to load  monitored data.");
+                        }
+                    });
+
+                },
+                error: function (xhr) {
+                    console.error("Error fetching all fields:", xhr.responseText);
+                    alert("Failed to load all fields.");
+                }
+            });
+
+            // Fetch all available crops
+            $.ajax({
+                url: "http://localhost:5052/cropMonitoringSystem/api/v1/crops",
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                },
+                success: function (allCrops) {
+
+                    // Fetch monitored fields, crops, staffs for the log
+                    $.ajax({
+                        url: `http://localhost:5052/cropMonitoringSystem/api/v1/logs/${searchedLog.logCode}/related-entities`,
+                        method: 'GET',
+                        headers: {
+                            'Authorization': 'Bearer ' + localStorage.getItem('token')
+                        },
+                        success: function (data) {
+                            // Create combo boxes for each assigned field
+                            data.crops.forEach(crop => {
+                                addCropWithOptions(allCrops, crop);
+                            });
+
+                            // Store the fetched crops for reuse
+                            cachedCrops = allCrops; // Cache crops globally for future additions
+
+                        },
+                        error: function (xhr) {
+                            console.error("Error fetching monitored data:", xhr.responseText);
+                            alert("Failed to load  monitored data.");
+                        }
+                    });
+
+                },
+                error: function (xhr) {
+                    console.error("Error fetching all crops:", xhr.responseText);
+                    alert("Failed to load all crops.");
+                }
+            });
+
+            // Fetch all available staffs
+            $.ajax({
+                url: "http://localhost:5052/cropMonitoringSystem/api/v1/staffs",
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                },
+                success: function (allStaffs) {
+
+                    // Fetch monitored fields, crops, staffs for the log
+                    $.ajax({
+                        url: `http://localhost:5052/cropMonitoringSystem/api/v1/logs/${searchedLog.logCode}/related-entities`,
+                        method: 'GET',
+                        headers: {
+                            'Authorization': 'Bearer ' + localStorage.getItem('token')
+                        },
+                        success: function (data) {
+                            // Create combo boxes for each assigned field
+                            data.staffs.forEach(staff => {
+                                addStaffWithOptions(allStaffs, staff);
+                            });
+
+                            // Store the fetched staffs for reuse
+                            cachedStaffs = allStaffs; // Cache staffs globally for future additions
+
+                        },
+                        error: function (xhr) {
+                            console.error("Error fetching monitored data:", xhr.responseText);
+                            alert("Failed to load  monitored data.");
+                        }
+                    });
+
+                },
+                error: function (xhr) {
+                    console.error("Error fetching all staffs:", xhr.responseText);
+                    alert("Failed to load all staffs.");
+                }
+            });
+
+
+        },
+        error: function (xhr) {
+            console.error("Error fetching all logs:", xhr.responseText);
+            alert("Failed to load all logs.");
+        }
+    });
+
+});
+// -------------------------- The end - when click a log table row --------------------------
+
+
+
+
+// -------------------------- The start - Handle click event for viewing log image --------------------------
+$('#log-tbl-tbody').on('click', '.view-log-image', function (e) {
+    e.preventDefault(); // Prevent default link behavior
+
+    const base64Image = $(this).data('image'); // Get the base64 image from the data attribute
+
+    if (base64Image) {
+        // Set the base64 image in the modal
+        $('#seeLogImage').attr('src', `data:image/jpeg;base64,${base64Image}`);
+        // Show the modal
+        $('#logImagePreviewModal').modal('show');
+        $("#logImageText").text("please again select an image...");
+    } else {
+        alert("No image available for this log.");
+    }
+
+    // Prevent event propagation to avoid triggering the row click
+    e.stopPropagation();
+});
+// -------------------------- The end - Handle click event for viewing log image --------------------------
+
+
+
+
+// -------------------------- The start - Function to add a field combo box with all options --------------------------
+function addFieldWithOptions(allFields, selectedField = null) {
+    const container = document.getElementById('monitoredFieldsContainer');
+    const fieldDiv = document.createElement('div');
+    fieldDiv.className = 'd-flex align-items-center mb-2 col-md-8';
+
+    // Generate options for all fields
+    let optionsHtml = '<option value="">Choose a field</option>';
+    allFields.forEach(field => {
+        optionsHtml += `<option value="${field.fieldCode}" ${selectedField && field.fieldCode === selectedField.fieldCode ? 'selected' : ''}>
+                            ${field.fieldName}
+                        </option>`;
+    });
+
+    // Set inner HTML with combo box and remove button
+    fieldDiv.innerHTML = `
+        <select class="form-select search-input fieldForLog" aria-label="Default select example" name="monitoredFields[]" required>
+            ${optionsHtml}
+        </select>
+        <button type="button" class="btn btn-m custom-btn" onclick="removeField(this)">
+            <i class="fa-solid fa-trash-alt" style="color:rgb(17, 76, 54);"></i>
+        </button>
+    `;
+
+    container.appendChild(fieldDiv);
+}
+// -------------------------- The end - Function to add a field combo box with all options --------------------------
