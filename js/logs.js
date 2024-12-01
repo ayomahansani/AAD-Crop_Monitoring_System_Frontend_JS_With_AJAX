@@ -144,6 +144,7 @@ export function loadLogsCount() {
 
 
 
+
 // -------------------------- The start - set current date --------------------------
 function setCurrentDate(){
     // Set the current date in the #logDate input field
@@ -153,6 +154,7 @@ function setCurrentDate(){
 
 }
 // -------------------------- The start - set current date --------------------------
+
 
 
 
@@ -761,3 +763,114 @@ $("#log-save").on('click', () => {
 
 });
 // -------------------------- The end - when click log save button --------------------------
+
+
+
+
+// -------------------------- The start - when click log update button --------------------------
+$("#log-update").on('click', () => {
+
+    // get values from inputs
+    const logDate = $("#logDate").val();
+    const logDetails = $("#logDetails").val();
+    const observedImage = $("#logImage")[0].files[0];
+
+    // Get all selected field IDs, crop IDs, staff IDs
+    const monitoredFields= [];
+    const monitoredCrops= [];
+    const monitoredStaffs= [];
+
+    $(".fieldForLog").each(function () {
+        const fieldId = $(this).val();
+        if (fieldId) {
+            monitoredFields.push(fieldId);
+        }
+    });
+
+    $(".cropForLog").each(function () {
+        const cropCode = $(this).val();
+        if (cropCode) {
+            monitoredCrops.push(cropCode);
+        }
+    });
+
+    $(".staffForLog").each(function () {
+        const staffId = $(this).val();
+        if (staffId) {
+            monitoredStaffs.push(staffId);
+        }
+    });
+
+    // check whether print those values
+    console.log("logDate: " , logDate);
+    console.log("logDetails: " , logDetails);
+    console.log("monitoredFields: " , monitoredFields);
+    console.log("monitoredCrops: " , monitoredCrops);
+    console.log("monitoredStaffs: " , monitoredStaffs);
+
+
+    //let staffValidated = checkStaffValidation(firstName, lastName, email, address, gender, contactNo, dob, joinedDate, designation, role, assignedFields);
+
+    //if(staffValidated) {
+
+    // Create a FormData object to send data as multipart/form-data
+    let formData = new FormData();
+    formData.append("logDate", logDate);
+    formData.append("logDetails", logDetails);
+    formData.append("fieldCodes", JSON.stringify(monitoredFields));
+    formData.append("cropCodes", JSON.stringify(monitoredCrops));
+    formData.append("staffIds", JSON.stringify(monitoredStaffs));
+
+
+    // Check if file is selected
+    if (observedImage) {
+        formData.append("observedImage", observedImage);  // Append the image file
+    }
+
+    // ========= Ajax with JQuery =========
+
+    $.ajax({
+        url: `http://localhost:5052/cropMonitoringSystem/api/v1/logs/${selectedLogCode}`,
+        type: "PUT",
+        data: formData,
+        processData: false, // Prevent jQuery from automatically transforming the data
+        contentType: false,
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("token")
+        },
+
+        success: function (results) {
+
+            // show crop saved pop up
+            Swal.fire({
+                icon: 'success',
+                title: 'Log updated successfully!',
+                showConfirmButton: false,
+                timer: 1500,
+                iconColor: 'rgba(131,193,170,0.79)'
+            });
+
+            // load the table
+            loadLogTable();
+
+            // clean the inputs values
+            $("#newLogModal form").trigger('reset');
+            $(".fieldForLog").val('');
+            $(".cropForLog").val('');
+            $(".staffForLog").val('');
+
+            // Remove the image preview
+            $("#previewLogImage").attr("src", "#").hide(); // Reset the image source and hide it
+            $("#noLogImageText").show();// Show the "No image selected" text
+            $("#logImageText").hide();
+        },
+
+        error: function (error) {
+            console.log(error)
+            showErrorAlert('Log not updated...')
+        }
+    });
+    //}
+
+});
+// -------------------------- The end - when click log update button --------------------------
