@@ -2,6 +2,7 @@ import {loadCropsCount} from "./crops.js";
 import {loadStaffsCount} from "./staff.js";
 import {loadEquipmentCount} from "./equipments.js";
 import {loadVehicleCount} from "./vehicles.js";
+import {loadFieldsCount} from "./fields.js";
 
 
 
@@ -25,6 +26,7 @@ $(document).ready(function() {
     $("#staff-section").css(css1);
     $("#vehicle-section").css(css1);
     $("#field-section").css(css1);
+    $("#logs-section").css(css1);
 
     // Show signup section and hide login section when signup button is clicked
     $("#login-signUp").click(function () {
@@ -47,7 +49,8 @@ $(document).ready(function() {
     loadEquipmentCount();
     // set all vehicle count to the home page's customer card
     loadVehicleCount();
-
+    // set all field count to the home page's customer card
+    loadFieldsCount();
 
 
     // <!------------------------ Sign-Up ------------------------>
@@ -157,7 +160,7 @@ $("#nav-equipment").click(function () {
     handleNavClick($(this).attr("id"), "Equipment Management");
 });
 $("#nav-logs").click(function () {
-    handleNavClick($(this).attr("id"), "Monitoring Logs");
+    handleNavClick($(this).attr("id"), "Monitoring Logs Management");
 });
 $("#nav-staff").click(function () {
     handleNavClick($(this).attr("id"), "Staff Management");
@@ -213,6 +216,7 @@ function showSection(sectionId){
     $("#staff-section").css(css1);
     $("#vehicle-section").css(css1);
     $("#field-section").css(css1);
+    $("#logs-section").css(css1);
     $(`#${sectionId}`).css(css2);
 }
 //-------------------------- The end - show section --------------------------

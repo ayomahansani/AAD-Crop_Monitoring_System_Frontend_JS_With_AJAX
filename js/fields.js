@@ -232,6 +232,28 @@ function loadFieldsTable() {
 
 
 
+// -------------------------- The start - field's count loading --------------------------
+export function loadFieldsCount() {
+
+    $.ajax({
+        url: "http://localhost:5052/cropMonitoringSystem/api/v1/fields", // fields API
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        success : function (results) {
+            $("#field-count").html(results.length);
+        },
+        error : function (error) {
+            console.log(error)
+        }
+    })
+}
+// -------------------------- The end - field's count loading --------------------------
+
+
+
+
 // -------------------------- The start - when click a field table row --------------------------
 $("#field-tbl-tbody").on('click', 'tr', function (e) {
 
