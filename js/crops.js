@@ -1,3 +1,9 @@
+import {loadLogTable} from "./logs.js";
+
+
+
+
+
 $(document).ready(function () {
     loadCropsTable();
     loadFieldNamesComboBoxAndSetFieldCodes();
@@ -451,6 +457,7 @@ $("#crop-delete").on('click', () => {
 
                         // load the table
                         loadCropsTable()
+                        loadLogTable()
 
                         // Reset the form
                         $("#newCropModal form").trigger('reset');

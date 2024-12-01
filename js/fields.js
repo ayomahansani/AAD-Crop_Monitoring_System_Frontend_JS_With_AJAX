@@ -1,5 +1,6 @@
 import {showErrorAlert} from "./crops.js";
 import {loadStaffTable} from "./staff.js";
+import {loadLogTable} from "./logs.js";
 
 
 
@@ -640,6 +641,7 @@ $("#field-delete").on('click', () => {
             // load the table
             loadFieldsTable();
             loadStaffTable();
+            loadLogTable()
 
             // clean the inputs values
             $("#newFieldModal form").trigger('reset');

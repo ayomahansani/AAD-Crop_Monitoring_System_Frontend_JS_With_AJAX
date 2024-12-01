@@ -58,7 +58,7 @@ $("#logImage").on("change", function () {
 
 
 // -------------------------- The start - log table loading --------------------------
-function loadLogTable() {
+export function loadLogTable() {
     // Fetch log data
     $.ajax({
         url: "http://localhost:5052/cropMonitoringSystem/api/v1/logs",
@@ -874,3 +874,46 @@ $("#log-update").on('click', () => {
 
 });
 // -------------------------- The end - when click log update button --------------------------
+
+
+
+
+// -------------------------- The start - when click log delete button --------------------------
+$("#log-delete").on('click', () => {
+
+    // Send the DELETE request
+    $.ajax({
+        url: `http://localhost:5052/cropMonitoringSystem/api/v1/logs/${selectedLogCode}`,
+        type: "DELETE",
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("token")
+        },
+        success: function () {
+            Swal.fire({
+                icon: 'success',
+                title: 'Log deleted successfully!',
+                showConfirmButton: false,
+                timer: 1500,
+                iconColor: 'rgba(131,193,170,0.79)'
+            });
+
+            // load the table
+            loadLogTable()
+
+            $("#newLogModal form").trigger('reset');
+            $(".fieldForLog").val('');
+            $(".cropForLog").val('');
+            $(".staffForLog").val('');
+
+            // Remove the image preview
+            $("#previewLogImage").attr("src", "#").hide(); // Reset the image source and hide it
+            $("#noLogImageText").show();// Show the "No image selected" text
+            $("#logImageText").hide();
+        },
+        error: function (error) {
+            console.error("Error deleting logs:", error);
+            showErrorAlert('Log not deleted...');
+        }
+    });
+});
+// -------------------------- The end - when click log delete button --------------------------
