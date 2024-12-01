@@ -617,7 +617,7 @@
 
                     <!-- right image -->
                     <div class="col-12 col-sm-4 col-md-1 col-lg-1 pb-1">
-                        <img src="assets/icon/crops.png" class="field-page-photo" alt="fields photo">
+                        <img src="assets/icon/fields.png" class="field-page-photo" alt="fields photo">
                     </div>
                     <!-- end right image -->
 
@@ -701,7 +701,7 @@
 
                     <!-- right image -->
                     <div class="col-12 col-sm-4 col-md-1 col-lg-1 pb-1">
-                        <img src="assets/icon/crops.png" class="log-page-photo" alt="logs photo">
+                        <img src="assets/icon/logs.png" class="log-page-photo" alt="logs photo">
                     </div>
                     <!-- end right image -->
 
@@ -828,20 +828,20 @@
 
                     <div class="mb-3">
                         <label for="logDate" class="form-label fw-semibold">Log Date</label>
-                        <input type="text" class="form-control search-input" id="logDate">
+                        <input type="date" class="form-control search-input" id="logDate" >
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-4">
                         <label for="logDetails" class="form-label fw-semibold">Log Details</label>
                         <textarea class="form-control search-input" id="logDetails" rows="3"></textarea>
                     </div>
 
                     <!-- Assigned Fields with Dynamic Combo Boxes -->
                     <div class="mb-4">
-                        <label for="fieldNamesComboBoxForLogForm" class="form-label fw-semibold">Assign Field/s :</label>
+                        <label for="fieldNamesComboBoxForLogForm" class="form-label fw-semibold">Monitored Field/s :</label>
                         <button type="button" id="addFieldBtnInLogForm" class="btn btn-sm custom-btn m-1" style="color: #274D40">+ Click here to Add Field</button>
                         <div id="monitoredFieldsContainer">
-                            <div class="d-flex align-items-center mb-2 col-md-8">
+                            <div class="d-flex align-items-center mb-2">
                                 <select class="form-select search-input fieldForLog" aria-label="Default select example" id="fieldNamesComboBoxForLogForm" name="monitoredFields[]" required>
                                     <option selected>Choose a field</option>
                                 </select>
@@ -854,10 +854,10 @@
 
                     <!-- Assigned Crops with Dynamic Combo Boxes -->
                     <div class="mb-4">
-                        <label for="cropNamesComboBoxForLogForm" class="form-label fw-semibold">Assign Crop/s :</label>
+                        <label for="cropNamesComboBoxForLogForm" class="form-label fw-semibold">Monitored Crop/s :</label>
                         <button type="button" id="addCropBtnInLogForm" class="btn btn-sm custom-btn m-1" style="color: #274D40">+ Click here to Add Crop</button>
                         <div id="monitoredCropsContainer">
-                            <div class="d-flex align-items-center mb-2 col-md-8">
+                            <div class="d-flex align-items-center mb-2">
                                 <select class="form-select search-input cropForLog" aria-label="Default select example" id="cropNamesComboBoxForLogForm" name="monitoredCrops[]" required>
                                     <option selected>Choose a crop</option>
                                 </select>
@@ -870,10 +870,10 @@
 
                     <!-- Assigned Staffs with Dynamic Combo Boxes -->
                     <div class="mb-4">
-                        <label for="staffNamesComboBoxForLogForm" class="form-label fw-semibold">Assign Staff/s :</label>
+                        <label for="staffNamesComboBoxForLogForm" class="form-label fw-semibold">Monitored Staff/s :</label>
                         <button type="button" id="addStaffBtnInLogForm" class="btn btn-sm custom-btn m-1" style="color: #274D40">+ Click here to Add Staff</button>
                         <div id="monitoredStaffsContainer">
-                            <div class="d-flex align-items-center mb-2 col-md-8">
+                            <div class="d-flex align-items-center mb-2">
                                 <select class="form-select search-input staffForLog" aria-label="Default select example" id="staffNamesComboBoxForLogForm" name="monitoredStaffs[]" required>
                                     <option selected>Choose a staff</option>
                                 </select>
@@ -884,14 +884,14 @@
                         </div>
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-2">
                         <label for="logImage" class="form-label fw-semibold">Upload Log Image</label>
                         <input type="file" class="form-control mb-1" id="logImage" accept="image/*"> <!-- File Input -->
                         <label id="logImageText" class="form-label"></label>
                     </div>
 
                     <!-- Image Preview -->
-                    <div class="mb-2">
+                    <div class="mb-3">
                         <label class="form-label fw-semibold">Image Preview</label>
                         <div id="logImagePreview" class="border rounded p-2 text-center">
                             <img id="previewLogImage" src="#" alt="Preview" class="img-fluid" style="max-height: 150px; display: none;">
@@ -941,7 +941,7 @@
 
             <div class="modal-header text-center">
                 <h1 class="modal-title fs-5" id="viewAllLogsModalLabel">
-                    All Fields
+                    All Logs
                     <span class="all-logs"><i class="fas fa-seedling"></i></span>
                     <span class="all-logs"><i class="fas fa-seedling"></i></span>
                 </h1>
@@ -1471,7 +1471,7 @@
 <!-- Add New Equipment Modal -->
 <div class="modal fade" id="newEquipmentModal" tabindex="-1" aria-labelledby="newEquipmentModalLabel" aria-hidden="true">
 
-    <div class="modal-dialog modal-dialog-centered modal-m">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
 
             <div class="modal-header">
