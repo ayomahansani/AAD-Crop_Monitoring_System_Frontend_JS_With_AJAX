@@ -171,6 +171,11 @@ $("#nav-staff").click(function () {
 $("#nav-vehicles").click(function () {
     handleNavClick($(this).attr("id"), "Vehicles Management");
 });
+$("#nav-log-out").click(function () {
+    $("#home-section").css(css1);
+    $("#register-form-section").css(css1);
+    $("#login-form-section").css(css2);
+});
 
 
 
