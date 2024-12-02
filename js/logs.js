@@ -1008,14 +1008,14 @@ $("#log-search-btn").on('click', function () {
 
                 if(logDetails !== "") {
                     showErrorAlert("Can't find log ! Try again...");
-                    searchedStaffInputsClear();
+                    searchedLogInputsClear();
                 } else {
                     showErrorAlert("Please enter log details to search !");
-                    searchedStaffInputsClear();
+                    searchedLogInputsClear();
                 }
             } else {
                 showErrorAlert("First you need to add log ! Then you can search...");
-                searchedStaffInputsClear();
+                searchedLogInputsClear();
             }
         },
         error : function (error) {
@@ -1027,13 +1027,11 @@ $("#log-search-btn").on('click', function () {
 
 
 
-
 // -------------------------- The start - clear the log search bar's value --------------------------
 $("#log-search-modal-close").on('click', function () {
     $("#searchLog").val("");
 });
 // -------------------------- The end - clear the log search bar's value --------------------------
-
 
 
 
