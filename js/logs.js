@@ -2,7 +2,6 @@ import {showErrorAlert} from "./crops.js";
 
 
 
-
 $(document).ready(function () {
     loadLogTable();
     loadFieldNamesComboBoxAndSetFieldCodesToLogForm();
@@ -13,10 +12,8 @@ $(document).ready(function () {
 
 
 
-
 // Define a global variable for log code
 let selectedLogCode = null;
-
 
 
 
@@ -47,13 +44,11 @@ $('#logImage').on('change', function () {
 
 
 
-
 // When a file is selected, update the file name display
 $("#logImage").on("change", function () {
     var fileName = $(this).val().split("\\").pop() || "No file chosen";
     $("#fileName").text(fileName);
 });
-
 
 
 
@@ -83,7 +78,7 @@ export function loadLogTable() {
                         const fieldNames = data.fields.map(field => field.fieldName).join(", ");
 
                         // Collect crop names into a comma-separated string
-                        const cropNames = data.crops.map(crop => crop.cropCommonName + " / " + crop.cropCategory).join(", ");
+                        const cropNames = data.crops.map(crop => crop.cropCommonName + " " + crop.cropCategory).join(", ");
 
                         // Collect staff names into a comma-separated string
                         const staffNames = data.staffs.map(staff => staff.firstName + " " + staff.lastName).join(", ");
@@ -122,7 +117,6 @@ export function loadLogTable() {
 
 
 
-
 // -------------------------- The start - log's count loading --------------------------
 export function loadLogsCount() {
 
@@ -144,7 +138,6 @@ export function loadLogsCount() {
 
 
 
-
 // -------------------------- The start - set current date --------------------------
 function setCurrentDate(){
     // Set the current date in the #logDate input field
@@ -154,7 +147,6 @@ function setCurrentDate(){
 
 }
 // -------------------------- The start - set current date --------------------------
-
 
 
 
@@ -187,7 +179,6 @@ function loadFieldNamesComboBoxAndSetFieldCodesToLogForm() {
 
 
 
-
 // -------------------------- The start - Function to fetch crops and populate the select element --------------------------
 function loadCropNamesComboBoxAndSetCropCodesToLogForm() {
     $.ajax({
@@ -217,7 +208,6 @@ function loadCropNamesComboBoxAndSetCropCodesToLogForm() {
 
 
 
-
 // -------------------------- The start - Function to fetch staffs and populate the select element --------------------------
 function loadStaffNamesComboBoxAndSetStaffIdsToLogForm() {
     $.ajax({
@@ -244,7 +234,6 @@ function loadStaffNamesComboBoxAndSetStaffIdsToLogForm() {
     });
 }
 // -------------------------- The end - Function to fetch staffs and populate the select element --------------------------
-
 
 
 
@@ -427,7 +416,6 @@ $("#log-tbl-tbody").on('click', 'tr', function (e) {
 
 
 
-
 // -------------------------- The start - Handle click event for viewing log image --------------------------
 $('#log-tbl-tbody').on('click', '.view-log-image', function (e) {
     e.preventDefault(); // Prevent default link behavior
@@ -451,12 +439,11 @@ $('#log-tbl-tbody').on('click', '.view-log-image', function (e) {
 
 
 
-
 // -------------------------- The start - Function to add a field combo box with all options --------------------------
 function addFieldWithOptions(allFields, selectedField = null) {
     const container = document.getElementById('monitoredFieldsContainer');
     const fieldDiv = document.createElement('div');
-    fieldDiv.className = 'd-flex align-items-center mb-2 col-md-8';
+    fieldDiv.className = 'd-flex align-items-center mb-2';
 
     // Generate options for all fields
     let optionsHtml = '<option value="">Choose a field</option>';
@@ -482,12 +469,11 @@ function addFieldWithOptions(allFields, selectedField = null) {
 
 
 
-
 // -------------------------- The start - Function to add a crop combo box with all options --------------------------
 function addCropWithOptions(allCrops, selectedCrop = null) {
     const container = document.getElementById('monitoredCropsContainer');
     const cropDiv = document.createElement('div');
-    cropDiv.className = 'd-flex align-items-center mb-2 col-md-8';
+    cropDiv.className = 'd-flex align-items-center mb-2';
 
     // Generate options for all crops
     let optionsHtml = '<option value="">Choose a crop</option>';
@@ -513,12 +499,11 @@ function addCropWithOptions(allCrops, selectedCrop = null) {
 
 
 
-
 // -------------------------- The start - Function to add a staff combo box with all options --------------------------
 function addStaffWithOptions(allStaffs, selectedStaff = null) {
     const container = document.getElementById('monitoredStaffsContainer');
     const staffDiv = document.createElement('div');
-    staffDiv.className = 'd-flex align-items-center mb-2 col-md-8';
+    staffDiv.className = 'd-flex align-items-center mb-2 col';
 
     // Generate options for all staffs
     let optionsHtml = '<option value="">Choose a staff</option>';
@@ -541,7 +526,6 @@ function addStaffWithOptions(allStaffs, selectedStaff = null) {
     container.appendChild(staffDiv);
 }
 // -------------------------- The end - Function to add a staff combo box with all options --------------------------
-
 
 
 
@@ -575,7 +559,6 @@ $("#addFieldBtnInLogForm").on('click', () => {
 
 
 
-
 // -------------------------- The start - when click a "+ Click here to Add Crop" button in add log modal --------------------------
 let cachedCrops = []; // Cache crops to avoid multiple API calls
 
@@ -603,7 +586,6 @@ $("#addCropBtnInLogForm").on('click', () => {
     }
 });
 // -------------------------- The end - when click a "+ Click here to Add Crop" button in add log modal --------------------------
-
 
 
 
@@ -637,7 +619,6 @@ $("#addStaffBtnInLogForm").on('click', () => {
 
 
 
-
 // -------------------------- The start - Function to remove an assigned crop combo box --------------------------
 window.removeCrop = function (button) {
     button.parentElement.remove();
@@ -646,13 +627,11 @@ window.removeCrop = function (button) {
 
 
 
-
 // -------------------------- The start - Function to remove an assigned staff combo box --------------------------
 window.removeStaff = function (button) {
     button.parentElement.remove();
 };
 // -------------------------- The end - Function to remove an assigned staff combo box --------------------------
-
 
 
 
@@ -766,7 +745,6 @@ $("#log-save").on('click', () => {
 
 
 
-
 // -------------------------- The start - when click log update button --------------------------
 $("#log-update").on('click', () => {
 
@@ -877,7 +855,6 @@ $("#log-update").on('click', () => {
 
 
 
-
 // -------------------------- The start - when click log delete button --------------------------
 $("#log-delete").on('click', () => {
 
@@ -937,7 +914,6 @@ $("#log-clear").on('click', () => {
 
 
 
-
 // -------------------------- The start - when click view all logs button --------------------------
 $("#viewAllLogs").on('click', function () {
 
@@ -973,3 +949,101 @@ $("#viewAllLogs").on('click', function () {
     })
 });
 // -------------------------- The end - when click view all logs button --------------------------
+
+
+// -------------------------- The start - when click log search button --------------------------
+$("#log-search-btn").on('click', function () {
+
+    var logDetails = $("#searchLog").val();
+
+    $.ajax({
+        url: "http://localhost:5052/cropMonitoringSystem/api/v1/logs",
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        success : function (results) {
+
+            if (results.length !== 0) {
+
+                for (let i=0; i<results.length; i++) {
+
+                    if (results[i].logDetails === logDetails) {
+
+                        $("#searchedLogDate").val(results[i].logDate);
+                        $("#searchedLogDetails").val(results[i].logDetails);
+
+                        // Nested AJAX to fetch fields, crops, staffs for each log
+                        $.ajax({
+                            url: `http://localhost:5052/cropMonitoringSystem/api/v1/logs/${results[i].logCode}/related-entities`,
+                            type: "GET",
+                            headers: {
+                                "Authorization": "Bearer " + localStorage.getItem("token")
+                            },
+                            success: function (data) {
+
+                                // Collect field names into a comma-separated string
+                                const fieldNames = data.fields.map(field => field.fieldName).join(", ");
+
+                                // Collect crop names into a comma-separated string
+                                const cropNames = data.crops.map(crop => crop.cropCommonName + " " + crop.cropCategory).join(", ");
+
+                                // Collect staff names into a comma-separated string
+                                const staffNames = data.staffs.map(staff => staff.firstName + " " + staff.lastName).join(", ");
+
+                                $("#searchedMonitoredFields").val(fieldNames);
+                                $("#searchedMonitoredCrops").val(cropNames);
+                                $("#searchedMonitoredStaffs").val(staffNames);
+                            },
+                            error : function (error) {
+                                console.log(error)
+                            }
+                        })
+
+                        $("#logDetailsModalLabel").html("Log Details");
+
+                        return;
+                    }
+                }
+
+                if(logDetails !== "") {
+                    showErrorAlert("Can't find log ! Try again...");
+                    searchedStaffInputsClear();
+                } else {
+                    showErrorAlert("Please enter log details to search !");
+                    searchedStaffInputsClear();
+                }
+            } else {
+                showErrorAlert("First you need to add log ! Then you can search...");
+                searchedStaffInputsClear();
+            }
+        },
+        error : function (error) {
+            console.log(error)
+        }
+    })
+});
+// -------------------------- The end - when click log search button --------------------------
+
+
+
+
+// -------------------------- The start - clear the log search bar's value --------------------------
+$("#log-search-modal-close").on('click', function () {
+    $("#searchLog").val("");
+});
+// -------------------------- The end - clear the log search bar's value --------------------------
+
+
+
+
+//-------------------------- The start - clear searched inputs --------------------------
+function searchedLogInputsClear(){
+    $("#searchedLogDate").val("");
+    $("#searchedLogDetails").val("");
+    $("#searchedMonitoredFields").val("");
+    $("#searchedMonitoredCrops").val("");
+    $("#searchedMonitoredStaffs").val("");
+    $("#logDetailsModalLabel").html("Log Details");
+}
+//-------------------------- The end - clear searched inputs --------------------------
