@@ -38,6 +38,7 @@ $(document).ready(function() {
     $("#vehicle-section").css(css1);
     $("#field-section").css(css1);
     $("#logs-section").css(css1);
+    $("#forgot-password-section").css(css1);
 
     // Show signup section and hide login section when signup button is clicked
     $("#login-signUp").click(function () {
@@ -65,17 +66,7 @@ $(document).ready(function() {
     });
 
     // Handle forgot password form submission
-    $("#forgot-password-form").submit(function (e) {
-        e.preventDefault();
-        const email = $("#forgot-email").val();
-        if (email) {
-            alert("Reset link has been sent to " + email);
-            $("#forgot-password-section").css(hiddenSectionCSS);
-            $("#login-form-section").css(visibleSectionCSS);
-        } else {
-            alert("Please enter your email address.");
-        }
-    });
+
 
 
 
