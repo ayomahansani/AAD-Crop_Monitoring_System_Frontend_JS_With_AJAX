@@ -7,12 +7,22 @@ import {loadLogsCount} from "./logs.js";
 
 
 
+
 var css1 = {
     display:"none"
 }
 var css2 ={
     display: "block",
 }
+var hiddenSectionCSS = {
+    display: "none"
+};
+var visibleSectionCSS = {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
+};
+
 
 
 
@@ -31,15 +41,43 @@ $(document).ready(function() {
 
     // Show signup section and hide login section when signup button is clicked
     $("#login-signUp").click(function () {
-        $("#login-form-section").css(css1);
-        $("#register-form-section").css(css2);
+        $("#login-form-section").css(hiddenSectionCSS);
+        $("#register-form-section").css(visibleSectionCSS);
     });
 
     // Show login section and hide signup section when signin button is clicked
     $("#signInBtn").click(function () {
-        $("#login-form-section").css(css2);
-        $("#register-form-section").css(css1);
+        $("#register-form-section").css(hiddenSectionCSS);
+        $("#login-form-section").css(visibleSectionCSS);
     });
+
+    // Show forgot password section
+    $("#forgotPw").click(function () {
+        $("#login-form-section").css(hiddenSectionCSS);
+        $("#forgot-password-section").css(visibleSectionCSS);
+    });
+
+    // Back to login from forgot password
+    $("#back-to-login").click(function (e) {
+        e.preventDefault();
+        $("#forgot-password-section").css(hiddenSectionCSS);
+        $("#login-form-section").css(visibleSectionCSS);
+    });
+
+    // Handle forgot password form submission
+    $("#forgot-password-form").submit(function (e) {
+        e.preventDefault();
+        const email = $("#forgot-email").val();
+        if (email) {
+            alert("Reset link has been sent to " + email);
+            $("#forgot-password-section").css(hiddenSectionCSS);
+            $("#login-form-section").css(visibleSectionCSS);
+        } else {
+            alert("Please enter your email address.");
+        }
+    });
+
+
 
 
     // set all crop count to the home page's customer card
@@ -173,8 +211,13 @@ $("#nav-vehicles").click(function () {
 });
 $("#nav-log-out").click(function () {
     $("#home-section").css(css1);
-    $("#register-form-section").css(css1);
-    $("#login-form-section").css(css2);
+    $("#register-form-section").css(hiddenSectionCSS);
+    $("#login-form-section").css(visibleSectionCSS);
+
+    // clear inputs
+    $('#username').val('');
+    $('#password').val('');
+
 });
 
 

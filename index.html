@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="assets/styles/vehicles.css">
     <link rel="stylesheet" href="assets/styles/fields.css">
     <link rel="stylesheet" href="assets/styles/logs.css">
+    <link rel="stylesheet" href="assets/styles/forgot-pw-form.css">
 
 </head>
 <body>
@@ -131,10 +132,45 @@
 <!-- End Register Form Section -->
 
 
+<!-- Forgot Password Section -->
+<section id="forgot-password-section">
+
+    <div class="container">
+        <h2>Reset Password</h2>
+
+        <!-- Username -->
+        <div class="mb-3">
+            <label for="forgotPwUsername" class="form-label">
+                <i class="fas fa-user ms-2" style="color: #9ccab3;"></i>
+                Username
+            </label>
+            <input type="text" id="forgotPwUsername" class="form-control" placeholder="Enter your email">
+        </div>
+
+        <!-- Password -->
+        <div class="mb-3">
+            <label for="forgotPwPassword" class="form-label">
+                <i class="fas fa-lock ms-2" style="color: #9ccab3;"></i>
+                New Password
+            </label>
+            <input type="password" id="forgotPwPassword" class="form-control" placeholder="Enter new password">
+        </div>
+
+        <!-- Reset Pw Button -->
+        <button id="login-resetPw" class="btn login-btn w-100 mb-3">Reset</button>
+
+    </div>
+
+</section>
+<!-- End Forgot Password Section -->
+
+
+
+
 <!-- Home Section -->
 <section id="home-section">
 
-    <header id="header-section">
+    <header>
 
         <!-- Top Navbar for mobile view -->
         <div class="top-navbar d-md-none d-flex justify-content-between align-items-center">
