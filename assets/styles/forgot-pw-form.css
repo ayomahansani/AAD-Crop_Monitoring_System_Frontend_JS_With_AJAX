@@ -9,7 +9,7 @@
     background-color: #779e8a; /* Fallback color for dark green */
     font-family: Arial, sans-serif;
     color: #3b3b3b;
-    background-image: url('../images/login-background.jpg'); /* Replace with your image URL */
+    background-image: url('../images/211.jpg'); /* Replace with your image URL */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -17,7 +17,7 @@
 
 /* Main container styling */
 #forgot-password-section .container {
-    background-color: rgba(17, 76, 54, 0.79); /* Light green translucent box */
+    background-color: rgba(112, 73, 33, 0.79); /* Light green translucent box */
     padding: 50px 100px;
     width: 100%;
     max-width: 800px; /* Increased max width for a broader form */
@@ -29,7 +29,7 @@
 /* Title styling */
 #forgot-password-section h2 {
     text-align: center;
-    color: #b8edd2;
+    color: #ffda7a;
     font-size: 30px;
     margin-bottom: 25px;
     font-weight: bold;
@@ -37,29 +37,29 @@
 
 /* Label styling for username and password */
 #forgot-password-section label {
-    color: #9ccab3;
+    color: #ffda7a;
     font-weight: bold;
 }
 
 /* Input styling for username and password */
 #forgot-password-section input[type="text"], #forgot-password-section input[type="password"] {
-    background-color: #d0eddf; /* Set input field background color */
+    background-color: rgba(255, 241, 197, 0.87); /* Set input field background color */
     color: rgb(0, 0, 0); /* Set input field text color */
-    border: 1px solid #7f9b8c; /* Set a border color */
+    border: 1px solid #ffda7a; /* Set a border color */
     border-radius: 5px; /* Optional: add rounded corners */
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 #forgot-password-section input[type="text"]:focus, #forgot-password-section input[type="password"]:focus {
-    background-color: #d0eddf;
-    border-color: #b8edd2; /* Change border color on focus */
-    box-shadow: 0 0 5px rgba(184, 237, 210, 0.8); /* Add glow effect on focus */
+    background-color: rgba(255, 241, 197, 0.87);
+    border-color: #ffda7a; /* Change border color on focus */
+    box-shadow: 0 0 5px rgba(255, 241, 197, 0.87); /* Add glow effect on focus */
 }
 
 /* Button styling */
 #forgot-password-section .login-btn {
-    background-color: #b8edd2;
-    color: #124029;
+    background-color: #ffda7a;
+    color: rgb(85, 40, 15);
     font-size: 20px;
     font-weight: bold;
     border: none;
@@ -68,18 +68,18 @@
 }
 
 #forgot-password-section .login-btn:hover {
-    background-color: #79a69b;
-    color: #b8edd2;
+    background-color: #b69b71;
+    color: #ffda7a;
 }
 
 /* Forgot password styling */
 #forgot-password-section #back-to-login {
-    color: #b8edd2;
+    color: #ffda7a;
     text-decoration: underline;
     font-size: 14px;
 }
 
 #forgot-password-section #back-to-login:hover {
-    color: #8db1a8;
+    color: #b69b71;
 }
 

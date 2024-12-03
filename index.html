@@ -141,7 +141,7 @@
         <!-- Username -->
         <div class="mb-3">
             <label for="forgotPwUsername" class="form-label">
-                <i class="fas fa-user ms-2" style="color: #9ccab3;"></i>
+                <i class="fas fa-user ms-2" style="color: #ffda7a;"></i>
                 Username
             </label>
             <input type="text" id="forgotPwUsername" class="form-control" placeholder="Enter your email">
@@ -150,7 +150,7 @@
         <!-- Password -->
         <div class="mb-3">
             <label for="forgotPwPassword" class="form-label">
-                <i class="fas fa-lock ms-2" style="color: #9ccab3;"></i>
+                <i class="fas fa-lock ms-2" style="color: #ffda7a;"></i>
                 New Password
             </label>
             <input type="password" id="forgotPwPassword" class="form-control" placeholder="Enter new password">
@@ -168,8 +168,6 @@
 
 </section>
 <!-- End Forgot Password Section -->
-
-
 
 
 <!-- Home Section -->
@@ -210,66 +208,70 @@
     </header>
 
     <!-- dashboard section -->
-    <section id="dashboard-section" class="main-content">
-        <!-- Content -->
-        <div class="">
+    <section id="dashboard-section" class="main-content-dashboard">
+        <div class="wrapper-container">
 
             <!-- Dashboard Cards -->
-            <div class="row dashboard-cards">
-                <div class="col-md-6">
-                    <div class="card glass-card text-white mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title">Crops</h5>
-                            <p id="crop-count" class="card-text"></p>
+            <div class="dashboard-cards">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card glass-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Crops</h5>
+                                <p id="crop-count" class="card-text">10</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card glass-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Fields</h5>
+                                <p id="field-count" class="card-text">5</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card glass-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Staffs</h5>
+                                <p id="staff-count" class="card-text">15</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="card glass-card text-white mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title">Fields</h5>
-                            <p id="field-count" class="card-text"></p>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card glass-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Equipments</h5>
+                                <p id="equipment-count" class="card-text">8</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card glass-card text-white mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title">Staffs</h5>
-                            <p id="staff-count" class="card-text"></p>
+                    <div class="col-md-4">
+                        <div class="card glass-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Vehicles</h5>
+                                <p id="vehicle-count" class="card-text">4</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card glass-card text-white mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title">Equipments</h5>
-                            <p id="equipment-count" class="card-text"></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card glass-card text-white mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title">Vehicles</h5>
-                            <p id="vehicle-count" class="card-text"></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card glass-card text-white mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title">Logs</h5>
-                            <p id="logs-count" class="card-text"></p>
+                    <div class="col-md-4">
+                        <div class="card glass-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Logs</h5>
+                                <p id="logs-count" class="card-text">12</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-
-
+            <!-- Pie Chart Section -->
+            <div class="chart-container">
+                <canvas id="pieChart" width="400" height="200"></canvas>
+            </div>
         </div>
-
     </section>
 
 
