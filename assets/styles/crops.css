@@ -28,14 +28,22 @@ form .search-btn:hover {
     background-color: rgb(17, 76, 54);
 }
 
-form .search-input, form #cropImage {
+form #cropImage {
     border: none;
     background-color: rgba(195, 239, 214, 0.85);
+}
+
+form .search-input {
+    border: none;
+    background-color: rgba(195, 239, 214, 0.85);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 form .search-input:focus {
     background-color: rgba(195, 239, 214, 0.85);
     border: 3px solid rgb(17, 76, 54);
+    background-color: #d0eddf;
+    box-shadow: 0 0 5px rgba(184, 237, 210, 0.8); /* Add glow effect on focus */
 }
 
 input {
@@ -138,8 +146,10 @@ input:hover{
     opacity: 0.7;
 }
 
+
 table tbody tr {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease,
+    box-shadow 0.3s ease;
     position: relative;
     z-index: 1;
 }
@@ -179,4 +189,10 @@ table tbody tr:hover {
 
 .crop-page-photo {
     margin-top: 0.5rem;
+}
+
+input:focus {
+    background-color: #d0eddf;
+    border-color: #b8edd2; /* Change border color on focus */
+    box-shadow: 0 0 5px rgba(184, 237, 210, 0.8); /* Add glow effect on focus */
 }

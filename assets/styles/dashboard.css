@@ -109,7 +109,6 @@ body, html {
     align-self: center; /* Align vertically in the navbar */
 }
 
-
 .dashboard-cards {
     margin-top: 5px;
     height: calc(100% - 20px); /* Adjusted height to fit within the wrapper-container */

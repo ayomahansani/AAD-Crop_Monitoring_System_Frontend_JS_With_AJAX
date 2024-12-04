@@ -49,10 +49,11 @@
     opacity: 0.7;
 }
 
-.log-table {
+#logs-section .log-table {
     position: absolute;
     height: 48%;
     width: 78%;
+    table-layout: auto;
     border-radius: 15px;
     margin: 1vw;
     margin-top: 2vw;
@@ -60,6 +61,17 @@
     box-shadow: 3px 3px 8px black;
     background-color: rgba(17, 76, 54, 0.54);
     opacity: 0.7;
+}
+
+#logs-section .log-table th, #logs-section .log-table td {
+    text-align: left;
+    vertical-align: middle;
+    padding: 8px;
+}
+
+#logs-section .log-table th:nth-child(1), td:nth-child(1) {
+    white-space: nowrap; /* Prevent text wrapping */
+    width: 150px; /* Adjust width as needed */
 }
 
 .log-table td{
