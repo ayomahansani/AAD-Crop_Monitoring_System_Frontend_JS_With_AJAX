@@ -1,8 +1,3 @@
-import {loadLogTable} from "./logs.js";
-
-
-
-
 
 $(document).ready(function () {
     loadCropsTable();
@@ -56,7 +51,7 @@ $("#cropImage").on("change", function () {
 
 
 // -------------------------- The start - crop table loading --------------------------
-function loadCropsTable() {
+export function loadCropsTable() {
 
     // Fetch fields first to build a lookup table
     $.ajax({
@@ -457,7 +452,6 @@ $("#crop-delete").on('click', () => {
 
                         // load the table
                         loadCropsTable()
-                        loadLogTable()
 
                         // Reset the form
                         $("#newCropModal form").trigger('reset');

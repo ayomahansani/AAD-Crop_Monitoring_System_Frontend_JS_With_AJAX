@@ -1,9 +1,9 @@
-import {loadCropsCount} from "./crops.js";
-import {loadStaffsCount} from "./staff.js";
-import {loadEquipmentCount} from "./equipments.js";
-import {loadVehicleCount} from "./vehicles.js";
-import {loadFieldsCount} from "./fields.js";
-import {loadLogsCount} from "./logs.js";
+import {loadCropsCount,loadCropsTable} from "./crops.js";
+import {loadStaffsCount, loadStaffTable} from "./staff.js";
+import {loadEquipmentCount,loadEquipmentsTable} from "./equipments.js";
+import {loadVehicleCount, loadVehiclesTable} from "./vehicles.js";
+import {loadFieldsCount, loadFieldsTable} from "./fields.js";
+import {loadLogsCount, loadLogTable} from "./logs.js";
 
 
 
@@ -346,24 +346,27 @@ function handleNavClick(clickedElementId,title){
             break;
         case "nav-field":
             showSection("field-section");
+            loadFieldsTable()
             break;
         case "nav-crop":
             showSection("crop-section");
+            loadCropsTable();
             break;
         case "nav-equipment":
             showSection("equipment-section");
+            loadEquipmentsTable();
             break;
         case "nav-logs":
             showSection("logs-section");
+            loadLogTable();
             break;
         case "nav-staff":
             showSection("staff-section");
+            loadStaffTable();
             break;
         case "nav-vehicles":
             showSection("vehicle-section");
-            break;
-        case "nav-profile":
-            showSection("profile-section");
+            loadVehiclesTable();
     }
 }
 //-------------------------- The end - handle navbar clicking --------------------------

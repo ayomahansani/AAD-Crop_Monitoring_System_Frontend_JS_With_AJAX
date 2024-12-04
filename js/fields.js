@@ -1,6 +1,4 @@
 import {showErrorAlert} from "./crops.js";
-import {loadStaffTable} from "./staff.js";
-import {loadLogTable} from "./logs.js";
 
 
 
@@ -185,7 +183,7 @@ function updateMap(latitude, longitude) {
 
 
 // -------------------------- The start - field table loading --------------------------
-function loadFieldsTable() {
+export function loadFieldsTable() {
 
     // Fetch fields and populate the table
     $.ajax({
@@ -640,8 +638,6 @@ $("#field-delete").on('click', () => {
 
             // load the table
             loadFieldsTable();
-            loadStaffTable();
-            loadLogTable()
 
             // clean the inputs values
             $("#newFieldModal form").trigger('reset');

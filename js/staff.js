@@ -1,5 +1,4 @@
 import {showErrorAlert} from "./crops.js";
-import {loadLogTable} from "./logs.js";
 
 
 
@@ -506,7 +505,6 @@ $("#staff-delete").on('click', () => {
 
             // load the table
             loadStaffTable();
-            loadLogTable()
 
             // clean the inputs values
             $("#newStaffModal form").trigger('reset');

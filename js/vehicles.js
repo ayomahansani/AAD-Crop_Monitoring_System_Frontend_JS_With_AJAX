@@ -18,7 +18,7 @@ let selectedVehicleCode = null;
 
 
 // -------------------------- The start - vehicle table loading --------------------------
-function loadVehiclesTable() {
+export function loadVehiclesTable() {
 
     // Fetch staffs first to build a lookup table
     $.ajax({

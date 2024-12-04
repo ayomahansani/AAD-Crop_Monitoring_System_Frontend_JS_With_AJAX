@@ -19,7 +19,7 @@ let selectedEquipmentId = null;
 
 
 // -------------------------- The start - equipment table loading --------------------------
-function loadEquipmentsTable() {
+export function loadEquipmentsTable() {
 
     // Fetch fields first to build a lookup table
     $.ajax({
