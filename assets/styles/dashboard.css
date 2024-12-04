@@ -129,6 +129,8 @@ body, html {
     margin-left: 15px; /* Space between text and image */
     object-fit: contain; /* Ensure the image doesn't stretch */
     border-radius: 5px; /* Optional: Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.15); /* Soft shadow */
+    opacity: 0.6;
 }
 
 .dashboard-cards .glass-card {
