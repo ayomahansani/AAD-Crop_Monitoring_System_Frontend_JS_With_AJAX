@@ -40,6 +40,7 @@ $(document).ready(function() {
     $("#logs-section").css(css1);
     $("#forgot-password-section").css(css1);
 
+
     // Show signup section and hide login section when signup button is clicked
     $("#login-signUp").click(function () {
         $("#login-form-section").css(hiddenSectionCSS);
@@ -69,8 +70,6 @@ $(document).ready(function() {
 
 
 
-
-
     // set all crop count to the home page's customer card
     loadCropsCount();
     // set all staff count to the home page's customer card
@@ -83,6 +82,108 @@ $(document).ready(function() {
     loadFieldsCount();
     // set all log count to the home page's customer card
     loadLogsCount();
+
+
+    // Bar Chart Data
+    const barChartData = {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+        datasets: [{
+            label: 'Monthly Sales (Rs:)',
+            data: [1200, 1900, 3000, 5000, 2000, 3000],
+            backgroundColor: 'rgba(17, 76, 54, 0.6)', // Green for bars
+            borderColor: 'rgba(17, 76, 54, 1)',
+            borderWidth: 1
+        }]
+    };
+
+    // Initialize Bar Chart
+    const barChartCtx = document.getElementById('barChart').getContext('2d');
+    new Chart(barChartCtx, {
+        type: 'bar',
+        data: barChartData,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                    labels: {
+                        color: '#114728',
+                        font: {
+                            size: 14,
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: '#114728'
+                    },
+                    grid: {
+                        color: 'rgba(17, 76, 54, 0.2)'
+                    }
+                },
+                y: {
+                    ticks: {
+                        color: '#114728'
+                    },
+                    grid: {
+                        color: 'rgba(17, 76, 54, 0.2)'
+                    }
+                }
+            }
+        }
+    });
+
+    // Pie Chart Data
+    const pieChartData = {
+        labels: ['Crops', 'Fields', 'Staffs', 'Equipments', 'Vehicles', 'Logs'],
+        datasets: [{
+            data: [10, 5, 15, 8, 4, 12],
+            backgroundColor: [
+                'rgba(17, 76, 54, 0.6)',
+                'rgba(195, 239, 214, 0.6)',
+                'rgba(7,58,39,0.48)',
+                'rgba(195, 239, 214, 0.4)',
+                'rgba(17, 76, 54, 0.4)',
+                'rgba(7, 58, 39, 0.8)'
+            ],
+            hoverBackgroundColor: [
+                'rgba(17, 76, 54, 0.8)',
+                'rgba(195, 239, 214, 0.8)',
+                'rgba(7, 58, 39, 0.8)',
+                'rgba(195, 239, 214, 0.6)',
+                'rgba(17, 76, 54, 0.6)',
+                'rgba(7, 58, 39, 1)'
+            ],
+            borderColor: 'rgb(9,51,2)', // Grey border color
+            borderWidth: 1 // Border width in pixels
+        }]
+    };
+
+    // Initialize Pie Chart
+    const pieChartCtx = document.getElementById('pieChart').getContext('2d');
+    new Chart(pieChartCtx, {
+        type: 'pie',
+        data: pieChartData,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'right',
+                    labels: {
+                        color: '#114728',
+                        font: {
+                            size: 14,
+                        }
+                    }
+                }
+            }
+        }
+    });
+
 
 
     // <!------------------------ Sign-Up ------------------------>

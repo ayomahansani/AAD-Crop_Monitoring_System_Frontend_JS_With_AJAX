@@ -61,10 +61,12 @@ body, html {
 }
 
 .wrapper-container {
-    height: 39vh;
-    border: 6px solid rgba(17, 76, 54, 0.79); /* Light border color */
+    margin-top: 0;
+    background-color: rgba(17, 76, 54, 0.15);
+    height: 35vh;
+    border: 5px solid rgba(17, 76, 54, 0.79); /* Light border color */
     border-radius: 15px; /* Rounded corners */
-    box-shadow: 0 15px 10px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+    /*box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2); !* Shadow for depth *!*/
 }
 
 .main-content-dashboard {
@@ -96,8 +98,16 @@ body, html {
     color: #114728;
 }
 
+.dashboard-cards {
+    margin-top: 5px;
+    height: calc(100% - 20px); /* Adjusted height to fit within the wrapper-container */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centers the cards vertically */
+}
 
 .dashboard-cards .glass-card {
+    height: 90px; /* Reduced height */
     width: 80%; /* Adjust the width to your desired size */
     max-width: 300px; /* Optional: Set a maximum width */
     background-color: rgba(17, 76, 54, 0.54);
@@ -108,6 +118,10 @@ body, html {
     padding: 10px;
     transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth animation */
     margin: 10px auto; /* Center cards and add space between them */
+}
+
+.dashboard-cards .glass-card .card-title{
+    font-size: 18px;
 }
 
 
@@ -134,6 +148,39 @@ body, html {
     padding-right: 20px;
     color: #274D40;
     cursor: pointer;
+}
+
+/* Chart container */
+.chart-container {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    height: 43vh;
+    padding: 15px;
+    border: 5px solid rgba(17, 76, 54, 0.79); /* Light border color */
+    background: rgba(17, 76, 54, 0.15);
+    border-radius: 15px;
+    /*box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);*/
+}
+
+.chart-container .row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%; /* Ensures the row uses the full height of the container */
+}
+
+.chart-container canvas {
+    max-height: 92%; /* Ensure the chart fits inside the container */
+    max-width: 100%; /* Adjust width for responsiveness */
+    flex: 1; /* Allow the chart to adjust proportionally */
+    margin: 10px;
+    background: rgba(195, 239, 214, 0.4);
+    border-radius: 10px;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
 }
 
 /* Mobile adjustments */

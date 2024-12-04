@@ -209,6 +209,7 @@
 
     <!-- dashboard section -->
     <section id="dashboard-section" class="main-content-dashboard">
+
         <div class="wrapper-container">
 
             <!-- Dashboard Cards -->
@@ -266,12 +267,21 @@
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Pie Chart Section -->
-            <div class="chart-container">
-                <canvas id="pieChart" width="400" height="200"></canvas>
+        <!-- Chart Section -->
+        <div class="chart-container">
+            <div class="row w-100">
+                <div class="col-md-6">
+                    <canvas id="barChart"></canvas>
+                </div>
+                <div class="col-md-6">
+                    <canvas id="pieChart"></canvas>
+                </div>
             </div>
         </div>
+
+
     </section>
 
 
@@ -2093,6 +2103,10 @@
 
 <!-- Sweetalert JS -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- Include Chart.js Library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
 
 <!-- plug the js files -->
