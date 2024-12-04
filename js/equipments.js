@@ -321,6 +321,14 @@ $("#equipment-save").on('click', () => {
 
             success: function (results) {
 
+                $("#newEquipmentModal").modal('hide');
+
+                // load the table
+                loadEquipmentsTable();
+
+                // clean the inputs values
+                $("#newEquipmentModal form").trigger('reset');
+
                 // show crop saved pop up
                 Swal.fire({
                     icon: 'success',
@@ -329,12 +337,6 @@ $("#equipment-save").on('click', () => {
                     timer: 1500,
                     iconColor: 'rgba(131,193,170,0.79)'
                 });
-
-                // load the table
-                loadEquipmentsTable();
-
-                // clean the inputs values
-                $("#newEquipmentModal form").trigger('reset');
             },
 
             error: function (error) {
@@ -398,6 +400,15 @@ $("#equipment-update").on('click', () => {
                 "Authorization": "Bearer " + localStorage.getItem("token")
             },
             success: function () {
+
+                $("#newEquipmentModal").modal('hide');
+
+                // Reload the crops table
+                loadEquipmentsTable();
+
+                // clean the inputs values
+                $("#newEquipmentModal form").trigger('reset');
+
                 Swal.fire({
                     icon: 'success',
                     title: 'Equipment updated successfully!',
@@ -405,12 +416,6 @@ $("#equipment-update").on('click', () => {
                     timer: 1500,
                     iconColor: 'rgba(131,193,170,0.79)'
                 });
-
-                // Reload the crops table
-                loadEquipmentsTable();
-
-                // clean the inputs values
-                $("#newEquipmentModal form").trigger('reset');
             },
             error: function (error) {
                 console.error("Error updating crop:", error);
@@ -436,6 +441,15 @@ $("#equipment-delete").on('click', () => {
             "Authorization": "Bearer " + localStorage.getItem("token")
         },
         success: function () {
+
+            $("#newEquipmentModal").modal('hide');
+
+            // load the table
+            loadEquipmentsTable();
+
+            // clean the inputs values
+            $("#newEquipmentModal form").trigger('reset');
+
             Swal.fire({
                 icon: 'success',
                 title: 'Equipment deleted successfully!',
@@ -443,12 +457,6 @@ $("#equipment-delete").on('click', () => {
                 timer: 1500,
                 iconColor: 'rgba(131,193,170,0.79)'
             });
-
-            // load the table
-            loadEquipmentsTable();
-
-            // clean the inputs values
-            $("#newEquipmentModal form").trigger('reset');
         },
         error: function (error) {
             console.error("Error deleting equipment:", error);

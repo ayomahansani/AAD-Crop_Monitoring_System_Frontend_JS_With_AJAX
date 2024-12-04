@@ -709,14 +709,7 @@ $("#log-save").on('click', () => {
 
             success: function (results) {
 
-                // show crop saved pop up
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Log saved successfully!',
-                    showConfirmButton: false,
-                    timer: 1500,
-                    iconColor: 'rgba(131,193,170,0.79)'
-                });
+                $("#newLogModal").modal('hide');
 
                 // load the table
                 loadLogTable();
@@ -731,6 +724,15 @@ $("#log-save").on('click', () => {
                 $("#previewLogImage").attr("src", "#").hide(); // Reset the image source and hide it
                 $("#noLogImageText").show();// Show the "No image selected" text
                 $("#logImageText").hide();
+
+                // show crop saved pop up
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Log saved successfully!',
+                    showConfirmButton: false,
+                    timer: 1500,
+                    iconColor: 'rgba(131,193,170,0.79)'
+                });
             },
 
             error: function (error) {
@@ -819,14 +821,7 @@ $("#log-update").on('click', () => {
 
         success: function (results) {
 
-            // show crop saved pop up
-            Swal.fire({
-                icon: 'success',
-                title: 'Log updated successfully!',
-                showConfirmButton: false,
-                timer: 1500,
-                iconColor: 'rgba(131,193,170,0.79)'
-            });
+            $("#newLogModal").modal('hide');
 
             // load the table
             loadLogTable();
@@ -841,6 +836,15 @@ $("#log-update").on('click', () => {
             $("#previewLogImage").attr("src", "#").hide(); // Reset the image source and hide it
             $("#noLogImageText").show();// Show the "No image selected" text
             $("#logImageText").hide();
+
+            // show crop saved pop up
+            Swal.fire({
+                icon: 'success',
+                title: 'Log updated successfully!',
+                showConfirmButton: false,
+                timer: 1500,
+                iconColor: 'rgba(131,193,170,0.79)'
+            });
         },
 
         error: function (error) {
@@ -866,13 +870,8 @@ $("#log-delete").on('click', () => {
             "Authorization": "Bearer " + localStorage.getItem("token")
         },
         success: function () {
-            Swal.fire({
-                icon: 'success',
-                title: 'Log deleted successfully!',
-                showConfirmButton: false,
-                timer: 1500,
-                iconColor: 'rgba(131,193,170,0.79)'
-            });
+
+            $("#newLogModal").modal('hide');
 
             // load the table
             loadLogTable()
@@ -886,6 +885,14 @@ $("#log-delete").on('click', () => {
             $("#previewLogImage").attr("src", "#").hide(); // Reset the image source and hide it
             $("#noLogImageText").show();// Show the "No image selected" text
             $("#logImageText").hide();
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Log deleted successfully!',
+                showConfirmButton: false,
+                timer: 1500,
+                iconColor: 'rgba(131,193,170,0.79)'
+            });
         },
         error: function (error) {
             console.error("Error deleting logs:", error);

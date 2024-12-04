@@ -257,6 +257,14 @@ $("#vehicle-save").on('click', () => {
 
             success: function (results) {
 
+                $("#newVehicleModal").modal('hide');
+
+                // load the table
+                loadVehiclesTable();
+
+                // clean the inputs values
+                $("#newVehicleModal form").trigger('reset');
+
                 // show crop saved pop up
                 Swal.fire({
                     icon: 'success',
@@ -265,12 +273,6 @@ $("#vehicle-save").on('click', () => {
                     timer: 1500,
                     iconColor: 'rgba(131,193,170,0.79)'
                 });
-
-                // load the table
-                loadVehiclesTable();
-
-                // clean the inputs values
-                $("#newVehicleModal form").trigger('reset');
             },
 
             error: function (error) {
@@ -336,6 +338,15 @@ $("#vehicle-update").on('click', () => {
                 "Authorization": "Bearer " + localStorage.getItem("token")
             },
             success: function () {
+
+                $("#newVehicleModal").modal('hide');
+
+                // Reload the crops table
+                loadVehiclesTable();
+
+                // clean the inputs values
+                $("#newVehicleModal form").trigger('reset');
+
                 Swal.fire({
                     icon: 'success',
                     title: 'Vehicle updated successfully!',
@@ -343,12 +354,6 @@ $("#vehicle-update").on('click', () => {
                     timer: 1500,
                     iconColor: 'rgba(131,193,170,0.79)'
                 });
-
-                // Reload the crops table
-                loadVehiclesTable();
-
-                // clean the inputs values
-                $("#newVehicleModal form").trigger('reset');
             },
             error: function (error) {
                 console.error("Error updating crop:", error);
@@ -374,6 +379,15 @@ $("#vehicle-delete").on('click', () => {
             "Authorization": "Bearer " + localStorage.getItem("token")
         },
         success: function () {
+
+            $("#newVehicleModal").modal('hide');
+
+            // load the table
+            loadVehiclesTable();
+
+            // clean the inputs values
+            $("#newVehicleModal form").trigger('reset');
+
             Swal.fire({
                 icon: 'success',
                 title: 'Vehicle deleted successfully!',
@@ -381,12 +395,6 @@ $("#vehicle-delete").on('click', () => {
                 timer: 1500,
                 iconColor: 'rgba(131,193,170,0.79)'
             });
-
-            // load the table
-            loadVehiclesTable();
-
-            // clean the inputs values
-            $("#newVehicleModal form").trigger('reset');
         },
         error: function (error) {
             console.error("Error deleting vehicle:", error);

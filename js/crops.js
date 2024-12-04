@@ -326,14 +326,7 @@ $("#crop-save").on('click', () => {
 
             success: function (results) {
 
-                // show crop saved pop up
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Crop saved successfully!',
-                    showConfirmButton: false,
-                    timer: 1500,
-                    iconColor: 'rgba(131,193,170,0.79)'
-                });
+                $("#newCropModal").modal('hide');
 
                 // load the table
                 loadCropsTable()
@@ -345,6 +338,15 @@ $("#crop-save").on('click', () => {
                 $("#previewImage").attr("src", "#").hide(); // Reset the image source and hide it
                 $("#noImageText").show();// Show the "No image selected" text
                 $("#cropImageText").hide();
+
+                // show crop saved pop up
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Crop saved successfully!',
+                    showConfirmButton: false,
+                    timer: 1500,
+                    iconColor: 'rgba(131,193,170,0.79)'
+                });
             },
 
             error: function (error) {
@@ -399,13 +401,8 @@ $("#crop-update").on('click', () => {
                 "Authorization": "Bearer " + localStorage.getItem("token")
             },
             success: function () {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Crop updated successfully!',
-                    showConfirmButton: false,
-                    timer: 1500,
-                    iconColor: 'rgba(131,193,170,0.79)'
-                });
+
+                $("#newCropModal").modal('hide');
 
                 // Reload the crops table
                 loadCropsTable();
@@ -417,6 +414,14 @@ $("#crop-update").on('click', () => {
                 $("#previewImage").attr("src", "#").hide();
                 $("#noImageText").show();
                 $("#cropImageText").hide();
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Crop updated successfully!',
+                    showConfirmButton: false,
+                    timer: 1500,
+                    iconColor: 'rgba(131,193,170,0.79)'
+                });
             },
             error: function (error) {
                 console.error("Error updating crop:", error);
@@ -436,36 +441,39 @@ $("#crop-delete").on('click', () => {
 
     // Send the DELETE request
     $.ajax({
-                    url: `http://localhost:5052/cropMonitoringSystem/api/v1/crops/${selectedCropCode}`,
-                    type: "DELETE",
-                    headers: {
-                        "Authorization": "Bearer " + localStorage.getItem("token")
-                    },
-                    success: function () {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Crop deleted successfully!',
-                            showConfirmButton: false,
-                            timer: 1500,
-                            iconColor: 'rgba(131,193,170,0.79)'
-                        });
+        url: `http://localhost:5052/cropMonitoringSystem/api/v1/crops/${selectedCropCode}`,
+        type: "DELETE",
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("token")
+        },
+        success: function () {
 
-                        // load the table
-                        loadCropsTable()
+            $("#newCropModal").modal('hide');
 
-                        // Reset the form
-                        $("#newCropModal form").trigger('reset');
+            // load the table
+            loadCropsTable()
 
-                        // Reset image preview
-                        $("#previewImage").attr("src", "#").hide();
-                        $("#noImageText").show();
-                        $("#cropImageText").hide();
-                    },
-                    error: function (error) {
-                        console.error("Error deleting crop:", error);
-                        showErrorAlert('Crop not deleted...');
-                    }
-                });
+            // Reset the form
+            $("#newCropModal form").trigger('reset');
+
+            // Reset image preview
+            $("#previewImage").attr("src", "#").hide();
+            $("#noImageText").show();
+            $("#cropImageText").hide();
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Crop deleted successfully!',
+                showConfirmButton: false,
+                timer: 1500,
+                iconColor: 'rgba(131,193,170,0.79)'
+            });
+        },
+        error: function (error) {
+            console.error("Error deleting crop:", error);
+            showErrorAlert('Crop not deleted...');
+        }
+    });
 
 });
 // -------------------------- The end - when click crop delete button --------------------------

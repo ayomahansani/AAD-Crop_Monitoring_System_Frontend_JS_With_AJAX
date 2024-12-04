@@ -360,6 +360,15 @@ $("#staff-save").on('click', () => {
 
             success: function (results) {
 
+                $("#newStaffModal").modal('hide');
+
+                // load the table
+                loadStaffTable();
+
+                // clean the inputs values
+                $("#newStaffModal form").trigger('reset');
+                $(".fieldForStaff").val('');
+
                 // show crop saved pop up
                 Swal.fire({
                     icon: 'success',
@@ -368,13 +377,6 @@ $("#staff-save").on('click', () => {
                     timer: 1500,
                     iconColor: 'rgba(131,193,170,0.79)'
                 });
-
-                // load the table
-                loadStaffTable();
-
-                // clean the inputs values
-                $("#newStaffModal form").trigger('reset');
-                $(".fieldForStaff").val('');
             },
 
             error: function (error) {
@@ -455,13 +457,8 @@ $("#staff-update").on('click', () => {
                 "Authorization": "Bearer " + localStorage.getItem("token")
             },
             success: function () {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Staff updated successfully!',
-                    showConfirmButton: false,
-                    timer: 1500,
-                    iconColor: 'rgba(131,193,170,0.79)'
-                });
+
+                $("#newStaffModal").modal('hide');
 
                 // Reload the crops table
                 loadStaffTable()
@@ -470,6 +467,13 @@ $("#staff-update").on('click', () => {
                 $("#newStaffModal form")[0].reset();
                 $(".fieldForStaff").val('');
 
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Staff updated successfully!',
+                    showConfirmButton: false,
+                    timer: 1500,
+                    iconColor: 'rgba(131,193,170,0.79)'
+                });
             },
             error: function (error) {
                 console.error("Error updating staff:", error);
@@ -495,13 +499,8 @@ $("#staff-delete").on('click', () => {
             "Authorization": "Bearer " + localStorage.getItem("token")
         },
         success: function () {
-            Swal.fire({
-                icon: 'success',
-                title: 'Staff deleted successfully!',
-                showConfirmButton: false,
-                timer: 1500,
-                iconColor: 'rgba(131,193,170,0.79)'
-            });
+
+            $("#newStaffModal").modal('hide');
 
             // load the table
             loadStaffTable();
@@ -509,6 +508,14 @@ $("#staff-delete").on('click', () => {
             // clean the inputs values
             $("#newStaffModal form").trigger('reset');
             $(".fieldForStaff").val('');
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Staff deleted successfully!',
+                showConfirmButton: false,
+                timer: 1500,
+                iconColor: 'rgba(131,193,170,0.79)'
+            });
         },
         error: function (error) {
             console.error("Error deleting staff:", error);

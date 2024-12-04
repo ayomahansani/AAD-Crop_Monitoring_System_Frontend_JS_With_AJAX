@@ -470,14 +470,7 @@ $("#field-save").on('click', () => {
 
             success: function (results) {
 
-                // show crop saved pop up
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Field saved successfully!',
-                    showConfirmButton: false,
-                    timer: 1500,
-                    iconColor: 'rgba(131,193,170,0.79)'
-                });
+                $("#newFieldModal").modal('hide');
 
                 // load the table
                 loadFieldsTable();
@@ -492,6 +485,15 @@ $("#field-save").on('click', () => {
                 $("#noFieldImage2Text").show();// Show the "No image selected" text
                 $("#fieldImage1Text").hide();
                 $("#fieldImage2Text").hide();
+
+                // show crop saved pop up
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Field saved successfully!',
+                    showConfirmButton: false,
+                    timer: 1500,
+                    iconColor: 'rgba(131,193,170,0.79)'
+                });
             },
 
             error: function (error) {
@@ -582,13 +584,8 @@ $("#field-update").on('click', () => {
                 "Authorization": "Bearer " + localStorage.getItem("token")
             },
             success: function () {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Field updated successfully!',
-                    showConfirmButton: false,
-                    timer: 1500,
-                    iconColor: 'rgba(131,193,170,0.79)'
-                });
+
+                $("#newFieldModal").modal('hide');
 
                 // load the table
                 loadFieldsTable();
@@ -603,6 +600,14 @@ $("#field-update").on('click', () => {
                 $("#noFieldImage2Text").show();// Show the "No image selected" text
                 $("#fieldImage1Text").hide();
                 $("#fieldImage2Text").hide();
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Field updated successfully!',
+                    showConfirmButton: false,
+                    timer: 1500,
+                    iconColor: 'rgba(131,193,170,0.79)'
+                });
             },
             error: function (error) {
                 console.error("Error updating field:", error);
@@ -628,13 +633,8 @@ $("#field-delete").on('click', () => {
             "Authorization": "Bearer " + localStorage.getItem("token")
         },
         success: function () {
-            Swal.fire({
-                icon: 'success',
-                title: 'Field deleted successfully!',
-                showConfirmButton: false,
-                timer: 1500,
-                iconColor: 'rgba(131,193,170,0.79)'
-            });
+
+            $("#newFieldModal").modal('hide');
 
             // load the table
             loadFieldsTable();
@@ -649,6 +649,14 @@ $("#field-delete").on('click', () => {
             $("#noFieldImage2Text").show();// Show the "No image selected" text
             $("#fieldImage1Text").hide();
             $("#fieldImage2Text").hide();
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Field deleted successfully!',
+                showConfirmButton: false,
+                timer: 1500,
+                iconColor: 'rgba(131,193,170,0.79)'
+            });
 
         },
         error: function (error) {
