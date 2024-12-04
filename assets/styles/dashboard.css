@@ -75,11 +75,12 @@ body, html {
     padding: 0 20px;
     transition: margin-left 0.3s ease;
 }
+
 .custom-nav{
     background-color: rgba(17, 76, 54, 0.79);
     margin-left: 250px;
     display: flex;
-    justify-content: flex-end; /* Align to the right */
+    justify-content: space-between; /* Align to the right */
     padding-right: 20px; /* Add padding for space */
     border-bottom: 8px solid rgb(7, 58, 39);
     border-top: 8px solid rgb(7, 58, 39);
@@ -97,6 +98,17 @@ body, html {
 .dashboard-topic:hover{
     color: #114728;
 }
+
+/* Date-Time styling */
+.date-time {
+    color: #c3efd6;
+    font-weight: bold;
+    font-size: 16px;
+    font-family: Galvji;
+    margin-left: 15px; /* Spacing from the left side */
+    align-self: center; /* Align vertically in the navbar */
+}
+
 
 .dashboard-cards {
     margin-top: 5px;
@@ -124,6 +136,7 @@ body, html {
 
 /* Image styles */
 .dashboard-cards .card-image {
+    /*background-color: rgba(195, 239, 214, 0.4);*/
     width: 50px; /* Set the size of the image */
     height: 50px; /* Maintain uniform dimensions */
     margin-left: 15px; /* Space between text and image */
@@ -207,7 +220,7 @@ body, html {
     margin: 10px;
     background: rgba(195, 239, 214, 0.4);
     border-radius: 10px;
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.16);
 }
 
 /* Mobile adjustments */

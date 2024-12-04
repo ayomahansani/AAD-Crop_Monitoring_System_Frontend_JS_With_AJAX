@@ -186,6 +186,19 @@ $(document).ready(function() {
 
 
 
+    function updateDateTime() {
+        const dateTimeElement = document.getElementById("dateTime");
+        const now = new Date();
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+        dateTimeElement.innerHTML = now.toLocaleString('en-US', options);
+    }
+
+    // Update every second
+    setInterval(updateDateTime, 1000);
+
+
+
+
     // <!------------------------ Sign-Up ------------------------>
     $('#signUpBtn').click(function () {
 
