@@ -67,7 +67,7 @@ $(document).ready(function() {
     });
 
     // Handle forgot password form submission
-
+    // ... to do
 
 
     // set all crop count to the home page's customer card
@@ -186,15 +186,22 @@ $(document).ready(function() {
 
 
 
+// Update date and time
     function updateDateTime() {
         const dateTimeElement = document.getElementById("dateTime");
         const now = new Date();
-        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
-        dateTimeElement.innerHTML = now.toLocaleString('en-US', options);
+
+        // Format date and time separately
+        const formattedDate = now.toISOString().slice(0, 10); // YYYY-MM-DD
+        const formattedTime = now.toTimeString().slice(0, 8); // HH:mm:ss
+
+        // Combine with "at" and add spaces
+        dateTimeElement.innerHTML = `${formattedDate}&nbsp;&nbsp;at&nbsp;&nbsp;${formattedTime}`;
     }
 
-    // Update every second
+// Update every second
     setInterval(updateDateTime, 1000);
+
 
 
 
@@ -294,25 +301,25 @@ $(document).ready(function() {
 
 // Set up click listeners for each navigation item
 $("#nav-dashboard").click(function () {
-    handleNavClick($(this).attr("id"), "Dashboard");
+    handleNavClick($(this).attr("id"), "Green Shadow - Dashboard");
 });
 $("#nav-field").click(function () {
-    handleNavClick($(this).attr("id"), "Field Management");
+    handleNavClick($(this).attr("id"), "Green Shadow - Field Management");
 });
 $("#nav-crop").click(function () {
-    handleNavClick($(this).attr("id"), "Crops Management");
+    handleNavClick($(this).attr("id"), "Green Shadow - Crops Management");
 });
 $("#nav-equipment").click(function () {
-    handleNavClick($(this).attr("id"), "Equipment Management");
+    handleNavClick($(this).attr("id"), "Green Shadow - Equipment Management");
 });
 $("#nav-logs").click(function () {
-    handleNavClick($(this).attr("id"), "Monitoring Logs Management");
+    handleNavClick($(this).attr("id"), "Green Shadow - Logs Management");
 });
 $("#nav-staff").click(function () {
-    handleNavClick($(this).attr("id"), "Staff Management");
+    handleNavClick($(this).attr("id"), "Green Shadow - Staff Management");
 });
 $("#nav-vehicles").click(function () {
-    handleNavClick($(this).attr("id"), "Vehicles Management");
+    handleNavClick($(this).attr("id"), "Green Shadow - Vehicles Management");
 });
 $("#nav-log-out").click(function () {
     $("#home-section").css(css1);

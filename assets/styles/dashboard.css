@@ -103,7 +103,7 @@ body, html {
 .date-time {
     color: #c3efd6;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 18px;
     font-family: Galvji;
     margin-left: 15px; /* Spacing from the left side */
     align-self: center; /* Align vertically in the navbar */
