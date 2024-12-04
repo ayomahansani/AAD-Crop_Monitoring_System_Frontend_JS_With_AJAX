@@ -106,6 +106,31 @@ body, html {
     justify-content: center; /* Centers the cards vertically */
 }
 
+/* Card body flex layout */
+.dashboard-cards .card-body {
+    display: flex;
+    justify-content: space-between; /* Space between text and image */
+    align-items: center; /* Vertically center align content */
+    padding: 10px;
+}
+
+/* Card content container */
+.dashboard-cards .card-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+/* Image styles */
+.dashboard-cards .card-image {
+    width: 50px; /* Set the size of the image */
+    height: 50px; /* Maintain uniform dimensions */
+    margin-left: 15px; /* Space between text and image */
+    object-fit: contain; /* Ensure the image doesn't stretch */
+    border-radius: 5px; /* Optional: Rounded corners */
+}
+
 .dashboard-cards .glass-card {
     height: 90px; /* Reduced height */
     width: 80%; /* Adjust the width to your desired size */
