@@ -186,22 +186,21 @@ $(document).ready(function() {
 
 
 
-// Update date and time
+    // Update date and time
     function updateDateTime() {
         const dateTimeElement = document.getElementById("dateTime");
         const now = new Date();
 
-        // Format date and time separately
-        const formattedDate = now.toISOString().slice(0, 10); // YYYY-MM-DD
+        // Format date and time separately using local timezone
+        const formattedDate = now.toLocaleDateString("en-CA"); // YYYY-MM-DD format
         const formattedTime = now.toTimeString().slice(0, 8); // HH:mm:ss
 
         // Combine with "at" and add spaces
         dateTimeElement.innerHTML = `${formattedDate}&nbsp;&nbsp;at&nbsp;&nbsp;${formattedTime}`;
     }
 
-// Update every second
+    // Update every second
     setInterval(updateDateTime, 1000);
-
 
 
 
@@ -233,8 +232,8 @@ $(document).ready(function() {
                 });
 
                 console.log("Sign-up successful!")
-                $("#login-form-section").css(css2);
-                $("#register-form-section").css(css1);
+                $("#register-form-section").css(hiddenSectionCSS);
+                $("#login-form-section").css(visibleSectionCSS);
             },
             error: function () {
                 showErrorAlert("Sign-up failed. Please try again.")
@@ -261,7 +260,7 @@ $(document).ready(function() {
             contentType: 'application/json',
             data: JSON.stringify({ email, password }),
             success: function (response) {
-                // Store the token from the response
+                // Store the token and email from the response
                 localStorage.setItem('token', response.token);
                 localStorage.setItem('email',email)
 
@@ -293,7 +292,6 @@ $(document).ready(function() {
     });
     // <!------------------------ End Sign-In ------------------------>
 
-
 });
 
 
@@ -305,21 +303,27 @@ $("#nav-dashboard").click(function () {
 });
 $("#nav-field").click(function () {
     handleNavClick($(this).attr("id"), "Green Shadow - Field Management");
+    getUserRoleAndAdjustButtons();
 });
 $("#nav-crop").click(function () {
     handleNavClick($(this).attr("id"), "Green Shadow - Crops Management");
+    getUserRoleAndAdjustButtons();
 });
 $("#nav-equipment").click(function () {
     handleNavClick($(this).attr("id"), "Green Shadow - Equipment Management");
+    getUserRoleAndAdjustButtons();
 });
 $("#nav-logs").click(function () {
     handleNavClick($(this).attr("id"), "Green Shadow - Logs Management");
+    getUserRoleAndAdjustButtons();
 });
 $("#nav-staff").click(function () {
     handleNavClick($(this).attr("id"), "Green Shadow - Staff Management");
+    getUserRoleAndAdjustButtons();
 });
 $("#nav-vehicles").click(function () {
     handleNavClick($(this).attr("id"), "Green Shadow - Vehicles Management");
+    getUserRoleAndAdjustButtons();
 });
 $("#nav-log-out").click(function () {
     $("#home-section").css(css1);
@@ -386,6 +390,55 @@ function showSection(sectionId){
     $(`#${sectionId}`).css(css2);
 }
 //-------------------------- The end - show section --------------------------
+
+
+
+
+//-------------------------- The start - get user role through the email and adjust buttons --------------------------
+function getUserRoleAndAdjustButtons() {
+
+    const userEmail = localStorage.getItem('email');
+
+    $.ajax({
+        url: "http://localhost:5052/cropMonitoringSystem/api/v1/users", // Users API
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        success : function (users) {
+            const selectedUser = users.find(user => user.email === userEmail);
+            console.log("Role : " + selectedUser.role)
+
+            if(selectedUser.role === 'ADMINISTRATOR'){
+                // Disable the buttons
+                $('#crop-save').prop('disabled', true);
+                $('#crop-update').prop('disabled', true);
+                $('#crop-delete').prop('disabled', true);
+                $('#field-save').prop('disabled', true);
+                $('#field-update').prop('disabled', true);
+                $('#field-delete').prop('disabled', true);
+                $('#log-save').prop('disabled', true);
+                $('#log-update').prop('disabled', true);
+                $('#log-delete').prop('disabled', true);
+            }
+            else if (selectedUser.role === 'SCIENTIST') {
+                $('#vehicle-save').prop('disabled', true);
+                $('#vehicle-update').prop('disabled', true);
+                $('#vehicle-delete').prop('disabled', true);
+                $('#equipment-save').prop('disabled', true);
+                $('#equipment-update').prop('disabled', true);
+                $('#equipment-delete').prop('disabled', true);
+            }
+            else if (selectedUser.role === 'MANAGER') {
+                $('button').prop('disabled', false);
+            }
+        },
+        error : function (error) {
+            console.log(error)
+        }
+    });
+}
+//-------------------------- The end - get user role through the email and adjust buttons --------------------------
 
 
 

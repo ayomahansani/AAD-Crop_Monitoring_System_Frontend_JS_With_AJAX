@@ -196,3 +196,8 @@ input:focus {
     border-color: #b8edd2; /* Change border color on focus */
     box-shadow: 0 0 5px rgba(184, 237, 210, 0.8); /* Add glow effect on focus */
 }
+
+button:disabled {
+    opacity: 0.3; /* Make the button appear faded */
+    cursor: not-allowed; /* Change cursor to indicate the button is not clickable */
+}
